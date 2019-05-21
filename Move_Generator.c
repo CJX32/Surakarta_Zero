@@ -29,20 +29,13 @@ void Move_Generate(Move_List *h, int who)
                           
                         }
                     }
-                    //flag=Generate_Attack_Move(h,a,b,flag,who);
+                   
                 }
             }
         }
     
     
-   /* for(int a=0;a<6;a++){
-        for(int b=0;b<6;b++){
-         if(chessboard[a][b]==who){
-             flag=Generate_Attack_Move(h,a,b,flag,who);
-             
-         }
-        }
-    }*/
+  
 
 }
 void Add_Move(Move_List *h, int from_x, int from_y, int to_x, int to_y)
@@ -72,222 +65,8 @@ void  Add_Move_Attack(Move_List *h,int from_x,int from_y,int to_x,int to_y){
     }
 
 }
-/*int Generate_Attack_Move(Move *h,int from_x,int from_y,int flag,int who){
-     flag=Generate_Attack_Move_Orbit(h,Inside_Orbit,Inside_Orbit_Index,from_x,from_y,flag,who);
-     flag=Generate_Attack_Move_Orbit(h,Outside_Orbit,Outside_Orbit_Index,from_x,from_y,flag,who);
-     return flag;
-}
-int Generate_Attack_Move_Orbit(Move *h,Orbit *orbit,Orbit_Index orbit_index[][6],int from_x,int from_y,int flag,int who){
-
-     if(orbit_index[from_x][from_y].amount==0)
-     {
-         return flag;
-     }
-     else if(orbit_index[from_x][from_y].amount==1){
-         flag=Generate_Attack_Move_Orbit_Nonode_Direction(h,orbit,orbit_index,from_x,from_y,flag,who,pre_direction);
-         flag=Generate_Attack_Move_Orbit_Nonode_Direction(h,orbit,orbit_index,from_x,from_y,flag,who,next_direction);
-         return flag;
-     }
-     else{
-
-         flag=Generate_Attack_Move_Orbit_Node_Direction(h,orbit,orbit_index,from_x,from_y,flag,who,pre_direction);
-         flag=Generate_Attack_Move_Orbit_Node_Direction(h,orbit,orbit_index,from_x,from_y,flag,who,next_direction);
-
-        return flag;
-     }
-}*/
-/*int Generate_Attack_Move_Orbit_Nonode_Direction(Move *h,Orbit *orbit,Orbit_Index orbit_index[][6],int from_x,int from_y,int flag,int who,int direction){
-    
-      int index,arc=0,anti_side_side=0;
-      if(direction==1)
-      {
-          index=orbit_index[from_x][from_y].node_1;
-         chessboard[orbit[index].node.x][orbit[index].node.y]=0;//记得还原
-         do{
-             if(orbit[index].arc==1)
-             arc++;
-             index=orbit[index].pre;
-             anti_side_side++;
-             if(chessboard[orbit[index].node.x][orbit[index].node.y]==who)
-             {
-                  chessboard[from_x][from_y]=who;
-                   return flag; 
-             }
-         }while(chessboard[orbit[index].node.x][orbit[index].node.y]!=-who);
-        if(orbit[index].arc==1)
-           arc++;
-        if(arc>=2&&((anti_side_side!=5)||whether_side_side(from_x,from_y,orbit[index].node.x,orbit[index].node.y))){
-
-     
-        Add_Move(h,from_x,from_y,orbit[index].node.x,orbit[index].node.y,flag);
-        flag++;
-        chessboard[from_x][from_y]=who;
-        return flag;
-        }
-        else{
-          
-        chessboard[from_x][from_y]=who;
-        return flag; 
-        }
-      }
-      else
-      {
-          index=orbit_index[from_x][from_y].node_1;
-         chessboard[orbit[index].node.x][orbit[index].node.y]=0;//记得还原
-         do{
-             if(orbit[index].arc==1)
-             arc++;
-             index=orbit[index].next;
-              anti_side_side++;
-             if(chessboard[orbit[index].node.x][orbit[index].node.y]==who)
-             {
-                  chessboard[from_x][from_y]=who;
-                   return flag; 
-             }
-             else if(chessboard[orbit[index].node.x][orbit[index].node.y]==2){
-             
-chessboard[from_x][from_y]=who;
-                   return flag; 
-             }
-         }while(chessboard[orbit[index].node.x][orbit[index].node.y]!=-who);
-        if(orbit[index].arc==1)
-           arc++;
-        if(arc>=2&&((anti_side_side!=5)||whether_side_side(from_x,from_y,orbit[index].node.x,orbit[index].node.y))){
-          
-
-        Add_Move(h,from_x,from_y,orbit[index].node.x,orbit[index].node.y,flag);
-       
-        flag++;
-          
-        chessboard[from_x][from_y]=who;
-        return flag;
-        }
-        else{
-      
-        chessboard[from_x][from_y]=who;
-        return flag; 
-        }
-      }
-}*/
-int whether_side_side(int from_x,int from_y,int to_x,int to_y){
-    if(from_x==0&&to_x==5)
-      return 0;
-    if(from_x==5&&to_x==0)
-      return 0;
-    if(from_y==0&&to_y==5)
-      return 0;
-    if(from_y==5&&to_y==0)
-      return 0;
-    else
-      return 1;
-}
-/*int Generate_Attack_Move_Orbit_Node_Direction(Move *h,Orbit *orbit,Orbit_Index orbit_index[][6],int from_x,int from_y,int flag,int who,int direction){
-     int index,arc=0,anti_side_side=0;
-      if(direction==1)
-      {
-          index=orbit_index[from_x][from_y].node_1;
-         chessboard[orbit[index].node.x][orbit[index].node.y]=0;//记得还原
-         do{
-             if(orbit[index].arc==1)
-             arc++;
-             index=orbit[index].pre;
-             anti_side_side++;
-             if(chessboard[orbit[index].node.x][orbit[index].node.y]==who)
-             {
-                
-                   arc=0;
-                   break;
-             }
-         }while(chessboard[orbit[index].node.x][orbit[index].node.y]!=-who);
-        if(orbit[index].arc==1)
-           arc++;
-        if(arc>=2){
-  
-        Add_Move(h,from_x,from_y,orbit[index].node.x,orbit[index].node.y,flag);
-        flag++;
-        }
-        arc=0;
-        index=orbit_index[from_x][from_y].node_2;
-         chessboard[orbit[index].node.x][orbit[index].node.y]=0;//记得还原
-         do{
-             if(orbit[index].arc==1)
-             arc++;
-             index=orbit[index].pre;
-             anti_side_side++;
-             if(chessboard[orbit[index].node.x][orbit[index].node.y]==who)
-             {
-                  chessboard[from_x][from_y]=who;
-                   return flag; 
-             }
-         }while(chessboard[orbit[index].node.x][orbit[index].node.y]!=-who);
-        if(orbit[index].arc==1)
-           arc++;
-        if(arc>=2){
-      
-        Add_Move(h,from_x,from_y,orbit[index].node.x,orbit[index].node.y,flag);
-        flag++;
-        chessboard[from_x][from_y]=who;
-        return flag;
-        }
-        else{
-        chessboard[from_x][from_y]=who;
-        return flag; 
-        }
-}
-      else
-      {
-          index=orbit_index[from_x][from_y].node_1;
-         chessboard[orbit[index].node.x][orbit[index].node.y]=0;//记得还原
-         do{
-             if(orbit[index].arc==1)
-             arc++;
-             index=orbit[index].next;
-             anti_side_side++;
-             if(chessboard[orbit[index].node.x][orbit[index].node.y]==who)
-             {
-                
-                   arc=0;
-                   break;
-             }
-         }while(chessboard[orbit[index].node.x][orbit[index].node.y]!=-who);
-        if(orbit[index].arc==1)
-           arc++;
-        if(arc>=2){
-  
-        Add_Move(h,from_x,from_y,orbit[index].node.x,orbit[index].node.y,flag);
-        flag++;
-        }
-        arc=0;
-        index=orbit_index[from_x][from_y].node_2;
-         chessboard[orbit[index].node.x][orbit[index].node.y]=0;
-         do{
-             if(orbit[index].arc==1)
-             arc++;
-             index=orbit[index].next;
-             anti_side_side++;
-             if(chessboard[orbit[index].node.x][orbit[index].node.y]==who)
-             {
-                  chessboard[from_x][from_y]=who;
-                   return flag; 
-             }
-         }while(chessboard[orbit[index].node.x][orbit[index].node.y]!=-who);
-        if(orbit[index].arc==1)
-           arc++;
-        if(arc>=2){
-      
-        Add_Move(h,from_x,from_y,orbit[index].node.x,orbit[index].node.y,flag);
-        flag++;
-        chessboard[from_x][from_y]=who;
-        return flag;
-        }
-        else{
-        chessboard[from_x][from_y]=who;
-        return flag; 
-        }
 
 
-      }
-}*/
 void Generate_Move_Attack(Move_List *h,int who){
     Rool rool[4][6];
     int  flag_index[4];
@@ -334,20 +113,7 @@ void Attack_Orbit(Move_List *h,Rool rool[][6],int *flag_index,int who){
 
               }
               }
-         /*else{
-             index++;
-             if(index>=4)
-              index=0;
-             while(flag_index[index]<1){
-             index++;
-             if(index>=4)
-             index=0;
-         }
-           if(rool[index][0].chess==-who){
-             Add_Move(h,rool[find_unnull][0].from.x,rool[find_unnull][0].from.y,rool[index][0].from.x,rool[index][0].from.y,flag);
-             flag++;
-           }
-         }*/
+         
          index=a;
          if(flag_index[a]>=2)
          {
@@ -356,21 +122,7 @@ void Attack_Orbit(Move_List *h,Rool rool[][6],int *flag_index,int who){
                  Add_Move_Attack(h,rool[a][flag_index[a]-1].from.x,rool[a][flag_index[a]-1].from.y,rool[a][flag_index[a]-2].from.x,rool[a][flag_index[a]-2].from.y);
    
              }
-            /* else{
-               index--;
-              if(index<0)
-              index=3;
-              while(flag_index[index]<1){
-             index--;
-              if(index<0)
-              index=3;
-         }
-         if(rool[index][flag_index[index-1]].chess==-who){
-            Add_Move(h,rool[a][flag_index[a]-1].from.x,rool[a][flag_index[a]-1].from.y,rool[index][flag_index[index-1]].from.x,rool[index][flag_index[index-1]].from.y,flag);
-            flag++;
-             }
-
-         }*/
+            
 
          }
 
@@ -380,13 +132,10 @@ void Attack_Orbit(Move_List *h,Rool rool[][6],int *flag_index,int who){
          
 }
       
-      else{
-       /* printf("a=%d flag_index[a]-1=%d find_null=%d\n",a,flag_index[a]-1,find_unnull);
-       printf("I have judged %d %d\n",rool[a][flag_index[a]-1].chess,rool[find_unnull][0].chess);*/
-
+      else
        Add_Move_Attack(h,rool[a][flag_index[a]-1].from.x,rool[a][flag_index[a]-1].from.y,rool[find_unnull][0].from.x,rool[find_unnull][0].from.y);
 
-      }
+
      }
 if(chessboard[rool[a][0].from.x][rool[a][0].from.y]==who)
 {
@@ -545,34 +294,4 @@ int Sort_Move(Move *h,int flag){
   h=p;
 return flag;
 }
-Move_List *del_duplicate(Move_List *h){
-    Move_List *p;
-    int index;
-    p=(Move_List *)malloc(52*sizeof(Move_List));
-    p->flag=0;
-    
-    for(int a=0;a<h->flag;a++){
-        index=0;
-        for(int b=a+1;b<h->flag;b++){
-            if(h->list[a].from.x==h->list[b].from.x&&h->list[a].from.y==h->list[b].from.y&&h->list[a].to.x==h->list[b].to.x&&h->list[a].to.y==h->list[b].to.y){
-            index=1;
-            break;
-            }
-        }
-        if(!index)
-        {
-            p->list[p->flag].from.x=h->list[a].from.x;
-            p->list[p->flag].from.y=h->list[a].from.y;
-            p->list[p->flag].to.x=h->list[a].to.x;
-            p->list[p->flag].to.y=h->list[a].to.y;
-            p->flag++;
-           
-        }
-    }
-    return p;
-}
-void visualize(Move_List *h){
-for(int a=0;a<h->flag;a++){
-    printf("from %d,%d to %d,%d\n",h->list[a].from.x,h->list[a].from.y,h->list[a].to.x,h->list[a].to.y);
-}
-}
+

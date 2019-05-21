@@ -18,3 +18,8 @@ void visualize_board(){
   }
   printf("\n");
 }
+void visualize(Move_List *h){
+for(int a=0;a<h->flag;a++){
+    printf("from %d,%d to %d,%d\n",h->list[a].from.x,h->list[a].from.y,h->list[a].to.x,h->list[a].to.y);
+}
+}
