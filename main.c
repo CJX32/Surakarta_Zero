@@ -6,7 +6,6 @@
 #include <time.h>
 #include "Move_Generator.h"
 #include "test.h"
-#include "Initialization.h"
 #include "Search_Engine.h"
 int chessboard[6][6]={
 {0, -1 ,-1 ,-1, 0 ,0 },
