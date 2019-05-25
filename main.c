@@ -59,21 +59,25 @@ int main(void){
 
  
  
- Move_List *h,head;
+ /*Move_List *h,head;
  h=&head;
  h->flag=0;
  Move_Generate(h,1);
  printf("%d\n",h->flag);
-visualize(h);
+visualize(h);*/
  
 /*FILE *fp;
 fp=fopen("/Users/bluesky/Desktop/Surakarta_2/testMoveGenerate.txt","r");
 test(fp);*/
 
 
-/*FILE *fp;
-fp=fopen("/Users/bluesky/Desktop/Surakarta_2/testAlphaBeta\ 1.txt","r");
-test_alpha_beta(fp);*/
+FILE *fp;
+fp=fopen("./Data/testAlphaBeta\ 1.txt","r");
+if(fp==NULL){
+printf("open Error\n");
+return 0;
+}
+test_alpha_beta(fp);
 
 
 /*for(int a=1;a<9;a++){

@@ -1,4 +1,5 @@
 #include "Search_Engine.h"
+#include <pthread.h>
 extern int chessboard[6][6];
 extern int who;
 int Alpha_Beta(int depth, int alpha, int beta, int minimaxplayer)
@@ -65,6 +66,11 @@ int Alpha_Beta(int depth, int alpha, int beta, int minimaxplayer)
         return miniEval;
     }
 }
+
+
+
+
+
 
 int max(int a, int b)
 {

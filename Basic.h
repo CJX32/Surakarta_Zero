@@ -28,6 +28,12 @@ typedef struct move_list{
     Move list[100];
     int  flag;
 }Move_List;
+typedef struct alphabeta{
+int depth;
+int alpha;
+int beta;
+int minimaxplayer;
+}AlphaBeta_data;
 int count_chess(int  who);
 void visualize_board();
 void visualize(Move_List *h);
