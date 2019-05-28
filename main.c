@@ -32,8 +32,6 @@ Orbit_Index Inside_Orbit_Index[6][6];
 Orbit_Index Outside_Orbit_Index[6][6];
 int main(void){
     who=-1;
-   
-   
    /*Move_List *h;
     int count=0,flag;
     double duration;
