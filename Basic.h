@@ -20,7 +20,7 @@ int amount;
 int node_1;
 int node_2;
 }Orbit_Index;
-typedef struct rool{
+typedef struct rool{        
 int chess;
 Position from;
 }Rool;
