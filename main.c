@@ -39,14 +39,10 @@ Orbit_Index Inside_Orbit_Index[6][6];
 Orbit_Index Outside_Orbit_Index[6][6];
 int main(void){
     who=-1;
-   /*Move_List *h;
+   Move_List *h;
     int count=0,flag;
     double duration;
-   Init_Chessboard();
-    Init_Inside_Orbit();
-    Init_Inside_Orbit_Index();
-    Init_Outside_Orbit();
-    Init_Outside_Orbit_Index();
+   
     clock_t start,stop;
     start=clock();
     while(count<=10000000)
@@ -60,7 +56,7 @@ int main(void){
     }
     stop=clock();
     duration=((double)(stop-start))/CLOCKS_PER_SEC;
-    printf("time=%.1lfs\n",duration);*/
+    printf("time=%.1lfs\n",duration);
 
  
  
@@ -76,13 +72,13 @@ fp=fopen("/Users/bluesky/Desktop/Surakarta_2/testMoveGenerate.txt","r");
 test(fp);*/
 
 
-FILE *fp;
+/* FILE *fp;
 fp=fopen("./Data/testAlphaBeta\ 1.txt","r");
 if(fp==NULL){
 printf("open Error\n");
 return 0;
 }
-test_alpha_beta(fp);
+test_alpha_beta(fp);*/
 
 
 /*for(int a=1;a<9;a++){
