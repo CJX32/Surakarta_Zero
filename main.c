@@ -1,12 +1,11 @@
-//1表示黑子，-1表示白子
-//index为步数总数-1，符合数组特性
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 #include "Move_Generator.h"
 #include "test.h"
 #include "Search_Engine.h"
+#define Black_Chess 1
+#define White_Chess -1
 int chessboard[6][6]={
 {0, -1 ,-1 ,-1, 0 ,0 },
 {-1 ,0, 0 ,0 ,0 ,0 },
@@ -15,15 +14,6 @@ int chessboard[6][6]={
 {1 ,0 ,0 ,0 ,-1 ,0 },
 {0 ,0 ,0 ,1 ,0 ,0 },
 };
-
-/*={
-  {0,0,0,0,0,0},
-  {0,0,0,0,0,0},
-  {0,-1,0,0,1,0},
-  {0,0,0,0,0,0},
-  {0,0,0,0,0,0},
-  {0,0,0,0,0,0}
-};*/
  int chessboard_value[6][6]={
 {5,20,20,20,20,5},
 {20,30,50,50,30,20},
