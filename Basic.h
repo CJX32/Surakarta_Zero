@@ -34,7 +34,7 @@ int alpha;
 int beta;
 int minimaxplayer;
 }AlphaBeta_data;
-int count_chess(int  who);
 void visualize_board();
 void visualize(Move_List *h);
+int judge(void);
 #endif

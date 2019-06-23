@@ -14,14 +14,6 @@ int chessboard[6][6]={
 {1 ,0 ,0 ,0 ,-1 ,0 },
 {0 ,0 ,0 ,1 ,0 ,0 },
 };
- int chessboard_value[6][6]={
-{5,20,20,20,20,5},
-{20,30,50,50,30,20},
-{20,50,40,40,50,20},
-{20,50,40,40,50,20},
-{20,30,50,50,30,20},
-{5,20,20,20,20,5}
- };
 int who;
 Orbit inside_orbit,*Inside_Orbit=&inside_orbit;
 Orbit outside_orbit,*Outside_Orbit=&outside_orbit;

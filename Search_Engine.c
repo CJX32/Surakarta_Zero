@@ -12,7 +12,7 @@ int Alpha_Beta(int depth, int alpha, int beta, int minimaxplayer)
     if (minimaxplayer == who)
     {
 
-        int flag, eval, maxEval = -2147483640, origin, test, test_1;
+        int flag, eval, maxEval = -2147483640, origin;
 
         Move_List *h, head;
         h = &head;
@@ -46,7 +46,6 @@ int Alpha_Beta(int depth, int alpha, int beta, int minimaxplayer)
         h = &head;
         h->flag = 0;
         Move_Generate(h, -who);
-        test_1 = count_chess(who);
 
         for (int a = 0; a < h->flag; a++)
         {
@@ -85,18 +84,4 @@ int mini(int a, int b)
         return a;
     else
         return b;
-}
-
-int count(void)
-{
-    int count = 0;
-    for (int a = 0; a < 6; a++)
-    {
-        for (int b = 0; b < 6; b++)
-        {
-            if (chessboard[a][b] != 0)
-                count++;
-        }
-    }
-    return count;
 }

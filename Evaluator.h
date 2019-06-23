@@ -2,6 +2,7 @@
 #define Evaluator_h
 #include <stdio.h>
 #include "Basic.h"
-int Evaluate(void);
-int judge(void);
+int Evaluate();
+int count();
+int position_value();
 #endif
