@@ -15,13 +15,14 @@ int chessboard[6][6]={
 {0 ,0 ,0 ,1 ,0 ,0 },
 };
 int who;
+uint64_t Hash_Board[6][6][2];
 Orbit inside_orbit,*Inside_Orbit=&inside_orbit;
 Orbit outside_orbit,*Outside_Orbit=&outside_orbit;
 Orbit_Index Inside_Orbit_Index[6][6];
 Orbit_Index Outside_Orbit_Index[6][6];
 int main(void){
     who=-1;
-   Move_List *h;
+    Move_List *h;
     int count=0,flag;
     double duration;
    
