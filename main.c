@@ -15,6 +15,7 @@ int chessboard[6][6]={
 {0 ,0 ,0 ,1 ,0 ,0 },
 };
 int who;
+
 uint64_t Hash_Board[6][6][2];
 Orbit inside_orbit,*Inside_Orbit=&inside_orbit;
 Orbit outside_orbit,*Outside_Orbit=&outside_orbit;
@@ -25,7 +26,7 @@ int main(void){
     Move_List *h;
     int count=0,flag;
     double duration;
-   
+     
     clock_t start,stop;
     start=clock();
     while(count<=10000000)

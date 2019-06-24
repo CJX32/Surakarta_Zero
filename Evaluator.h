@@ -5,4 +5,5 @@
 int Evaluate(void);
 int count(void);
 int position_value(void);
+int greenpotential(void);
 #endif
