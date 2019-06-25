@@ -4,6 +4,7 @@
 #include "Move_Generator.h"
 #include "test.h"
 #include "Search_Engine.h"
+#include "Evaluator.h"
 #define Black_Chess 1
 #define White_Chess -1
 int chessboard[6][6]={
@@ -22,7 +23,7 @@ Orbit outside_orbit,*Outside_Orbit=&outside_orbit;
 Orbit_Index Inside_Orbit_Index[6][6];
 Orbit_Index Outside_Orbit_Index[6][6];
 int main(void){
-    who=-1;
+   /* who=-1;
     Move_List *h;
     int count=0,flag;
     double duration;
@@ -41,7 +42,7 @@ int main(void){
     stop=clock();
     duration=((double)(stop-start))/CLOCKS_PER_SEC;
     printf("time=%.1lfs\n",duration);
-
+*/
  
  
  /*Move_List *h,head;
@@ -70,6 +71,9 @@ test_alpha_beta(fp);*/
  
 printf("%d\n",Alpha_Beta(a,-2147483648, 2147483647, 1));
   }*/
- 
+ who=1;
+ printf("The answer is %d\n",greenpotential());
+
+
     return 0;
 }

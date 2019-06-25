@@ -6,4 +6,6 @@ int Evaluate(void);
 int count(void);
 int position_value(void);
 int greenpotential(void);
+int arc_count(void);
+int anotherMark(void);
 #endif
