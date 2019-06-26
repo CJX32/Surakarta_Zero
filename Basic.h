@@ -1,6 +1,7 @@
 #ifndef Basic_h
 #define Basic_h
 #include <stdio.h>
+#include <stdlib.h>
 typedef struct{
     int x;
     int y;
@@ -34,6 +35,12 @@ int alpha;
 int beta;
 int minimaxplayer;
 }AlphaBeta_data;
+typedef struct{
+uint64_t key;
+int depth;
+int type;
+int value;
+}Hash_Move;
 void visualize_board();
 void visualize(Move_List *h);
 int judge(void);
