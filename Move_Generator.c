@@ -6,8 +6,6 @@ extern Orbit_Index  Inside_Orbit_Index[6][6];
 extern Orbit_Index  Outside_Orbit_Index[6][6];
 void Move_Generate(Move_List *h, int who)
 {
-    int flag = 0;
-
     Generate_Move_Attack(h,who);
 
 
@@ -33,10 +31,6 @@ void Move_Generate(Move_List *h, int who)
                 }
             }
         }
-    
-    
-  printf("%d\n",h->flag);
-
 }
 void Add_Move(Move_List *h, int from_x, int from_y, int to_x, int to_y)
 {   int flag=h->flag;
@@ -49,6 +43,7 @@ void Add_Move(Move_List *h, int from_x, int from_y, int to_x, int to_y)
 void  Add_Move_Attack(Move_List *h,int from_x,int from_y,int to_x,int to_y){
     int index=0;
     for(int a=0;a<h->flag;a++){
+
         if(from_x==h->list[a].from.x&&from_y==h->list[a].from.y&&to_x==h->list[a].to.x&&to_y==h->list[a].to.y)
         {
             index=1;

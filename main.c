@@ -50,22 +50,25 @@ fp=fopen("/Users/bluesky/Desktop/Surakarta_2/testMoveGenerate.txt","r");
 test(fp);*/
 
 
-FILE *fp;
+
+/*FILE *fp;
 fp=fopen("/users/bluesky/desktop/surakarta_zero/Data/testAlphaBeta\ 1.txt","r");
 if(fp==NULL){
 printf("open Error\n");
 return 0;
 }
-test_alpha_beta(fp);
+test_alpha_beta(fp);*/
 
 
-/*for(int a=1;a<9;a++){
-  printf("depth=%d ",a);
- 
-printf("%d\n",Alpha_Beta(a,-2147483648, 2147483647, 1));
-  }*/
- who=1;
- printf("The answer is %d\n",greenpotential());
+        Move_List *h, head;
+        h = &head;
+        h->flag = 0;
+        printf("%d\n",h->flag);
+        Move_Generate(h, -who);
+        printf("%d\n",h->flag);
+
+
+
 
 
     return 0;
