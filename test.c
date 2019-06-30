@@ -124,7 +124,7 @@ void test_alpha_beta(FILE *fp){
            fscanf(fp,"%d",&index[a]);
        }
        for(int a=1;a<=7;a++){
-           data[a-1]=Alpha_Beta(a,-2147483648, 2147483647, 1);
+          
          
        }
        for(int e=0;e<7;e++){

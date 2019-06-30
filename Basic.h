@@ -41,7 +41,17 @@ int depth;
 int type;
 int value;
 }Hash_Move;
+typedef struct{
+int chessboard[6][6];
+int depth;
+int alpha;
+int beta;
+int minimaxplayer;
+int value;
+}Para;
 void visualize_board();
 void visualize(Move_List *h);
 int judge(void);
+int max(int a,int b);
+int mini(int a,int b);
 #endif
