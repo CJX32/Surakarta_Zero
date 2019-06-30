@@ -51,22 +51,22 @@ test(fp);*/
 
 
 
-/*FILE *fp;
+FILE *fp;
 fp=fopen("/users/bluesky/desktop/surakarta_zero/Data/testAlphaBeta\ 1.txt","r");
 if(fp==NULL){
 printf("open Error\n");
 return 0;
 }
-test_alpha_beta(fp);*/
+test_alpha_beta(fp);
 
 
-        Move_List *h, head;
-        h = &head;
+      /*   Move_List *h=(Move_List *)malloc(sizeof(Move_List *));
+       
         h->flag = 0;
         printf("%d\n",h->flag);
         Move_Generate(h, -who);
         printf("%d\n",h->flag);
-
+*/
 
 
 

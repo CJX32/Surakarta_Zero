@@ -76,8 +76,7 @@ int Alpha_Beta_Multi_Thread(int depth,int minimaxplayer){
 
         int flag, eval, maxEval = -2147483640, origin;
 
-        Move_List *h, head;
-        h = &head;
+        Move_List *h=(Move_List *)malloc(sizeof(Move_List *));
         h->flag = 0;
         Move_Generate(h, who);
         pthread_t tids[h->flag]; 
@@ -120,8 +119,7 @@ int Alpha_Beta_Multi_Thread(int depth,int minimaxplayer){
 
         int flag, eval, miniEval = 2147483640, origin;
 
-        Move_List *h, head;
-        h = &head;
+        Move_List *h=(Move_List *)malloc(sizeof(Move_List *));
         h->flag = 0;
         Move_Generate(h, -who);
         printf("%d\n",h->flag);
