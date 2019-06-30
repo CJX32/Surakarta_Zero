@@ -68,7 +68,7 @@ void *Alpha_Beta_pth(void *Arguement){
    arg->value=Alpha_Beta(arg->depth,arg->alpha,arg->beta,arg->minimaxplayer,arg->chessboard);
    pthread_exit(0);
 }
-int Alpha_Beta_Move(int depth,int minimaxplayer){
+int Alpha_Beta_Multi_Thread(int depth,int minimaxplayer){
 
 
      if (minimaxplayer == who)

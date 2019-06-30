@@ -124,7 +124,7 @@ void test_alpha_beta(FILE *fp){
            fscanf(fp,"%d",&index[a]);
        }
        for(int a=1;a<=7;a++){
-          
+           data[a-1]=Alpha_Beta_Multi_Thread(a, 1);
          
        }
        for(int e=0;e<7;e++){

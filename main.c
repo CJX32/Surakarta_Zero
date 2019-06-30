@@ -43,27 +43,20 @@ int main(void){
     duration=((double)(stop-start))/CLOCKS_PER_SEC;
     printf("time=%.1lfs\n",duration);
 */
- 
- 
- /*Move_List *h,head;
- h=&head;
- h->flag=0;
- Move_Generate(h,1);
- printf("%d\n",h->flag);
-visualize(h);*/
+
  
 /*FILE *fp;
 fp=fopen("/Users/bluesky/Desktop/Surakarta_2/testMoveGenerate.txt","r");
 test(fp);*/
 
 
-/* FILE *fp;
-fp=fopen("./Data/testAlphaBeta\ 1.txt","r");
+FILE *fp;
+fp=fopen("/users/bluesky/desktop/surakarta_zero/Data/testAlphaBeta\ 1.txt","r");
 if(fp==NULL){
 printf("open Error\n");
 return 0;
 }
-test_alpha_beta(fp);*/
+test_alpha_beta(fp);
 
 
 /*for(int a=1;a<9;a++){

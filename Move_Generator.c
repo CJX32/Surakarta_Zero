@@ -35,7 +35,7 @@ void Move_Generate(Move_List *h, int who)
         }
     
     
-  
+  printf("%d\n",h->flag);
 
 }
 void Add_Move(Move_List *h, int from_x, int from_y, int to_x, int to_y)
@@ -44,7 +44,7 @@ void Add_Move(Move_List *h, int from_x, int from_y, int to_x, int to_y)
     h->list[flag].from.y = from_y;
      h->list[flag].to.x  = to_x;
       h->list[flag].to.y= to_y;
-    h->flag++;
+     h->flag++;
 }
 void  Add_Move_Attack(Move_List *h,int from_x,int from_y,int to_x,int to_y){
     int index=0;
