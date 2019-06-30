@@ -124,6 +124,7 @@ int Alpha_Beta_Multi_Thread(int depth,int minimaxplayer){
         h = &head;
         h->flag = 0;
         Move_Generate(h, -who);
+        printf("%d\n",h->flag);
         pthread_t tids[h->flag]; 
         Para arg[h->flag];
         pthread_attr_t attr;
