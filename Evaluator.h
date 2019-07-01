@@ -8,4 +8,5 @@ int position_value(void);
 int greenpotential(void);
 int arc_count(void);
 int anotherMark(void);
+int Evaluate_test(int chessboard[][6]);
 #endif

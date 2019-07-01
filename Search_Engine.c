@@ -6,7 +6,7 @@ int Alpha_Beta(int depth, int alpha, int beta, int minimaxplayer,int chessboard[
 {
     if (depth == 0 || judge())
     {
-       return Evaluate();
+       return Evaluate_test(chessboard);
     }
     if (minimaxplayer == who)
     {
@@ -122,7 +122,6 @@ int Alpha_Beta_Multi_Thread(int depth,int minimaxplayer){
         Move_List *h=(Move_List *)malloc(sizeof(Move_List *));
         h->flag = 0;
         Move_Generate(h, -who);
-        printf("%d\n",h->flag);
         pthread_t tids[h->flag]; 
         Para arg[h->flag];
         pthread_attr_t attr;

@@ -140,7 +140,7 @@ void test_alpha_beta(FILE *fp){
                  printf("\n");
                }
                for(int d=0;d<7;d++){
-                   printf("index=%d data=%d\n",index[d],data[d]);
+              printf("index=%d data=%d\n",index[d],data[d]);
                }
               /*Move *h;
               h=(Move *)malloc(52*sizeof(Move));
