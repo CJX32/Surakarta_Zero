@@ -2,11 +2,11 @@
 #include <pthread.h>
 extern int chessboard[6][6];
 extern int who;
-int Alpha_Beta(int depth, int alpha, int beta, int minimaxplayer,int chessboard[][6])
+int Alpha_Beta(int depth, int alpha, int beta, int minimaxplayer,int chessboard_test[][6])
 {
     if (depth == 0 || judge())
     {
-       return Evaluate_test(chessboard);
+       return Evaluate_test(chessboard_test);
     }
     if (minimaxplayer == who)
     {
@@ -24,7 +24,7 @@ int Alpha_Beta(int depth, int alpha, int beta, int minimaxplayer,int chessboard[
             origin = chessboard[h->list[a].to.x][h->list[a].to.y];
             chessboard[h->list[a].from.x][h->list[a].from.y] = 0;
             chessboard[h->list[a].to.x][h->list[a].to.y] = who;
-            eval = Alpha_Beta(depth - 1, alpha, beta, -minimaxplayer,chessboard);
+            eval = Alpha_Beta(depth - 1, alpha, beta, -minimaxplayer,chessboard_test);
             maxEval = max(maxEval, eval);
             alpha = max(alpha, eval);
             chessboard[h->list[a].to.x][h->list[a].to.y] = origin;
@@ -52,7 +52,7 @@ int Alpha_Beta(int depth, int alpha, int beta, int minimaxplayer,int chessboard[
             origin = chessboard[h->list[a].to.x][h->list[a].to.y];
             chessboard[h->list[a].from.x][h->list[a].from.y] = 0;
             chessboard[h->list[a].to.x][h->list[a].to.y] = -who;
-            eval = Alpha_Beta(depth - 1, alpha, beta, -minimaxplayer,chessboard);
+            eval = Alpha_Beta(depth - 1, alpha, beta, -minimaxplayer,chessboard_test);
             miniEval = mini(miniEval, eval);
             beta = mini(beta, eval);
             chessboard[h->list[a].to.x][h->list[a].to.y] = origin;

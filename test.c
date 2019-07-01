@@ -107,6 +107,7 @@ count++;
 void test_alpha_beta(FILE *fp){
     int count=0;
     for(int a=0;a<100;a++){
+        printf("the number of the data is %d\n",a+1);
         int flag;
        for(int b=0;b<6;b++){
            for(int c=0;c<6;c++){
@@ -139,8 +140,9 @@ void test_alpha_beta(FILE *fp){
                  }
                  printf("\n");
                }
+               
                for(int d=0;d<7;d++){
-              printf("index=%d data=%d\n",index[d],data[d]);
+              printf("index=%d my=%d\n",index[d],data[d]);
                }
               /*Move *h;
               h=(Move *)malloc(52*sizeof(Move));
