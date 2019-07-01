@@ -2,6 +2,7 @@
 #define Search_Engine_h
 #include <stdlib.h>
 #include <pthread.h>
+#include <unistd.h>
 #include "Evaluator.h"
 #include "Move_Generator.h"
 #include "Basic.h"

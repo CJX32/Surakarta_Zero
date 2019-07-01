@@ -49,7 +49,7 @@ int main(void){
 fp=fopen("/Users/bluesky/Desktop/Surakarta_2/testMoveGenerate.txt","r");
 test(fp);*/
 
-
+who=-1;
 
 FILE *fp;
 fp=fopen("/users/bluesky/desktop/surakarta_zero/Data/testAlphaBeta\ 1.txt","r");
