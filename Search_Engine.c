@@ -29,6 +29,8 @@ int Alpha_Beta(int depth, int alpha, int beta, int minimaxplayer, int chessboard
             alpha = max(alpha, eval);
             chessboard_test[h->list[a].to.x][h->list[a].to.y] = origin;
             chessboard_test[h->list[a].from.x][h->list[a].from.y] = who;
+             if (beta <= alpha)
+                break;
         }
 
         return maxEval;
@@ -54,6 +56,8 @@ int Alpha_Beta(int depth, int alpha, int beta, int minimaxplayer, int chessboard
             beta = mini(beta, eval);
             chessboard_test[h->list[a].to.x][h->list[a].to.y] = origin;
             chessboard_test[h->list[a].from.x][h->list[a].from.y] = -who;
+             if (beta <= alpha)
+                break;
         }
 
         return miniEval;
