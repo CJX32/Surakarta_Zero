@@ -44,20 +44,20 @@ int main(void){
     printf("time=%.1lfs\n",duration);
 */
 
- 
-/*FILE *fp;
-fp=fopen("/Users/bluesky/Desktop/Surakarta_2/testMoveGenerate.txt","r");
-test(fp);*/
-
-who=-1;
-
+ who=-1;
 FILE *fp;
+fp=fopen("/Users/bluesky/Desktop/Surakarta_Zero/Data/testMoveGenerate.txt","r");
+test(fp);
+
+
+
+/* FILE *fp;
 fp=fopen("/users/bluesky/desktop/surakarta_zero/Data/testAlphaBeta1.txt","r");
 if(fp==NULL){
 printf("open Error\n");
 return 0;
 }
-test_alpha_beta(fp);
+test_alpha_beta(fp);*/
 
 
     
