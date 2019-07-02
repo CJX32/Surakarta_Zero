@@ -133,23 +133,22 @@ else if(chessboard[look_for_anotherMark[a][0]][look_for_anotherMark[a][1]]==-who
   if(chessboard[look_for_anotherMark[a+1][0]][look_for_anotherMark[a+1][1]]==who&&chessboard[look_for_anotherMark[a+1][0]][look_for_anotherMark[a+1][1]]==who)
   count--;
 }
-
 }
 return count;
 }
-int Evaluate_test(){
+int Evaluate_test(int chessboard_test[][6]){
   int count=0;
   for(int a=0;a<6;a++){
     for(int b=0;b<6;b++){
-      if(chessboard[a][b]==who)
-        count++;
-      else if (chessboard[a][b]==-who)
+      if(chessboard_test[a][b]==who)
+      count++;
+      else if (chessboard_test[a][b]==-who)
       count--;
      }
   }
-  if(judge()==1)
+  if(judge(chessboard_test)==1)
   return -9999;
-  else if(judge()==2)
+  else if(judge(chessboard_test)==2)
   return 9999;
   return count;
 }

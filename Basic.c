@@ -14,15 +14,15 @@ for(int a=0;a<h->flag;a++){
     printf("from %d,%d to %d,%d\n",h->list[a].from.x,h->list[a].from.y,h->list[a].to.x,h->list[a].to.y);
 }
 }
-int judge(){
+int judge(int chessboard_test[][6]){
     int count_1=0,count_2=0;
     for(int a=0;a<6;a++){
         for(int b=0;b<6;b++){
-      if(chessboard[a][b]==who)
+      if(chessboard_test[a][b]==who)
       count_1++;
-      else if(chessboard[a][b]==-who)
+      else if(chessboard_test[a][b]==-who)
       count_2++;
-        }
+      }
     }
     if(count_1==0)
     return 1;
@@ -30,4 +30,19 @@ int judge(){
     return 2;
     else
     return 0;
+}
+
+int max(int a, int b)
+{
+    if (a > b)
+        return a;
+    else
+        return b;
+}
+int mini(int a, int b)
+{
+    if (a < b)
+        return a;
+    else
+        return b;
 }

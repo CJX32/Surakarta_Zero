@@ -31,8 +31,6 @@ typedef struct{
 }Move_List;
 typedef struct{
 int depth;
-int alpha;
-int beta;
 int minimaxplayer;
 }AlphaBeta_data;
 typedef struct{
@@ -41,7 +39,17 @@ int depth;
 int type;
 int value;
 }Hash_Move;
+typedef struct{
+int chessboard[6][6];
+int depth;
+int alpha;
+int beta;
+int minimaxplayer;
+int value;
+}Para;
 void visualize_board();
 void visualize(Move_List *h);
-int judge(void);
+int judge(int chessboard_test[][6]);
+int max(int a,int b);
+int mini(int a,int b);
 #endif
