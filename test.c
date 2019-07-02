@@ -122,7 +122,7 @@ void test_alpha_beta(FILE *fp){
        }
        for(int a=1;a<=7;a++){
            data[a-1]=Alpha_Beta_Multi_Thread(a, 1);
-         
+           printf("depth=%d\n",a);
        }
        for(int e=0;e<7;e++){
            if(data[e]!=index[e]){

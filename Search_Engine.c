@@ -73,7 +73,7 @@ int Alpha_Beta_Multi_Thread(int depth, int minimaxplayer)
 
         int flag, eval, maxEval = -2147483640, origin;
 
-        Move_List *h = (Move_List *)malloc(sizeof(Move_List ));
+        Move_List *h = (Move_List *)malloc(sizeof(Move_List));
         h->flag = 0;
         Move_Generate(h, who,chessboard);
         pthread_t tids[h->flag];
@@ -120,21 +120,21 @@ int Alpha_Beta_Multi_Thread(int depth, int minimaxplayer)
 
         int flag, eval, miniEval = 2147483640, origin;
 
-        Move_List *h = (Move_List *)malloc(sizeof(Move_List ));
+        Move_List *h = (Move_List *)malloc(sizeof(Move_List));
         h->flag = 0;
         Move_Generate(h, -who,chessboard);
+
         pthread_t tids[h->flag];
         Para arg[h->flag];
         pthread_attr_t attr;
         pthread_attr_init(&attr);
         int original[6][6];
-        for (int d = 0; d < 6; d++)
-            {
+        for (int d = 0; d < 6; d++){
                 for (int b = 0; b < 6; b++)
                 {
                     original[d][b] = chessboard[d][b];
                 }
-            }
+        }
         for (int a = 0; a < h->flag; a++)
         {
             
@@ -161,6 +161,7 @@ int Alpha_Beta_Multi_Thread(int depth, int minimaxplayer)
 
         for (int a = 0; a < h->flag; a++)
         {
+
             miniEval = mini(miniEval, arg[a].value);
         }
         return miniEval;
