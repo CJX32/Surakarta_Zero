@@ -5,13 +5,13 @@ int count=0,ta;
 
 int index_1,index_2,index_3,index_4;
  while(count<=5715){
-     printf("%d\n",count);
+
      count++;
      
      Move_List *h;
      
-     h=(Move_List *)malloc(100*sizeof(Move_List));
-     h->flag=0;
+     h=(Move_List *)malloc(sizeof(Move_List));
+  
 
 for(int a=0;a<6;a++){
       for(int b=0;b<6;b++){
@@ -27,8 +27,21 @@ for(int a=0;a<6;a++){
 
  Move_Generate(h,-1,chessboard);
  if(h->flag!=index_3){
-  printf("count=%d\n",count);
+
  printf("chess=-1 \n%d %d\n",h->flag,index_3);
+ for(int a=0;a<6;a++){
+      for(int b=0;b<6;b++){
+          printf("%d ",chessboard[a][b]);
+      }
+      printf("\n");
+  }
+ visualize(h);
+
+ }
+  Move_Generate(h,1,chessboard);
+ if(h->flag!=index_4){
+
+ printf("chess=-1 \n%d %d\n",h->flag,index_4);
  for(int a=0;a<6;a++){
       for(int b=0;b<6;b++){
           printf("%d ",chessboard[a][b]);
@@ -41,38 +54,8 @@ for(int a=0;a<6;a++){
 
 
 count++;
-     
-    
-    
-     h=(Move_List *)malloc(100*sizeof(Move_List));
-      h->flag=0;
-      for(int a=0;a<6;a++){
-      for(int b=0;b<6;b++){
-        fscanf(fp,"%d",&ta);
-        if(ta==2)
-        chessboard[a][b]=-1;
-        else
-        chessboard[a][b]=ta;
-      }
+
 }
-
- fscanf(fp," %d %d %d %d",&index_1,&index_2,&index_3,&index_4);
-
- Move_Generate(h,1,chessboard);
- if(h->flag!=index_4){
- printf("count=%d\n",count);
- printf("chess=1  \n%d %d\n",h->flag,index_4);
- for(int a=0;a<6;a++){
-      for(int b=0;b<6;b++){
-          printf("%d ",chessboard[a][b]);
-      }
-      printf("\n");
-  }
- visualize(h);
-
- }
-}
-
 }
 void test_alpha_beta(FILE *fp){
     int count=0;

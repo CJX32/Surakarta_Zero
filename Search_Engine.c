@@ -36,7 +36,7 @@ int Alpha_Beta(int depth, int alpha, int beta, int minimaxplayer, int chessboard
     else
     {
 
-        int flag, eval, miniEval = 2147483647, origin, test, test_1;
+        int flag, eval, miniEval = 2147483640, origin, test, test_1;
 
         Move_List *h = (Move_List *)malloc(sizeof(Move_List));
         Move_Generate(h, -who,chessboard_test);
@@ -99,7 +99,7 @@ int Alpha_Beta_Multi_Thread(int depth, int minimaxplayer)
              arg[a].chessboard[h->list[a].to.x][h->list[a].to.y] = who;
 
             arg[a].depth = depth - 1;
-            arg[a].minimaxplayer = minimaxplayer;
+            arg[a].minimaxplayer = -minimaxplayer;
             pthread_create(&tids[a], &attr, Alpha_Beta_pth, &arg[a]);
        
         }
@@ -142,7 +142,7 @@ int Alpha_Beta_Multi_Thread(int depth, int minimaxplayer)
             arg[a].chessboard[h->list[a].from.x][h->list[a].from.y] = 0;
             arg[a].chessboard[h->list[a].to.x][h->list[a].to.y] = -who;
             arg[a].depth = depth - 1;
-            arg[a].minimaxplayer = minimaxplayer;
+            arg[a].minimaxplayer = -minimaxplayer;
             pthread_create(&tids[a], &attr, Alpha_Beta_pth, &arg[a]);
            
         }

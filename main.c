@@ -45,19 +45,19 @@ int main(void){
 */
 
  who=-1;
-FILE *fp;
-fp=fopen("/Users/bluesky/Desktop/Surakarta_Zero/Data/testMoveGenerate.txt","r");
-test(fp);
-
-
-
 /* FILE *fp;
+fp=fopen("/Users/bluesky/Desktop/Surakarta_Zero/Data/testMoveGenerate.txt","r");
+test(fp);*/
+
+
+
+ FILE *fp;
 fp=fopen("/users/bluesky/desktop/surakarta_zero/Data/testAlphaBeta1.txt","r");
 if(fp==NULL){
 printf("open Error\n");
 return 0;
 }
-test_alpha_beta(fp);*/
+test_alpha_beta(fp);
 
 
     
