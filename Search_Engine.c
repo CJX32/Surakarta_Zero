@@ -67,7 +67,11 @@ void *Alpha_Beta_pth(void *Arguement)
 }
 int Alpha_Beta_Multi_Thread(int depth, int minimaxplayer)
 {
-
+   if(judge(chessboard)==1)
+  return -9999;
+  else if(judge(chessboard)==2)
+  return 9999;
+  else{
     if (minimaxplayer == who)
     {
 
@@ -161,4 +165,5 @@ int Alpha_Beta_Multi_Thread(int depth, int minimaxplayer)
         free(h);
         return miniEval;
     }
+}
 }
