@@ -72,7 +72,7 @@ test_alpha_beta(fp);
  
 printf("%d\n",Alpha_Beta(a,-2147483648, 2147483647, 1));
   }*/
- who=1;
+
 
 
 

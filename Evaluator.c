@@ -133,8 +133,9 @@ else if(chessboard[look_for_anotherMark[a][0]][look_for_anotherMark[a][1]]==-who
   if(chessboard[look_for_anotherMark[a+1][0]][look_for_anotherMark[a+1][1]]==who&&chessboard[look_for_anotherMark[a+1][0]][look_for_anotherMark[a+1][1]]==who)
   count--;
 }
-return count;
+
 }
+return count;
 }
 int Evaluate_test(){
   int count=0;
