@@ -6,7 +6,6 @@ int Alpha_Beta(int depth, int alpha, int beta, int minimaxplayer)
 {
     if (depth == 0 || judge())
     {
-       
        return Evaluate_test();
     }
     if (minimaxplayer == who)
