@@ -37,6 +37,3 @@ uint64_t Hash_Key(void)
     }
     return result;
 }
-uint64_t Hash_hit(uint64_t  key,int depth,int type){
-
-}

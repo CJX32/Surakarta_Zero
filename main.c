@@ -52,7 +52,7 @@ test(fp);*/
 who=-1;
 
 FILE *fp;
-fp=fopen("/users/bluesky/desktop/surakarta_zero/Data/testAlphaBeta\ 1.txt","r");
+fp=fopen("/users/bluesky/desktop/surakarta_zero/Data/testAlphaBeta1.txt","r");
 if(fp==NULL){
 printf("open Error\n");
 return 0;

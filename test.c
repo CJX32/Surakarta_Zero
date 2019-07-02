@@ -2,10 +2,6 @@
 extern int chessboard[6][6];
 int cntBlack;
 int cntPink;
-
-
-
-
 int * decode(long long board){
     //get the board from a long long type number
     cntBlack=0;
@@ -56,7 +52,7 @@ for(int a=0;a<6;a++){
 
  fscanf(fp,"%d %d %d %d",&index_1,&index_2,&index_3,&index_4);
 
- Move_Generate(h,-1);
+ Move_Generate(h,-1,chessboard);
  if(h->flag!=index_3){
   printf("count=%d\n",count);
  printf("chess=-1 \n%d %d\n",h->flag,index_3);
@@ -89,7 +85,7 @@ count++;
 
  fscanf(fp," %d %d %d %d",&index_1,&index_2,&index_3,&index_4);
 
- Move_Generate(h,1);
+ Move_Generate(h,1,chessboard);
  if(h->flag!=index_4){
  printf("count=%d\n",count);
  printf("chess=1  \n%d %d\n",h->flag,index_4);
