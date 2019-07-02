@@ -6,7 +6,7 @@ extern Orbit_Index  Inside_Orbit_Index[6][6];
 extern Orbit_Index  Outside_Orbit_Index[6][6];
 void Move_Generate(Move_List *h, int who)
 {
-    int flag = 0;
+   h->flag=0;
 
     Generate_Move_Attack(h,who);
 
