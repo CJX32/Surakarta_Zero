@@ -6,6 +6,7 @@ extern Orbit_Index  Inside_Orbit_Index[6][6];
 extern Orbit_Index  Outside_Orbit_Index[6][6];
 void Move_Generate(Move_List *h, int who,int chessboard_test[][6])
 {
+    h->flag=0;
     Generate_Move_Attack(h,who,chessboard_test);
       for (int a=0;a<6; a++){
        for (int b=0;b<6;b++){

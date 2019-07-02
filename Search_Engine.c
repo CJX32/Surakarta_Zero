@@ -13,9 +13,7 @@ int Alpha_Beta(int depth, int alpha, int beta, int minimaxplayer, int chessboard
 
         int flag, eval, maxEval = -2147483640, origin;
 
-        Move_List *h, head;
-        h = &head;
-        h->flag = 0;
+         Move_List *h = (Move_List *)malloc(sizeof(Move_List));
         Move_Generate(h, who,chessboard_test);
 
         for (int a = 0; a < h->flag; a++)
@@ -32,7 +30,7 @@ int Alpha_Beta(int depth, int alpha, int beta, int minimaxplayer, int chessboard
              if (beta <= alpha)
                 break;
         }
-
+        free(h);
         return maxEval;
     }
     else
@@ -40,9 +38,7 @@ int Alpha_Beta(int depth, int alpha, int beta, int minimaxplayer, int chessboard
 
         int flag, eval, miniEval = 2147483647, origin, test, test_1;
 
-        Move_List *h, head;
-        h = &head;
-        h->flag = 0;
+        Move_List *h = (Move_List *)malloc(sizeof(Move_List));
         Move_Generate(h, -who,chessboard_test);
 
         for (int a = 0; a < h->flag; a++)
@@ -59,7 +55,7 @@ int Alpha_Beta(int depth, int alpha, int beta, int minimaxplayer, int chessboard
              if (beta <= alpha)
                 break;
         }
-
+        free(h);
         return miniEval;
     }
 }
@@ -117,6 +113,7 @@ int Alpha_Beta_Multi_Thread(int depth, int minimaxplayer)
         }
        
     }
+    free(h);
      return maxEval;
     }
     else
@@ -168,6 +165,7 @@ int Alpha_Beta_Multi_Thread(int depth, int minimaxplayer)
 
             miniEval = mini(miniEval, arg[a].value);
         }
+        free(h);
         return miniEval;
     }
 }
