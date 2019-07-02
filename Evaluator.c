@@ -141,7 +141,7 @@ int Evaluate_test(int chessboard_test[][6]){
   for(int a=0;a<6;a++){
     for(int b=0;b<6;b++){
       if(chessboard_test[a][b]==who)
-        count++;
+      count++;
       else if (chessboard_test[a][b]==-who)
       count--;
      }

@@ -22,7 +22,7 @@ int judge(int chessboard_test[][6]){
       count_1++;
       else if(chessboard_test[a][b]==-who)
       count_2++;
-        }
+      }
     }
     if(count_1==0)
     return 1;

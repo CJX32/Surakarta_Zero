@@ -19,7 +19,7 @@ int Alpha_Beta(int depth, int alpha, int beta, int minimaxplayer, int chessboard
         for (int a = 0; a < h->flag; a++)
         {
 
-            origin = chessboard[h->list[a].to.x][h->list[a].to.y];
+            origin = chessboard_test[h->list[a].to.x][h->list[a].to.y];
             chessboard_test[h->list[a].from.x][h->list[a].from.y] = 0;
             chessboard_test[h->list[a].to.x][h->list[a].to.y] = who;
             eval = Alpha_Beta(depth - 1, alpha, beta, -minimaxplayer, chessboard_test);
@@ -44,7 +44,7 @@ int Alpha_Beta(int depth, int alpha, int beta, int minimaxplayer, int chessboard
         for (int a = 0; a < h->flag; a++)
         {
 
-            origin = chessboard[h->list[a].to.x][h->list[a].to.y];
+            origin = chessboard_test[h->list[a].to.x][h->list[a].to.y];
             chessboard_test[h->list[a].from.x][h->list[a].from.y] = 0;
             chessboard_test[h->list[a].to.x][h->list[a].to.y] = -who;
             eval = Alpha_Beta(depth - 1, alpha, beta, -minimaxplayer, chessboard_test);
@@ -129,13 +129,6 @@ int Alpha_Beta_Multi_Thread(int depth, int minimaxplayer)
         Para arg[h->flag];
         pthread_attr_t attr;
         pthread_attr_init(&attr);
-        int original[6][6];
-        for (int d = 0; d < 6; d++){
-                for (int b = 0; b < 6; b++)
-                {
-                    original[d][b] = chessboard[d][b];
-                }
-        }
         for (int a = 0; a < h->flag; a++)
         {
             
