@@ -1,5 +1,9 @@
 #ifndef Basic_h
 #define Basic_h
+#define Hash_table_length 134217728   
+#define HashExact 0
+#define HashAlpha 1
+#define HashBeta 2
 #include <stdio.h>
 #include <stdlib.h>
 typedef struct{
@@ -47,10 +51,6 @@ int beta;
 int minimaxplayer;
 int value;
 }Para;
-#define Hash_table_length 134217728   
-#define HashExact 0
-#define HashAlpha 1
-#define HashBeta 2
 void visualize_board();
 void visualize(Move_List *h);
 int judge(int chessboard_test[][6]);

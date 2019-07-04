@@ -24,12 +24,12 @@ uint64_t Hash_Key(int chessboard_test[][6])
     }
     return result;
 }
-void Hash_store(Hash_Move *p,int type,int depth,int value,Hash_Board board[6][6][2],int chessboard[][6]){
-    uint64_t key=Hash_Key(board, chessboard);
+void Hash_store(Hash_Move *p,int type,int depth,int value,uint64_t board[6][6][2],int chessboard_test[][6]){
+    uint64_t key=Hash_Key(chessboard_test);
     Hash_Move *operate=&p[key&(Hash_table_length-1)];
     if(operate->depth>=depth)
         return ;//初始化的时候将所有数组内元素的depth赋值为0；
-    operate->key=Hash_Key(board, chessboard);
+    operate->key=Hash_Key(chessboard_test);
     operate->type=type;
     operate->depth=depth;
     operate->value=value;
