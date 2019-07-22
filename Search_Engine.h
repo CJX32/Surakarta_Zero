@@ -5,8 +5,10 @@
 #include <unistd.h>
 #include "Evaluator.h"
 #include "Move_Generator.h"
+#include "Hash_Table.h"
+#include "Initialization.h"
 #include "Basic.h"
-int Alpha_Beta(int depth,int alpha,int beta,int minimaxplayer,int chessboard[][6]);
+int Alpha_Beta(int depth, int alpha, int beta, int minimaxplayer,int chessboard_test[][6],Hash_Move *p,uint64_t hash_board[6][6][2]);
 void *Alpha_Beta_pth(void  *Para);
 int Alpha_Beta_Multi_Thread(int depth,int minimaxplayer);
 #endif

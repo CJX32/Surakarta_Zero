@@ -1,5 +1,4 @@
 #include "Initialization.h"
-extern uint64_t Hash_Board[6][6][2];
 extern int chessboard[6][6];
 void Chessboard_Init(int chessboard[][6]){
     for(int a=0;a<6;a++){
@@ -14,7 +13,8 @@ void Chessboard_Init(int chessboard[][6]){
     }
     
 }
-void Hash_Board_Init(void)
+
+void Hash_Board_Init(uint64_t Hash_Board[6][6][2])
 {
     for (int a = 0; a < 6; a++)
     {
