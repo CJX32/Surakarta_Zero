@@ -1,6 +1,7 @@
 #ifdef Initialization_h
 #define Initialization_h
 #include <stdlib.h>
+#include <stdio.h>
 #include "Basic.h"
 #include "Hash_Table.h"
 void Chessboard_Init(int chessboard[][6]);
