@@ -11,7 +11,7 @@ void Chessboard_Init(int chessboard[][6]){
                 chessboard[a][b]=0;
         }
     }
-    
+
 }
 
 void Hash_Board_Init(uint64_t Hash_Board[6][6][2])
