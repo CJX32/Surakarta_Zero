@@ -60,9 +60,8 @@ count++;
 void test_alpha_beta(FILE *fp){
     int count=0;
     for(int a=0;a<100;a++){
-        printf("the number of the data is %d\n",a+1);
-        int flag;
-        printf("the index of the data is %d\n",a+1);
+      
+     int flag;
        for(int b=0;b<6;b++){
            for(int c=0;c<6;c++){
                fscanf(fp,"%d ",&flag);

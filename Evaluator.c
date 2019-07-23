@@ -48,6 +48,7 @@ return value;
 }
 
 int count(void){
+
     int count=0;
     for(int a=0;a<6;a++){
         for(int b=0;b<6;b++){

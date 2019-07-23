@@ -1,6 +1,6 @@
 #ifndef Basic_h
 #define Basic_h
-#define Hash_table_length 134217728   
+#define Hash_table_length 2048
 #define HashExact 0
 #define HashAlpha 1
 #define HashBeta 2
