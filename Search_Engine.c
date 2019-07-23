@@ -9,6 +9,8 @@ int Alpha_Beta(int depth, int alpha, int beta, int minimaxplayer,int chessboard_
         return Evaluate_test(chessboard_test);
     }
     int value=Hash_Hit(p,depth,alpha,beta,hash_board,chessboard_test);
+   // if(value!=-2147483648)
+   // return value;
     if (minimaxplayer == who)
     {
 
@@ -19,7 +21,6 @@ int Alpha_Beta(int depth, int alpha, int beta, int minimaxplayer,int chessboard_
 
         for (int a = 0; a < h->flag; a++)
         {
-
             origin = chessboard_test[h->list[a].to.x][h->list[a].to.y];
             chessboard_test[h->list[a].from.x][h->list[a].from.y] = 0;
             chessboard_test[h->list[a].to.x][h->list[a].to.y] = who;
@@ -28,10 +29,13 @@ int Alpha_Beta(int depth, int alpha, int beta, int minimaxplayer,int chessboard_
             alpha = max(alpha, eval);
             chessboard_test[h->list[a].to.x][h->list[a].to.y] = origin;
             chessboard_test[h->list[a].from.x][h->list[a].from.y] = who;
-             if (beta <= alpha)
+             if (beta <= alpha){
+                
                 break;
+             }
         }
         free(h);
+        Hash_store(p,HashExact,depth,maxEval,hash_board,chessboard_test);
         return maxEval;
     }
     else
@@ -53,10 +57,12 @@ int Alpha_Beta(int depth, int alpha, int beta, int minimaxplayer,int chessboard_
             beta = mini(beta, eval);
             chessboard_test[h->list[a].to.x][h->list[a].to.y] = origin;
             chessboard_test[h->list[a].from.x][h->list[a].from.y] = -who;
-             if (beta <= alpha)
-                break;
+             if (beta <= alpha){
+               break;
+             }
         }
         free(h);
+        Hash_store(p,HashExact,depth,miniEval,hash_board,chessboard_test);
         return miniEval;
     }
 }
@@ -66,6 +72,7 @@ void *Alpha_Beta_pth(void *Arguement)
     Hash_Move *p=(Hash_Move *)malloc(Hash_table_length*sizeof(Hash_Move));
     uint64_t hash_board[6][6][2];
     Hash_Board_Init(hash_board);
+    Hash_Table_Init(p);
     arg->value = Alpha_Beta(arg->depth, -2147483648,2147483647, arg->minimaxplayer, arg->chessboard,p,hash_board);
     pthread_exit(0);
 }

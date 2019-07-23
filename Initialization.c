@@ -29,5 +29,5 @@ void Hash_Board_Init(uint64_t Hash_Board[6][6][2])
 }
 void Hash_Table_Init(Hash_Move *p){
 for(int a=0;a<Hash_table_length;a++)
-p[a]->depth=0;
+p[a].depth=0;
 }
