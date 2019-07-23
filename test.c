@@ -77,8 +77,13 @@ void test_alpha_beta(FILE *fp){
        for(int a=0;a<7;a++){
            fscanf(fp,"%d",&index[a]);
        }
+       int haha;
+       int alpha=-2147483648,beta=2147483647;
        for(int a=1;a<=7;a++){
-           data[a-1]=Alpha_Beta_Multi_Thread(a, 1);
+           data[a-1]=Alpha_Beta_Multi_Thread(a, 1,alpha,beta);
+           haha=data[a-1];
+           alpha=haha-1;
+           beta=haha+1;
        }
        for(int e=0;e<7;e++){
            if(data[e]!=index[e]){

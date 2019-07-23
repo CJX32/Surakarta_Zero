@@ -13,6 +13,7 @@ typedef struct{
 typedef struct{
 Position from;
 Position to;
+int value;
 }Move;
 typedef struct{
 Position node;
