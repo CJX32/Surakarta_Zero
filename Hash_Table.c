@@ -1,10 +1,11 @@
 #include "Hash_Table.h"
+extern uint64_t Hash_Board[6][6][2];
 uint64_t rand64(void)
 {
     return rand() ^ ((uint64_t)rand() << 15) ^ ((uint64_t)rand() << 30) ^ ((uint64_t)rand() << 45) ^ ((uint64_t)rand() << 60);
 };
 
-uint64_t Hash_Key(int chessboard_test[][6],uint64_t  Hash_Board[6][6][2])
+uint64_t Hash_Key(int chessboard_test[][6])
 {
     uint64_t result = 0;
     for (int a = 0; a < 6; a++)
@@ -23,19 +24,19 @@ uint64_t Hash_Key(int chessboard_test[][6],uint64_t  Hash_Board[6][6][2])
     }
     return result;
 }
-void Hash_store(Hash_Move *p,int type,int depth,int value,uint64_t board[6][6][2],int chessboard_test[][6]){
-    uint64_t key=Hash_Key(chessboard_test,board);
+void Hash_store(Hash_Move *p,int type,int depth,int value,int chessboard_test[][6]){
+    uint64_t key=Hash_Key(chessboard_test);
     Hash_Move *operate=&p[key&(Hash_table_length-1)];
     if(operate->depth>=depth)
         return ;                                                                              //初始化的时候将所有数组内元素的depth赋值为0；
-    operate->key=Hash_Key(chessboard_test,board);
+    operate->key=Hash_Key(chessboard_test);
     operate->type=type;
     operate->depth=depth;
     operate->value=value;
 }
 
-int Hash_Hit(Hash_Move *p,int depth,int alpha,int beta,uint64_t board[6][6][2],int chessboard_test[][6]){
-    uint64_t key=Hash_Key(chessboard_test,board);
+int Hash_Hit(Hash_Move *p,int depth,int alpha,int beta,int chessboard_test[][6]){
+    uint64_t key=Hash_Key(chessboard_test);
     Hash_Move *operate=&p[key&(Hash_table_length-1)];
     if(operate->key==key){
         if(operate->depth>=depth){

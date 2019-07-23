@@ -2,15 +2,15 @@
 #include <pthread.h>
 extern int chessboard[6][6];
 extern int who;
-int Alpha_Beta(int depth, int alpha, int beta, int minimaxplayer,int chessboard_test[][6],Hash_Move *p,uint64_t hash_board[6][6][2])
+int Alpha_Beta(int depth, int alpha, int beta, int minimaxplayer,int chessboard_test[][6],Hash_Move *p)
 {
     if (depth == 0 || judge(chessboard_test))
     {
         return Evaluate_test(chessboard_test);
     }
-    int value=Hash_Hit(p,depth,alpha,beta,hash_board,chessboard_test);
-   // if(value!=-2147483648)
-   // return value;
+    int value=Hash_Hit(p,depth,alpha,beta,chessboard_test);
+    if(value!=-2147483648)
+    return value;
     if (minimaxplayer == who)
     {
 
@@ -24,7 +24,7 @@ int Alpha_Beta(int depth, int alpha, int beta, int minimaxplayer,int chessboard_
             origin = chessboard_test[h->list[a].to.x][h->list[a].to.y];
             chessboard_test[h->list[a].from.x][h->list[a].from.y] = 0;
             chessboard_test[h->list[a].to.x][h->list[a].to.y] = who;
-            eval = Alpha_Beta(depth - 1, alpha, beta, -minimaxplayer, chessboard_test,p,hash_board);
+            eval = Alpha_Beta(depth - 1, alpha, beta, -minimaxplayer, chessboard_test,p);
             maxEval = max(maxEval, eval);
             alpha = max(alpha, eval);
             chessboard_test[h->list[a].to.x][h->list[a].to.y] = origin;
@@ -35,7 +35,7 @@ int Alpha_Beta(int depth, int alpha, int beta, int minimaxplayer,int chessboard_
              }
         }
         free(h);
-        Hash_store(p,HashExact,depth,maxEval,hash_board,chessboard_test);
+        Hash_store(p,HashExact,depth,maxEval,chessboard_test);
         return maxEval;
     }
     else
@@ -52,7 +52,7 @@ int Alpha_Beta(int depth, int alpha, int beta, int minimaxplayer,int chessboard_
             origin = chessboard_test[h->list[a].to.x][h->list[a].to.y];
             chessboard_test[h->list[a].from.x][h->list[a].from.y] = 0;
             chessboard_test[h->list[a].to.x][h->list[a].to.y] = -who;
-            eval = Alpha_Beta(depth - 1, alpha, beta, -minimaxplayer, chessboard_test,p,hash_board);
+            eval = Alpha_Beta(depth - 1, alpha, beta, -minimaxplayer, chessboard_test,p);
             miniEval = mini(miniEval, eval);
             beta = mini(beta, eval);
             chessboard_test[h->list[a].to.x][h->list[a].to.y] = origin;
@@ -62,7 +62,7 @@ int Alpha_Beta(int depth, int alpha, int beta, int minimaxplayer,int chessboard_
              }
         }
         free(h);
-        Hash_store(p,HashExact,depth,miniEval,hash_board,chessboard_test);
+        Hash_store(p,HashExact,depth,miniEval,chessboard_test);
         return miniEval;
     }
 }
@@ -70,10 +70,9 @@ void *Alpha_Beta_pth(void *Arguement)
 {
     Para *arg = (Para *)Arguement;
     Hash_Move *p=(Hash_Move *)malloc(Hash_table_length*sizeof(Hash_Move));
-    uint64_t hash_board[6][6][2];
-    Hash_Board_Init(hash_board);
+
     Hash_Table_Init(p);
-    arg->value = Alpha_Beta(arg->depth, -2147483648,2147483647, arg->minimaxplayer, arg->chessboard,p,hash_board);
+    arg->value = Alpha_Beta(arg->depth, -2147483648,2147483647, arg->minimaxplayer, arg->chessboard,p);
     pthread_exit(0);
 }
 int Alpha_Beta_Multi_Thread(int depth, int minimaxplayer)

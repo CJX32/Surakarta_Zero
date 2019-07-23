@@ -5,6 +5,7 @@
 #include "test.h"
 #include "Search_Engine.h"
 #include "Evaluator.h"
+#include "Initialization.h"
 #define Black_Chess 1
 #define White_Chess -1
 int chessboard[6][6]={
@@ -49,7 +50,7 @@ int main(void){
 fp=fopen("/Users/bluesky/Desktop/Surakarta_Zero/Data/testMoveGenerate.txt","r");
 test(fp);*/
 
-
+Hash_Board_Init(Hash_Board);
 
  FILE *fp;
 fp=fopen("/users/bluesky/desktop/surakarta_zero/Data/testAlphaBeta1.txt","r");
