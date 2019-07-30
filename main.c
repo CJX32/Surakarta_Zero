@@ -19,10 +19,6 @@ int chessboard[6][6]={
 int who;
 
 uint64_t Hash_Board[6][6][2];
-Orbit inside_orbit,*Inside_Orbit=&inside_orbit;
-Orbit outside_orbit,*Outside_Orbit=&outside_orbit;
-Orbit_Index Inside_Orbit_Index[6][6];
-Orbit_Index Outside_Orbit_Index[6][6];
 int main(void){
    /* who=-1;
     Move_List *h;
@@ -53,7 +49,7 @@ test(fp);*/
 Hash_Board_Init(Hash_Board);
 
  FILE *fp;
-fp=fopen("/users/bluesky/desktop/surakarta_zero/Data/testAlphaBeta1.txt","r");
+fp=fopen("/Users/bluesky/Desktop/Surakarta_Zero/Data/testAlphaBeta1.txt","r");
 if(fp==NULL){
 printf("open Error\n");
 return 0;
@@ -62,5 +58,5 @@ test_alpha_beta(fp);
 
 
     
-    return 0;
+ return 0;
 }

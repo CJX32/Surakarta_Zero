@@ -1,9 +1,5 @@
 #include "Move_Generator.h"
 extern int chessboard[6][6];
-extern Orbit *Inside_Orbit;
-extern Orbit *Outside_Orbit;
-extern Orbit_Index  Inside_Orbit_Index[6][6];
-extern Orbit_Index  Outside_Orbit_Index[6][6];
 void Move_Generate(Move_List *h, int who,int chessboard_test[][6])
 {
     h->flag=0;
