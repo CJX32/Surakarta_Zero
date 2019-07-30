@@ -4,7 +4,7 @@ extern int chessboard[6][6];
 extern int who;
 int Alpha_Beta(int depth, int alpha, int beta, int minimaxplayer,int chessboard_test[][6],Hash_Move *p)
 {
-  
+    int hashf=HashAlpha;
     if (depth == 0 || judge(chessboard_test))
     {
         int value=Evaluate_test(chessboard_test);
@@ -32,13 +32,13 @@ int Alpha_Beta(int depth, int alpha, int beta, int minimaxplayer,int chessboard_
             alpha = max(alpha, eval);
             chessboard_test[h->list[a].to.x][h->list[a].to.y] = origin;
             chessboard_test[h->list[a].from.x][h->list[a].from.y] = who;
-             if (beta <= alpha)
+             if (beta <= alpha){
+                Hash_store(p,HashAlpha,depth,alpha,chessboard_test);
                 break;
-             
+             }
         }
         free(h);
-        Hash_store(p,HashAlpha,depth,alpha,chessboard_test);
-        Hash_store(p,HashExact,depth,maxEval,chessboard_test);
+       Hash_store(p,HashExact,depth,maxEval,chessboard_test);
         return maxEval;
     }
     else
@@ -60,13 +60,13 @@ int Alpha_Beta(int depth, int alpha, int beta, int minimaxplayer,int chessboard_
             beta = mini(beta, eval);
             chessboard_test[h->list[a].to.x][h->list[a].to.y] = origin;
             chessboard_test[h->list[a].from.x][h->list[a].from.y] = -who;
-             if (beta <= alpha)
+             if (beta <= alpha){
+            Hash_store(p,HashBeta,depth,beta,chessboard_test);
             break;
-             
+             } 
         }
         free(h);
-        Hash_store(p,HashBeta,depth,beta,chessboard_test);
-        Hash_store(p,HashExact,depth,miniEval,chessboard_test);
+         Hash_store(p,HashExact,depth,miniEval,chessboard_test);
         return miniEval;
     }
 }
