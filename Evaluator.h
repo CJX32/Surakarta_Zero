@@ -2,11 +2,11 @@
 #define Evaluator_h
 #include <stdio.h>
 #include "Basic.h"
-int Evaluate(void);
-int count(void);
-int position_value(void);
-int greenpotential(void);
-int arc_count(void);
-int anotherMark(void);
+int Evaluate(int chessboard_test[][6]);
+int count(int chessboard_test[][6]);
+int position_value(int chessboard_test[][6]);
+int greenpotential(int chessboard_test[][6]);
+int arc_count(int chessboard_test[][6]);
+int anotherMark(int chessboard_test[][6]);
 int Evaluate_test(int chessboard_test[][6]);
 #endif

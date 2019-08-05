@@ -7,7 +7,7 @@ int Alpha_Beta(int depth, int alpha, int beta, int minimaxplayer,int chessboard_
     int hashf=HashAlpha;
     if (depth == 0 || judge(chessboard_test))
     {
-        int value=Evaluate_test(chessboard_test);
+        int value=Evaluate(chessboard_test);
         //Hash_store(p,HashExact,depth,value,chessboard_test);
         return value;
     }
@@ -129,13 +129,14 @@ int Alpha_Beta_Multi_Thread(int depth, int minimaxplayer,int alpha,int beta)
         }
         for (int a = 0; a < h->flag; a++)
         {
-            maxEval = max(maxEval, arg[a].value);
             if(arg[a].value>maxEval)
             best_choice=a;
+            maxEval = max(maxEval, arg[a].value);
+            
         }
        
     }
-    free(h);
+     free(h);
      return best_choice;
     }
     else
@@ -179,10 +180,9 @@ int Alpha_Beta_Multi_Thread(int depth, int minimaxplayer,int alpha,int beta)
 
         for (int a = 0; a < h->flag; a++)
         {
-
-            miniEval = mini(miniEval, arg[a].value);
             if(arg[a].value<miniEval)
             best_choice=a;
+            miniEval = mini(miniEval, arg[a].value);
         }
         free(h);
         return best_choice;
