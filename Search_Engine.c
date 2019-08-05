@@ -81,6 +81,7 @@ void *Alpha_Beta_pth(void *Arguement)
 }
 int Alpha_Beta_Multi_Thread(int depth, int minimaxplayer,int alpha,int beta)
 {
+    int best_choice;
    if(judge(chessboard)==1)
   return -9999;
   else if(judge(chessboard)==2)
@@ -129,11 +130,13 @@ int Alpha_Beta_Multi_Thread(int depth, int minimaxplayer,int alpha,int beta)
         for (int a = 0; a < h->flag; a++)
         {
             maxEval = max(maxEval, arg[a].value);
+            if(arg[a].value>maxEval)
+            best_choice=a;
         }
        
     }
     free(h);
-     return maxEval;
+     return best_choice;
     }
     else
     {
@@ -178,9 +181,20 @@ int Alpha_Beta_Multi_Thread(int depth, int minimaxplayer,int alpha,int beta)
         {
 
             miniEval = mini(miniEval, arg[a].value);
+            if(arg[a].value<miniEval)
+            best_choice=a;
         }
         free(h);
-        return miniEval;
+        return best_choice;
     }
 }
+}
+void AI(int depth){
+        int a=Alpha_Beta_Multi_Thread(depth,1,-20000000,200000000);
+        Move_List *h = (Move_List *)malloc(sizeof(Move_List));
+        h->flag = 0;
+        Move_Generate(h, who,chessboard);
+        chessboard[h->list[a].from.x][h->list[a].from.y]=0;
+        chessboard[h->list[a].to.x][h->list[a].to.y]=who;
+
 }
