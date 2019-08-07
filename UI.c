@@ -104,44 +104,4 @@ void Display(SDL_Renderer *ren,SDL_Texture *blackchess,SDL_Texture *whitechess,i
     }
    
 }
-int Locate_x(int mouse_y,SDL_Rect position[][6]){//用于根据鼠标的点击坐标确定二维数组的x
-    int result=0,flag=600;
-    for(int a=0;a<6;a++){
-        if(abs(mouse_y-position[a][0].y)<flag){
-            flag=abs(mouse_y-position[a][0].y);
-            result=a;
-        }
-    }
-    return result;
-}
-int Locate_y(int mouse_x,SDL_Rect position[][6]){//用于根据鼠标的点击坐标确定二维数组的y
-    int result=0,flag=800;
-    for(int a=0;a<6;a++){
-        if(abs(mouse_x-position[0][a].x)<flag){
-            flag=abs(mouse_x-position[0][a].x);
-            result=a;
-        }
-    }
-    return result;
-}
-int Play_H(int who,int chessboard[][6],int x,int y){//用于人类回合下子
-    static int a=-1,b=-1;
-    int origin=who,target;
-    if(chessboard[x][y]==who){
-        a=x;b=y;
-    }
-    else {
-        if(a!=-1&&b!=-1){
-            //if(judge_legal(a,b,x,y,chessboard,inside_orbit_1,inside_orbit_2,outside_orbit_1,outside_orbit_2))
-            {   target=chessboard[x][y];
-                chessboard[a][b]=0;
-                chessboard[x][y]=who;
-               // Add_step(h, a, b, origin, x, y, target);
-                a=-1;b=-1;
-                return 1;
-            }
-            
-        }
-    }
-    return 0;
-}
+

@@ -85,12 +85,8 @@ void game_AI(int depth){
     SDL_Texture *tishi = renderText("Choose the Color of chess", "/Users/bluesky/Documents/Renzhe/Font.ttf", color1, 40, ren);
     SDL_Texture *win1 = renderText("Black Chess WIN!", "/Users/bluesky/Documents/Renzhe/Font.ttf", color2, 40, ren);
     SDL_Texture *win2 = renderText("White Chess WIN!", "/Users/bluesky/Documents/Renzhe/Font.ttf", color2, 40, ren);
-
-
-
-
     int who=begin(ren,Blackmax,Blackmini,Whitemax,Whitemini,dback,tishi);
-   
+    int *who_test=&who;
     Chessboard_Init(chessboard);
     SDL_Rect position[6][6];
     Init_Position(position);
@@ -122,36 +118,11 @@ void game_AI(int depth){
     if(fp==NULL)
         printf("\n\n\nError occurd when open file\n");
     int game=1,x,y,mouse_x,mouse_y;
+    int *game_test=&game;
     do{ if(who==1){
         
-        while(SDL_PollEvent(&e)){
-            switch (e.type){
-                case SDL_QUIT:
-                    game=0;
-                    break;
-                case SDL_KEYDOWN:
-                 
-                   /*  switch(e.key.keysym.sym){
-                        case SDLK_b:
-                         
-                            retract(step_h, chessboard);
-                            break;
-                        case SDLK_RETURN:
-                            who=who_turn(step_h);
-                           
-                            break;
-                    }
-                    */
-                    break;
-                case SDL_MOUSEBUTTONDOWN:
-                    mouse_x = e.button.x;
-                    mouse_y = e.button.y;
-                    x=Locate_x(mouse_y,position);
-                    y=Locate_y(mouse_x,position);
-                    if(Play_H(who, chessboard, x, y))
-                        
-                        who=-who;
-            }}}
+        Place_Move(who_test,game_test,position);
+            }
     else{
         AI(7);
         who=-who;

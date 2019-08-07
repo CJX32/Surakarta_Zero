@@ -9,5 +9,6 @@
 #include "Basic.h"
 #include "Initialization.h"
 #include "Search_Engine.h"
+#include "Interact.h"
 void game_AI(int depth);
 #endif /* Game_AI_h */
