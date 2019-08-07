@@ -7,68 +7,38 @@ int Alpha_Beta(int depth, int alpha, int beta, int minimaxplayer,int chessboard_
     int hashf=HashAlpha;
     if (depth == 0 || judge(chessboard_test))
     {
-        int value=Evaluate(chessboard_test);
+        int value=Evaluate_test(chessboard_test);
         //Hash_store(p,HashExact,depth,value,chessboard_test);
         return value;
     }
-    int value=Hash_Hit(p,depth,alpha,beta,chessboard_test);
+    /* int value=Hash_Hit(p,depth,alpha,beta,chessboard_test);
     if(value!=-2147483648)
-    return value;
-    if (minimaxplayer == who)
-    {
-
-        int flag, eval, maxEval = -2147483640, origin;
-
-         Move_List *h = (Move_List *)malloc(sizeof(Move_List));
-        Move_Generate(h, who,chessboard_test);
-
-        for (int a = 0; a < h->flag; a++)
-        {
-            origin = chessboard_test[h->list[a].to.x][h->list[a].to.y];
-            chessboard_test[h->list[a].from.x][h->list[a].from.y] = 0;
-            chessboard_test[h->list[a].to.x][h->list[a].to.y] = who;
-            eval = Alpha_Beta(depth - 1, alpha, beta, -minimaxplayer, chessboard_test,p);
-            maxEval = max(maxEval, eval);
-            alpha = max(alpha, eval);
-            chessboard_test[h->list[a].to.x][h->list[a].to.y] = origin;
-            chessboard_test[h->list[a].from.x][h->list[a].from.y] = who;
-             if (beta <= alpha){
-                Hash_store(p,HashAlpha,depth,alpha,chessboard_test);
-                break;
-             }
-        }
-        free(h);
-       Hash_store(p,HashExact,depth,maxEval,chessboard_test);
-        return maxEval;
-    }
-    else
-    {
-
+    return value;*/
+  
+  
         int flag, eval, miniEval = 2147483640, origin, test, test_1;
 
         Move_List *h = (Move_List *)malloc(sizeof(Move_List));
-        Move_Generate(h, -who,chessboard_test);
+        Move_Generate(h, minimaxplayer,chessboard_test);
 
         for (int a = 0; a < h->flag; a++)
         {
 
             origin = chessboard_test[h->list[a].to.x][h->list[a].to.y];
             chessboard_test[h->list[a].from.x][h->list[a].from.y] = 0;
-            chessboard_test[h->list[a].to.x][h->list[a].to.y] = -who;
-            eval = Alpha_Beta(depth - 1, alpha, beta, -minimaxplayer, chessboard_test,p);
-            miniEval = mini(miniEval, eval);
-            beta = mini(beta, eval);
+            chessboard_test[h->list[a].to.x][h->list[a].to.y] = minimaxplayer;
+            eval = -Alpha_Beta(depth - 1, -beta, -alpha, -minimaxplayer, chessboard_test,p);
             chessboard_test[h->list[a].to.x][h->list[a].to.y] = origin;
-            chessboard_test[h->list[a].from.x][h->list[a].from.y] = -who;
-             if (beta <= alpha){
-            Hash_store(p,HashBeta,depth,beta,chessboard_test);
-            break;
-             } 
+            chessboard_test[h->list[a].from.x][h->list[a].from.y] = minimaxplayer;
+            if(eval>=beta)
+            return beta;
+            if(eval>alpha)
+            alpha=eval;
         }
         free(h);
-         Hash_store(p,HashExact,depth,miniEval,chessboard_test);
-        return miniEval;
-    }
+        
+        return alpha;
+    
 }
 void *Alpha_Beta_pth(void *Arguement)
 {
@@ -76,7 +46,7 @@ void *Alpha_Beta_pth(void *Arguement)
     Hash_Move *p=(Hash_Move *)malloc(Hash_table_length*sizeof(Hash_Move));
 
     Hash_Table_Init(p);
-    arg->value = Alpha_Beta(arg->depth, arg->alpha,arg->beta, arg->minimaxplayer, arg->chessboard,p);
+    arg->value = -Alpha_Beta(arg->depth, -arg->beta,-arg->alpha, arg->minimaxplayer, arg->chessboard,p);
     pthread_exit(0);
 }
 int Alpha_Beta_Multi_Thread(int depth, int minimaxplayer,int alpha,int beta)
@@ -127,6 +97,7 @@ int Alpha_Beta_Multi_Thread(int depth, int minimaxplayer,int alpha,int beta)
         {
             pthread_join(tids[a], NULL);
         }
+        
         for (int a = 0; a < h->flag; a++)
         {
             if(arg[a].value>maxEval)
@@ -137,7 +108,7 @@ int Alpha_Beta_Multi_Thread(int depth, int minimaxplayer,int alpha,int beta)
        
     }
      free(h);
-     return best_choice;
+     return maxEval;
     }
     else
     {
@@ -177,15 +148,22 @@ int Alpha_Beta_Multi_Thread(int depth, int minimaxplayer,int alpha,int beta)
             pthread_join(tids[a], NULL);
         }
       
-
+        if(depth%2){
         for (int a = 0; a < h->flag; a++)
         {
             if(arg[a].value<miniEval)
             best_choice=a;
             miniEval = mini(miniEval, arg[a].value);
         }
+        }
+
+        else{
+            miniEval=-2147483640;
+            for (int a = 0; a < h->flag; a++)
+            miniEval = max(miniEval, arg[a].value);
+        }
         free(h);
-        return best_choice;
+        return miniEval;      //注意还原 return best_choice
     }
 }
 }
