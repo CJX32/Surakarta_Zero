@@ -22,5 +22,7 @@ uint64_t Hash_Board[6][6][2];
 int main(void){
     FILE *fp;
 new_test(fp);
+visualize_board();
 return 0;
+
 }

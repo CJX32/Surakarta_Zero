@@ -2,6 +2,8 @@
 extern int chessboard[6][6];
 extern int who;
 void visualize_board(){
+  static int count;
+  count++;
   for(int  a=0;a<6;a++){
     for(int b=0;b<6;b++)
     printf("%d ",chessboard[a][b]);
