@@ -30,7 +30,9 @@ if(fp==NULL){
 printf("open Error\n");
 return 0;
 }
+for(int a=0;a<3000;a++){
 test_alpha_beta(fp);
+}
 }
 
 
