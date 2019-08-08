@@ -7,19 +7,16 @@ int Alpha_Beta(int depth, int alpha, int beta, int minimaxplayer,int chessboard_
     int hashf=HashAlpha;
     if (depth == 0 || judge(chessboard_test))
     {
-        int value=Evaluate_test(chessboard_test);
+        int value=-Evaluate_test(chessboard_test);
         //Hash_store(p,HashExact,depth,value,chessboard_test);
         return value;
     }
     /* int value=Hash_Hit(p,depth,alpha,beta,chessboard_test);
     if(value!=-2147483648)
     return value;*/
-  
-  
-        int flag, eval, miniEval = 2147483640, origin, test, test_1;
-
-        Move_List *h = (Move_List *)malloc(sizeof(Move_List));
-        Move_Generate(h, minimaxplayer,chessboard_test);
+    int flag, val,origin;
+     Move_List *h = (Move_List *)malloc(sizeof(Move_List));
+     Move_Generate(h, minimaxplayer,chessboard_test);
 
         for (int a = 0; a < h->flag; a++)
         {
@@ -27,16 +24,15 @@ int Alpha_Beta(int depth, int alpha, int beta, int minimaxplayer,int chessboard_
             origin = chessboard_test[h->list[a].to.x][h->list[a].to.y];
             chessboard_test[h->list[a].from.x][h->list[a].from.y] = 0;
             chessboard_test[h->list[a].to.x][h->list[a].to.y] = minimaxplayer;
-            eval = -Alpha_Beta(depth - 1, -beta, -alpha, -minimaxplayer, chessboard_test,p);
+            val = -Alpha_Beta(depth - 1, -beta, -alpha, -minimaxplayer, chessboard_test,p);
             chessboard_test[h->list[a].to.x][h->list[a].to.y] = origin;
             chessboard_test[h->list[a].from.x][h->list[a].from.y] = minimaxplayer;
-            if(eval>=beta)
-            return beta;
-            if(eval>alpha)
-            alpha=eval;
+           // if(val>=beta)
+           // return beta;
+            if(val>alpha)
+            alpha=val;
         }
         free(h);
-        
         return alpha;
     
 }
@@ -57,67 +53,14 @@ int Alpha_Beta_Multi_Thread(int depth, int minimaxplayer,int alpha,int beta)
   else if(judge(chessboard)==2)
   return 9999;
   else{
-    if (minimaxplayer == who)
-    {
-
-        int flag, eval, maxEval = -2147483640, origin;
-
-        Move_List *h = (Move_List *)malloc(sizeof(Move_List));
-        h->flag = 0;
-        Move_Generate(h, who,chessboard);
-        pthread_t tids[h->flag];
-        Para arg[h->flag];
-        pthread_attr_t attr;
-        pthread_attr_init(&attr);
-
-        for (int a = 0; a < h->flag; a++)
-        {
-
-            for (int a = 0; a < h->flag; a++)
-        {
-           
-            
-            for (int d = 0; d < 6; d++)
-            {
-                for (int b = 0; b < 6; b++)
-                {
-                    arg[a].chessboard[d][b] = chessboard[d][b];
-                }
-            }
-              arg[a].chessboard[h->list[a].from.x][h->list[a].from.y] = 0;
-             arg[a].chessboard[h->list[a].to.x][h->list[a].to.y] = who;
-            arg[a].alpha=alpha;
-            arg[a].beta=beta;
-            arg[a].depth = depth - 1;
-            arg[a].minimaxplayer = -minimaxplayer;
-            pthread_create(&tids[a], &attr, Alpha_Beta_pth, &arg[a]);
-       
-        }
-        for (int a = 0; a < h->flag; a++)
-        {
-            pthread_join(tids[a], NULL);
-        }
-        
-        for (int a = 0; a < h->flag; a++)
-        {
-            if(arg[a].value>maxEval)
-            best_choice=a;
-            maxEval = max(maxEval, arg[a].value);
-            
-        }
-       
-    }
-     free(h);
-     return maxEval;
-    }
-    else
-    {
+    
+  
 
         int flag, eval, miniEval = 2147483640, origin;
 
         Move_List *h = (Move_List *)malloc(sizeof(Move_List));
         h->flag = 0;
-        Move_Generate(h, -who,chessboard);
+        Move_Generate(h, minimaxplayer,chessboard);
 
         pthread_t tids[h->flag];
         Para arg[h->flag];
@@ -134,7 +77,7 @@ int Alpha_Beta_Multi_Thread(int depth, int minimaxplayer,int alpha,int beta)
                 }
             }
             arg[a].chessboard[h->list[a].from.x][h->list[a].from.y] = 0;
-            arg[a].chessboard[h->list[a].to.x][h->list[a].to.y] = -who;
+            arg[a].chessboard[h->list[a].to.x][h->list[a].to.y] = minimaxplayer;
             arg[a].alpha=alpha;
             arg[a].beta=beta;
             arg[a].depth = depth - 1;
@@ -147,24 +90,16 @@ int Alpha_Beta_Multi_Thread(int depth, int minimaxplayer,int alpha,int beta)
         {
             pthread_join(tids[a], NULL);
         }
-      
-        if(depth%2){
-        for (int a = 0; a < h->flag; a++)
-        {
-            if(arg[a].value<miniEval)
-            best_choice=a;
-            miniEval = mini(miniEval, arg[a].value);
-        }
-        }
-
-        else{
-            miniEval=-2147483640;
-            for (int a = 0; a < h->flag; a++)
-            miniEval = max(miniEval, arg[a].value);
+        
+        for(int a = 0; a < h->flag; a++)
+        {  
+            if(arg[a].value>alpha){
+            alpha=arg[a].value;
+            }
         }
         free(h);
-        return miniEval;      //注意还原 return best_choice
-    }
+        return alpha;      //注意还原 return best_choice
+    
 }
 }
 void AI(int depth){

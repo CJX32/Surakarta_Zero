@@ -79,8 +79,10 @@ void test_alpha_beta(FILE *fp){
        }
        int haha;
        int alpha=-2147483648,beta=2147483647;
+       Hash_Move *p;
        for(int a=1;a<=7;a++){
-           data[a-1]=Alpha_Beta_Multi_Thread(a, 1,alpha,beta);
+           //data[a-1]=Alpha_Beta_Multi_Thread(a, 1,alpha,beta);
+           data[a-1]=Alpha_Beta(a,alpha,beta,1,chessboard,p);
         /*    haha=data[a-1];
            alpha=haha-1;
            beta=haha+1;*/
