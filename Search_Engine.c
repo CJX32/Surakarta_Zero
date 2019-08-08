@@ -202,3 +202,73 @@ void AI(int depth){
         chessboard[h->list[a].to.x][h->list[a].to.y]=who;
 
 }
+int Alpha_Beta_new(int depth, int alpha, int beta, int minimaxplayer,int chessboard_test[][6],Hash_Move *p)
+{
+    static int count;
+    count++;
+    int hashf=HashAlpha;
+    if (depth == 0 || judge(chessboard_test))
+    {
+        int value=Evaluate_test(chessboard_test);
+        //Hash_store(p,HashExact,depth,value,chessboard_test);
+        return value;
+    }
+    //int value=Hash_Hit(p,depth,alpha,beta,chessboard_test);
+    //if(value!=-2147483648)
+   // return value;
+    if (minimaxplayer == who)
+    {
+
+        int flag, eval, maxEval = -2147483640, origin;
+
+         Move_List *h = (Move_List *)malloc(sizeof(Move_List));
+         h->flag = 0;
+        Move_Generate(h, who,chessboard_test);
+
+        for (int a = 0; a < h->flag; a++)
+        {
+            origin = chessboard_test[h->list[a].to.x][h->list[a].to.y];
+            chessboard_test[h->list[a].from.x][h->list[a].from.y] = 0;
+            chessboard_test[h->list[a].to.x][h->list[a].to.y] = who;
+            eval = Alpha_Beta_new(depth - 1, alpha, beta, -minimaxplayer, chessboard_test,p);
+            maxEval = max(maxEval, eval);
+            alpha = max(alpha, eval);
+            chessboard_test[h->list[a].to.x][h->list[a].to.y] = origin;
+            chessboard_test[h->list[a].from.x][h->list[a].from.y] = who;
+           
+        }
+        free(h);
+       Hash_store(p,HashExact,depth,maxEval,chessboard_test);
+       visualize_board();
+       printf("depth=%d value=%d\n",depth,maxEval);
+        return maxEval;
+    }
+    else
+    {
+
+        int flag, eval, miniEval = 2147483640, origin, test, test_1;
+
+        Move_List *h = (Move_List *)malloc(sizeof(Move_List));
+        h->flag = 0;
+        Move_Generate(h, -who,chessboard_test);
+
+        for (int a = 0; a < h->flag; a++)
+        {
+
+            origin = chessboard_test[h->list[a].to.x][h->list[a].to.y];
+            chessboard_test[h->list[a].from.x][h->list[a].from.y] = 0;
+            chessboard_test[h->list[a].to.x][h->list[a].to.y] = -who;
+            eval = Alpha_Beta_new(depth - 1, alpha, beta, -minimaxplayer, chessboard_test,p);
+            miniEval = mini(miniEval, eval);
+            beta = mini(beta, eval);
+            chessboard_test[h->list[a].to.x][h->list[a].to.y] = origin;
+            chessboard_test[h->list[a].from.x][h->list[a].from.y] = -who;
+           
+        }
+        free(h);
+         Hash_store(p,HashExact,depth,miniEval,chessboard_test);
+         visualize_board();
+       printf("depth=%d value=%d",depth,miniEval);
+        return miniEval;
+    }
+}

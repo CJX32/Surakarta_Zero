@@ -112,3 +112,13 @@ void test_alpha_beta(FILE *fp){
     Hash_Move *p;
     Alpha_Beta(1,1,1,1,chessboard,p);
 }
+void new_test(FILE *fp){
+int flag;
+ 
+visualize_board();
+       Hash_Move *p;
+       p=(Hash_Move *)malloc((Hash_table_length)*sizeof(Hash_Move));
+       Hash_Table_Init(p);
+Alpha_Beta_new(2,-20000000,2000000,1,chessboard,p);
+
+}
