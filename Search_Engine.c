@@ -75,12 +75,8 @@ int Alpha_Beta_new(int depth, int alpha, int beta, int minimaxplayer,int chessbo
             val = -Alpha_Beta_new(depth - 1, -beta, -alpha, -minimaxplayer, chessboard_test,p);
             chessboard_test[h->list[a].to.x][h->list[a].to.y] = origin;
             chessboard_test[h->list[a].from.x][h->list[a].from.y] = minimaxplayer;
-            if(val>=beta){
-            Hash_store(p,HashBeta,depth,beta,chessboard_test);
-            visualize_board();
-            printf("depth=%d beta=%d\n",depth,beta);
-            return beta;
-            }
+          
+            
 
             if(val>alpha){
             hashf=HashExact;
