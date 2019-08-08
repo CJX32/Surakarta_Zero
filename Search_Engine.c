@@ -4,6 +4,8 @@ extern int chessboard[6][6];
 extern int who;
 int Alpha_Beta(int depth, int alpha, int beta, int minimaxplayer,int chessboard_test[][6],Hash_Move *p)
 {
+    static int count;
+    count++;
     int hashf=HashAlpha;
     if (depth == 0 || judge(chessboard_test))
     {
