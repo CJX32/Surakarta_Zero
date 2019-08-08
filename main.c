@@ -28,6 +28,7 @@ if(fp==NULL){
 printf("open Error\n");
 return 0;
 }
+
 test_alpha_beta(fp);
 }
 return 0;

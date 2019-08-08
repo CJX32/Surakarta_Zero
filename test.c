@@ -84,7 +84,7 @@ void test_alpha_beta(FILE *fp){
        int alpha=-2147483640,beta=2147483647;
        for(int a=1;a<=7;a++){
          //  data[a-1]=Alpha_Beta_Multi_Thread(a, 1,alpha,beta);
-          data[a-1]=Alpha_Beta(a,alpha,beta,1,chessboard,p);
+          data[a-1]=Alpha_Beta(1,alpha,beta,1,chessboard,p);
         /*    haha=data[a-1];
            alpha=haha-1;
            beta=haha+1;*/
