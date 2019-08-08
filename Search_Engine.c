@@ -13,9 +13,9 @@ int Alpha_Beta(int depth, int alpha, int beta, int minimaxplayer,int chessboard_
         //Hash_store(p,HashExact,depth,value,chessboard_test);
         return value;
     }
-    int value=Hash_Hit(p,depth,alpha,beta,chessboard_test);
-    if(value!=-2147483648)
-    return value;
+    //int value=Hash_Hit(p,depth,alpha,beta,chessboard_test);
+    //if(value!=-2147483648)
+   // return value;
     if (minimaxplayer == who)
     {
 
