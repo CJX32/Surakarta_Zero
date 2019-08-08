@@ -25,14 +25,14 @@ int main(void){
 {
 Hash_Board_Init(Hash_Board);
 FILE *fp;
-fp=fopen("/Users/bluesky/Desktop/Surakarta_Zero/Data/testAlphaBeta1.txt","r");
+fp=fopen("/Users/bluesky/Desktop/newline.txt","r");
 if(fp==NULL){
 printf("open Error\n");
 return 0;
 }
-for(int a=0;a<3000;a++){
-test_alpha_beta(fp);
-}
+
+new_test(fp);
+
 }
 
 
