@@ -21,7 +21,7 @@ int who=-1;
 uint64_t Hash_Board[6][6][2];
 int main(void){
 
-game_AI(7);
+game_AI(8);
 return 0;
 
 }
