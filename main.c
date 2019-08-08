@@ -32,7 +32,7 @@ return 0;
 }
 
 new_test(fp);
-
+visualize_board();
 }
 
 
