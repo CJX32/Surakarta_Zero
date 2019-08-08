@@ -22,6 +22,7 @@ int Alpha_Beta(int depth, int alpha, int beta, int minimaxplayer,int chessboard_
         int flag, eval, maxEval = -2147483640, origin;
 
          Move_List *h = (Move_List *)malloc(sizeof(Move_List));
+         h->flag = 0;
         Move_Generate(h, who,chessboard_test);
 
         for (int a = 0; a < h->flag; a++)
@@ -49,6 +50,7 @@ int Alpha_Beta(int depth, int alpha, int beta, int minimaxplayer,int chessboard_
         int flag, eval, miniEval = 2147483640, origin, test, test_1;
 
         Move_List *h = (Move_List *)malloc(sizeof(Move_List));
+        h->flag = 0;
         Move_Generate(h, -who,chessboard_test);
 
         for (int a = 0; a < h->flag; a++)
