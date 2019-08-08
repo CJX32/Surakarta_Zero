@@ -91,9 +91,9 @@ void test_alpha_beta(FILE *fp){
            else
             data[a-1]=vl;
            
-        /*    haha=data[a-1];
-           alpha=haha-1;
-           beta=haha+1;*/
+        //   haha=data[a-1];
+        //   alpha=haha-1;
+        //   beta=haha+1;
        }
        for(int e=0;e<7;e++){
            if(data[e]!=index[e]){

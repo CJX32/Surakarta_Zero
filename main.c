@@ -20,15 +20,8 @@ int chessboard[6][6]={
 int who=-1;
 uint64_t Hash_Board[6][6][2];
 int main(void){
-{Hash_Board_Init(Hash_Board);
 
- FILE *fp;
-fp=fopen("/Users/bluesky/Desktop/Surakarta_Zero/Data/testAlphaBeta1.txt","r");
-if(fp==NULL){
-printf("open Error\n");
+game_AI(7);
 return 0;
-}
-test_alpha_beta(fp);
-}
-return 0;
+
 }
