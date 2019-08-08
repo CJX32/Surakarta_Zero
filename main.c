@@ -7,6 +7,7 @@
 #include "Evaluator.h"
 #include "Initialization.h"
 #include "Game_AI.h"
+#include "Sort.h"
 #define Black_Chess 1
 #define White_Chess -1
 int chessboard[6][6]={
@@ -20,7 +21,7 @@ int chessboard[6][6]={
 int who=-1;
 uint64_t Hash_Board[6][6][2];
 int main(void){
-/* 
+
 {
 Hash_Board_Init(Hash_Board);
 FILE *fp;
@@ -31,9 +32,7 @@ return 0;
 }
 test_alpha_beta(fp);
 }
-*/
-Move_List *h=(Move_List *)malloc(sizeof(Move_List));
-h->flag=0;
+
 
 return 0;
 

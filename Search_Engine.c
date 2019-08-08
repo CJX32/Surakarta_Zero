@@ -18,7 +18,7 @@ int Alpha_Beta(int depth, int alpha, int beta, int minimaxplayer,int chessboard_
     //return value;
     int flag, val,origin;
      Move_List *h = (Move_List *)malloc(sizeof(Move_List));
-     
+     h->flag=0;
      Move_Generate(h, minimaxplayer,chessboard_test);
   
      
@@ -35,6 +35,7 @@ int Alpha_Beta(int depth, int alpha, int beta, int minimaxplayer,int chessboard_
             Hash_store(p,HashBeta,depth,beta,chessboard_test);
             return beta;
             }
+
             if(val>alpha){
             hashf=HashExact;
             alpha=val;
@@ -67,7 +68,7 @@ Result Alpha_Beta_test(int depth, int alpha, int beta, int minimaxplayer,int che
     }
     int flag, val,origin;
      Move_List *h = (Move_List *)malloc(sizeof(Move_List));
-
+     h->flag=0;
      Move_Generate(h, minimaxplayer,chessboard_test);
      switch_move(h,best);
      
