@@ -77,10 +77,14 @@ void test_alpha_beta(FILE *fp){
        for(int a=0;a<7;a++){
            fscanf(fp,"%d",&index[a]);
        }
+         Hash_Move *p=(Hash_Move *)malloc(Hash_table_length*sizeof(Hash_Move));
+
+    Hash_Table_Init(p);
        int haha;
-       int alpha=-2147483648,beta=2147483647;
+       int alpha=-2147483640,beta=2147483647;
        for(int a=1;a<=7;a++){
-           data[a-1]=Alpha_Beta_Multi_Thread(a, 1,alpha,beta);
+         //  data[a-1]=Alpha_Beta_Multi_Thread(a, 1,alpha,beta);
+          data[a-1]=Alpha_Beta(a, alpha,beta, 1,chessboard,p);
         /*    haha=data[a-1];
            alpha=haha-1;
            beta=haha+1;*/

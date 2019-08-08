@@ -7,7 +7,7 @@ int Alpha_Beta(int depth, int alpha, int beta, int minimaxplayer,int chessboard_
     int hashf=HashAlpha;
     if (depth == 0 || judge(chessboard_test))
     {
-        int value=Evaluate(chessboard_test);
+        int value=Evaluate_test(chessboard_test);
         //Hash_store(p,HashExact,depth,value,chessboard_test);
         return value;
     }
