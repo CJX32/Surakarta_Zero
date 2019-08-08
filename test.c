@@ -116,5 +116,5 @@ void test_alpha_beta(FILE *fp){
     }
     printf("Error_number=%d\n",count);
     Hash_Move *p;
-    Alpha_Beta(1,-1,1,1,chessboard,p);
+ Alpha_Beta(1,1,1,1,chessboard,p);
 }

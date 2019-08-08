@@ -13,13 +13,15 @@ int Alpha_Beta(int depth, int alpha, int beta, int minimaxplayer,int chessboard_
        // Hash_store(p,HashExact,depth,value,chessboard_test);
         return value;
     }
-    int value=Hash_Hit(p,depth,alpha,beta,chessboard_test);
-    if(value!=-2147483648)
-    return value;
+    //int value=Hash_Hit(p,depth,alpha,beta,chessboard_test);
+    //if(value!=-2147483648)
+    //return value;
     int flag, val,origin;
      Move_List *h = (Move_List *)malloc(sizeof(Move_List));
-     Move_Generate(h, minimaxplayer,chessboard_test);
 
+     Move_Generate(h, minimaxplayer,chessboard_test);
+  
+     
         for (int a = 0; a < h->flag; a++)
         {
 
@@ -43,6 +45,59 @@ int Alpha_Beta(int depth, int alpha, int beta, int minimaxplayer,int chessboard_
         return alpha;
     
 }
+Result Alpha_Beta_test(int depth, int alpha, int beta, int minimaxplayer,int chessboard_test[][6],Hash_Move *p,int best)
+{
+    Result answer;
+    answer.best_move=0;
+    static int count;
+    count++;
+    int hashf=HashAlpha;
+    int best_move=0;
+    if (depth == 0 || judge(chessboard_test))
+    {
+        int value=Evaluate_test(chessboard_test);
+       // Hash_store(p,HashExact,depth,value,chessboard_test);
+        answer.value=value;
+        return answer;
+    }
+    int value=Hash_Hit(p,depth,alpha,beta,chessboard_test);
+    if(value!=-2147483648){
+     answer.value=value;
+        return answer;
+    }
+    int flag, val,origin;
+     Move_List *h = (Move_List *)malloc(sizeof(Move_List));
+
+     Move_Generate(h, minimaxplayer,chessboard_test);
+     switch_move(h,best);
+     
+        for (int a = 0; a < h->flag; a++)
+        {
+
+            origin = chessboard_test[h->list[a].to.x][h->list[a].to.y];
+            chessboard_test[h->list[a].from.x][h->list[a].from.y] = 0;
+            chessboard_test[h->list[a].to.x][h->list[a].to.y] = minimaxplayer;
+            val = -Alpha_Beta(depth - 1, -beta, -alpha, -minimaxplayer, chessboard_test,p);
+            chessboard_test[h->list[a].to.x][h->list[a].to.y] = origin;
+            chessboard_test[h->list[a].from.x][h->list[a].from.y] = minimaxplayer;
+            if(val>=beta){
+            Hash_store(p,HashBeta,depth,beta,chessboard_test);
+            answer.value=beta;
+            return answer;
+            }
+            if(val>alpha){
+            answer.best_move=a;
+            hashf=HashExact;
+            alpha=val;
+            }
+        }
+        free(h);
+        Hash_store(p,hashf,depth,alpha,chessboard_test);
+        answer.value=alpha;
+        return answer;
+    
+}
+
 void *Alpha_Beta_pth(void *Arguement)
 {
     Para *arg = (Para *)Arguement;

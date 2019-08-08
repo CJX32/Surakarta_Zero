@@ -7,6 +7,7 @@
 #include "Basic.h"
 void Add_Move(Move_List *h, int from_x, int from_y, int to_x, int to_y);
 void Move_Generate(Move_List *h,int who,int chessboard_test[][6]);
+void Move_Generate_reverse(Move_List *h, int who,int chessboard_test[][6]);
 int Generate_Attack_Move(Move *h,int from_x,int from_y,int index,int who,int chessboard_test[][6]);
 void Add_Move_Attack(Move_List *h,int from_x,int from_y,int to_x,int to_y);
 int whether_side_side(int from_x,int from_y,int to_x,int to_y);

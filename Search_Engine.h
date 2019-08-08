@@ -8,8 +8,10 @@
 #include "Hash_Table.h"
 #include "Initialization.h"
 #include "Basic.h"
+#include "Sort.h"
 int Alpha_Beta(int depth, int alpha, int beta, int minimaxplayer,int chessboard_test[][6],Hash_Move *p);
 void *Alpha_Beta_pth(void  *Para);
 int Alpha_Beta_Multi_Thread(int depth,int minimaxplayer,int alpha,int beta);
+Result Alpha_Beta_test(int depth, int alpha, int beta, int minimaxplayer,int chessboard_test[][6],Hash_Move *p,int best);
 void AI(int depth);
 #endif
