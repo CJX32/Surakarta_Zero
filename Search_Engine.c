@@ -137,7 +137,7 @@ int Alpha_Beta_Multi_Thread(int depth, int minimaxplayer,int alpha,int beta)
        
     }
      free(h);
-     return best_choice;
+     return maxEval;
     }
     else
     {
@@ -185,7 +185,7 @@ int Alpha_Beta_Multi_Thread(int depth, int minimaxplayer,int alpha,int beta)
             miniEval = mini(miniEval, arg[a].value);
         }
         free(h);
-        return best_choice;
+        return  miniEval;
     }
 }
 }
