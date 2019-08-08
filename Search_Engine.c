@@ -18,7 +18,7 @@ int Alpha_Beta(int depth, int alpha, int beta, int minimaxplayer,int chessboard_
     //return value;
     int flag, val,origin;
      Move_List *h = (Move_List *)malloc(sizeof(Move_List));
-
+     
      Move_Generate(h, minimaxplayer,chessboard_test);
   
      

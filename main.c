@@ -20,10 +20,10 @@ int chessboard[6][6]={
 int who=-1;
 uint64_t Hash_Board[6][6][2];
 int main(void){
-
-{Hash_Board_Init(Hash_Board);
-
- FILE *fp;
+/* 
+{
+Hash_Board_Init(Hash_Board);
+FILE *fp;
 fp=fopen("/Users/bluesky/Desktop/Surakarta_Zero/Data/testAlphaBeta1.txt","r");
 if(fp==NULL){
 printf("open Error\n");
@@ -31,6 +31,10 @@ return 0;
 }
 test_alpha_beta(fp);
 }
+*/
+Move_List *h=(Move_List *)malloc(sizeof(Move_List));
+h->flag=0;
+
 return 0;
 
 }
