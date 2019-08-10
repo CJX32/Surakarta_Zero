@@ -56,6 +56,7 @@ int Alpha_Beta_new(int depth, int alpha, int beta, int minimaxplayer,int chessbo
     {
         int value=Evaluate_test(chessboard_test);
         visualize_board();
+        
          printf("value=%d,depth=%d count=%d\n",value,depth,count);
        // Hash_store(p,HashExact,depth,value,chessboard_test);
         return value;
@@ -92,6 +93,9 @@ int Alpha_Beta_new(int depth, int alpha, int beta, int minimaxplayer,int chessbo
             }
         }
         free(h);
+     
+         printf("                                                 value=%d,depth=%d count=%d\n",alpha,depth,count);
+         
         Hash_store(p,hashf,depth,alpha,chessboard_test);
         return alpha;
     
