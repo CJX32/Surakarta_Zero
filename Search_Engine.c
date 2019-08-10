@@ -244,8 +244,7 @@ int Alpha_Beta_new(int depth, int alpha, int beta, int minimaxplayer,int chessbo
         }
         free(h);
        Hash_store(p,HashExact,depth,maxEval,chessboard_test);
-       visualize_board();
-       printf("depth=%d value=%d\n",depth,maxEval);
+
         return maxEval;
     }
     else
@@ -273,8 +272,7 @@ int Alpha_Beta_new(int depth, int alpha, int beta, int minimaxplayer,int chessbo
         }
         free(h);
          Hash_store(p,HashExact,depth,miniEval,chessboard_test);
-         visualize_board();
-       printf("depth=%d value=%d",depth,miniEval);
+
         return miniEval;
     }
 }
