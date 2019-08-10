@@ -9,6 +9,7 @@ int Alpha_Beta(int depth, int alpha, int beta, int minimaxplayer,int chessboard_
     int hashf=HashAlpha;
     if (depth == 0 || judge(chessboard_test))
     {
+    
         int value=Evaluate_test(chessboard_test);
        // Hash_store(p,HashExact,depth,value,chessboard_test);
         return value;
@@ -55,7 +56,7 @@ int Alpha_Beta_new(int depth, int alpha, int beta, int minimaxplayer,int chessbo
     {
         int value=Evaluate_test(chessboard_test);
         visualize_board();
-        printf("depth=%d value=%d\n",depth,value);
+         printf("value=%d,depth=%d count=%d\n",value,depth,count);
        // Hash_store(p,HashExact,depth,value,chessboard_test);
         return value;
     }
@@ -77,12 +78,11 @@ int Alpha_Beta_new(int depth, int alpha, int beta, int minimaxplayer,int chessbo
             val = -Alpha_Beta_new(depth - 1, -beta, -alpha, -minimaxplayer, chessboard_test,p);
             chessboard_test[h->list[a].to.x][h->list[a].to.y] = origin;
             chessboard_test[h->list[a].from.x][h->list[a].from.y] = minimaxplayer;
-           /*  if(val>=beta){
+             if(val>=beta){
             Hash_store(p,HashBeta,depth,beta,chessboard_test);
-            visualize_board();
-            printf("depth=%d beta=%d\n",depth,alpha);
+           
             return beta;
-            }*/
+            }
 
             
 
@@ -93,8 +93,6 @@ int Alpha_Beta_new(int depth, int alpha, int beta, int minimaxplayer,int chessbo
         }
         free(h);
         Hash_store(p,hashf,depth,alpha,chessboard_test);
-        visualize_board();
-        printf("depth=%d alpha=%d\n",depth,alpha);
         return alpha;
     
 }
