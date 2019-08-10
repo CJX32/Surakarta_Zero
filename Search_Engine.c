@@ -212,7 +212,7 @@ int Alpha_Beta_new(int depth, int alpha, int beta, int minimaxplayer,int chessbo
       
         int value=Evaluate_test(chessboard_test);
          visualize_board();
-       printf("depth=%d value=%d\n",depth,value);
+       printf("depth=%d value=%d count=%d\n",depth,value,count);
         //Hash_store(p,HashExact,depth,value,chessboard_test);
         return value;
         
