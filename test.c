@@ -87,12 +87,12 @@ void test_alpha_beta(FILE *fp){
           /* Result answer;
           answer=Alpha_Beta_test(a,alpha,beta,1,chessboard,p,best);
           best=answer.best_move;*/
-          int vl=Alpha_Beta(2,alpha,beta,1,chessboard,p);
+          int vl=Alpha_Beta(a,alpha,beta,1,chessboard,p);
           // int vl=answer.value;
            if(a%2)
            data[a-1]=-vl;
            else
-            data[a-1]=vl;
+            data[a-1]=-vl;
      
         //   haha=data[a-1];
         //   alpha=haha-1;
