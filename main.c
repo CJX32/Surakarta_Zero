@@ -21,10 +21,9 @@ int chessboard[6][6]={
 };
 int who=-1;
 uint64_t Hash_Board[6][6][2];
-int alpha_global=-2147483640,beta_global=2147483640;
-pthread_rwlock_t rwlock;
+
 int main(void){
-pthread_rwlock_init(&rwlock,NULL);
+
 {
 Hash_Board_Init(Hash_Board);
 FILE *fp;
