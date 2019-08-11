@@ -52,6 +52,10 @@ int beta;
 int minimaxplayer;
 int value;
 }Para;
+typedef struct{
+    int value;
+    int best_move;
+}Result;
 void visualize_board();
 void visualize(Move_List *h);
 int judge(int chessboard_test[][6]);

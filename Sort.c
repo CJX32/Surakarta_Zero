@@ -47,3 +47,14 @@ index_l++;
 index++;
 }
 }
+void switch_move(Move_List *h,int a){
+ 
+  if(a==0)
+  return;
+  else{
+  Move t;
+  t=h->list[0];
+  h->list[0]=h->list[a];
+  h->list[a]=t;
+  }
+}
