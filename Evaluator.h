@@ -2,7 +2,7 @@
 #define Evaluator_h
 #include <stdio.h>
 #include "Basic.h"
-int Evaluate(int chessboard_test[][6]);
+int Evaluate(int chessboard_test[][6],int who_test);
 int count(int chessboard_test[][6]);
 int position_value(int chessboard_test[][6]);
 int greenpotential(int chessboard_test[][6]);

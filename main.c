@@ -31,14 +31,9 @@ fp=fopen("/Users/bluesky/Desktop/Surakarta_Zero/Data/testAlphaBeta1.txt","r");
 if(fp==NULL){
 printf("open Error\n");
 return 0;
-
 }
-
 test_alpha_beta(fp);
-visualize_board();
 }
 
-
-return 0;
 
 }

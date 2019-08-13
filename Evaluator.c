@@ -31,8 +31,11 @@ int look_for_anotherMark[12][2]={
   {3,3},{3,4},{4,3} 
 };
 int arcPara;
-int k1,k2,k3,k4;
-int Evaluate(int chessboard_test[][6]){
+int k1=1,k2=1,k3=1,k4=1;
+int Evaluate(int chessboard_test[][6],int who_test){
+int test=Evaluate_test(chessboard_test,who_test);
+if(test==9999||test==-9999)
+return test;
 int value;
 int extendVal;
 int positionVal;
@@ -44,7 +47,11 @@ positionVal=position_value(chessboard_test)+arc_count(chessboard_test)*arcPara;
 dynamicVal=anotherMark(chessboard_test);
 potentialVal=greenpotential(chessboard_test);
 value=extendVal*k1+positionVal*k2+dynamicVal*k3+potentialVal*k3;
+if(who_test==who)
 return value;
+else
+return -value;
+
 }
 
 int count(int chessboard_test[][6]){
@@ -80,33 +87,33 @@ int value=0;
 for(int a=0;a<=15;a+=2){
     if(chessboard_test[look_for_intersection[a/2][0]][look_for_intersection[a/2][1]]==who){
   if(chessboard_test[look_for[a][0]][look_for[a][1]]==0&&chessboard_test[look_for[a+1][0]][look_for[a+1][1]]==0)
-  {value+=greenPotential[0];printf("0\n");}
+  {value+=greenPotential[0];}
   else if(chessboard_test[look_for[a][0]][look_for[a][1]]==-who&&chessboard_test[look_for[a+1][0]][look_for[a+1][1]]==-who)   
-  {value+=greenPotential[1];printf("1\n");}
+  {value+=greenPotential[1];}
   else if((chessboard_test[look_for[a][0]][look_for[a][1]]==who||chessboard_test[look_for[a+1][0]][look_for[a+1][1]]==who)&&(chessboard_test[look_for[a][0]][look_for[a][1]]==0||chessboard_test[look_for[a+1][0]][look_for[a+1][1]]==0))
-  {value+=greenPotential[2];printf("2\n");}
+  {value+=greenPotential[2];}
   else if(chessboard_test[look_for[a][0]][look_for[a][1]]==who&&chessboard_test[look_for[a+1][0]][look_for[a+1][1]]==who)
-  {value+=greenPotential[4];printf("4\n");}
+  {value+=greenPotential[4];}
   }
   else if(chessboard_test[look_for_intersection[a/2][0]][look_for_intersection[a/2][1]]==0)
   {  if(chessboard_test[look_for[a][0]][look_for[a][1]]==who&&chessboard_test[look_for[a+1][0]][look_for[a+1][1]]==who)
-     {value+=greenPotential[5];printf("5\n");}
+     {value+=greenPotential[5];}
      else if(chessboard_test[look_for[a][0]][look_for[a][1]]==-who&&chessboard_test[look_for[a+1][0]][look_for[a+1][1]]==-who)   
-     {value+=greenPotential[6];printf("6\n");}
+     {value+=greenPotential[6];}
      else if((chessboard_test[look_for[a][0]][look_for[a][1]]==who||chessboard_test[look_for[a+1][0]][look_for[a+1][1]]==who)&&(chessboard_test[look_for[a][0]][look_for[a][1]]==0||chessboard_test[look_for[a+1][0]][look_for[a+1][1]]==0))
-    { value+=greenPotential[7];printf("7\n");}
+    { value+=greenPotential[7];}
     else if((chessboard_test[look_for[a][0]][look_for[a][1]]==-who||chessboard_test[look_for[a+1][0]][look_for[a+1][1]]==-who)&&(chessboard_test[look_for[a][0]][look_for[a][1]]==0||chessboard_test[look_for[a+1][0]][look_for[a+1][1]]==0))
-     {value+=greenPotential[9];printf("9\n");}
+     {value+=greenPotential[9];}
 }
 else if(chessboard_test[look_for_intersection[a/2][0]][look_for_intersection[a/2][1]]==-who){
  if(chessboard_test[look_for[a][0]][look_for[a][1]]==0&&chessboard_test[look_for[a+1][0]][look_for[a+1][1]]==0 )
-  {value+=greenPotential[11];printf("11\n");}
+  {value+=greenPotential[11];}
 else if(chessboard_test[look_for[a][0]][look_for[a][1]]==-who&&chessboard_test[look_for[a+1][0]][look_for[a+1][1]]==-who)   
-  {value+=greenPotential[12];printf("12\n");}
+  {value+=greenPotential[12];}
 else if(chessboard_test[look_for[a][0]][look_for[a][1]]==who&&chessboard_test[look_for[a+1][0]][look_for[a+1][1]]==who)
-  {value+=greenPotential[13];printf("13\n");}
+  {value+=greenPotential[13];}
 else if((chessboard_test[look_for[a][0]][look_for[a][1]]==who||chessboard_test[look_for[a+1][0]][look_for[a+1][1]]==who)&&(chessboard_test[look_for[a][0]][look_for[a][1]]==0||chessboard_test[look_for[a+1][0]][look_for[a+1][1]]==0))
-  {value+=greenPotential[14];printf("14\n");}
+  {value+=greenPotential[14];}
 }
 }
 return value;
