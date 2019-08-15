@@ -78,13 +78,12 @@ int Alpha_Beta_PVS(int depth, int alpha, int beta, int minimaxplayer,int chessbo
             chessboard_test[h->list[a].from.x][h->list[a].from.y] = 0;
             chessboard_test[h->list[a].to.x][h->list[a].to.y] = minimaxplayer;
             if(fFoundPv){
-                 val = -Alpha_Beta(depth - 1, -alpha-1, -alpha, -minimaxplayer, chessboard_test,p);
-                 if((val > alpha) && (val < beta)) { 
+              val = -Alpha_Beta(depth - 1, -alpha-1, -alpha, -minimaxplayer, chessboard_test,p);
+              if((val > alpha) && (val < beta)) { 
               val = -Alpha_Beta(depth - 1, -beta, -alpha,-minimaxplayer,chessboard_test,p);
               }
-             }     
-               else
-
+            }     
+            else
             {
             val = -Alpha_Beta(depth - 1, -beta, -alpha, -minimaxplayer, chessboard_test,p);
             }
