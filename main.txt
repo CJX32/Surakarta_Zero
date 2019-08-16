@@ -37,3 +37,19 @@ test(fp);*/
     printf("time=%.1lfs\n",duration);
 */
 }
+     if(e.type==SDL_KEYDOWN){
+            if(e.key.keysym.sym==SDLK_RIGHT)
+                choice=-1;
+            else if(e.key.keysym.sym==SDLK_LEFT)
+                choice=1;
+            else if(e.key.keysym.sym==SDLK_RETURN)
+                return choice;
+        }
+        if(choice==-1){
+            SDL_RenderCopy(ren, Blackmini, NULL, &blackmini);
+            SDL_RenderCopy(ren, Whitemax, NULL, &whitemax);
+        }
+        else if(choice==1){
+            SDL_RenderCopy(ren, Blackmax, NULL, &blackmax);
+            SDL_RenderCopy(ren, Whitemini, NULL, &whitemini);
+        }

@@ -290,6 +290,37 @@ int Alpha_Beta_Multi_Thread(int depth, int minimaxplayer,int alpha,int beta)
     
 }
 }
+int Quies(int alpha, int beta,int minimaxplayer,int chessboard_test[][6]){
+ 
+int val = Evaluate(chessboard_test,minimaxplayer);
+if (val >= beta) {
+    return beta;
+}
+if (val > alpha) {
+alpha = val;
+}
+ Move_List *h = (Move_List *)malloc(sizeof(Move_List));
+     h->flag=0;
+ Generate_Move_Attack(h,minimaxplayer,chessboard_test);
+ int origin;
+   for (int a = 0; a < h->flag; a++)
+        {
+
+            origin = chessboard_test[h->list[a].to.x][h->list[a].to.y];
+            chessboard_test[h->list[a].from.x][h->list[a].from.y] = 0;
+            chessboard_test[h->list[a].to.x][h->list[a].to.y] = minimaxplayer;
+             val = -Quies(-beta, -alpha,-minimaxplayer,chessboard_test);
+            chessboard_test[h->list[a].to.x][h->list[a].to.y] = origin;
+            chessboard_test[h->list[a].from.x][h->list[a].from.y] = minimaxplayer;
+  if (val >= beta) {
+   return beta;
+ }
+    if (val > alpha) {
+   alpha = val;
+  }
+ }
+  return alpha;
+}
 void AI(int depth){
     Hash_Move *p;
     

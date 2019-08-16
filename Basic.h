@@ -56,6 +56,10 @@ typedef struct{
     int value;
     int best_move;
 }Result;
+typedef struct{
+    int choice_1;
+    int choice_2;
+}choice;
 void visualize_board();
 void visualize(Move_List *h);
 int judge(int chessboard_test[][6]);

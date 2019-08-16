@@ -1,5 +1,22 @@
 #include "UI.h"
-SDL_Texture *renderText(char *s, char *e, SDL_Color color,int fontSize, SDL_Renderer *ren)
+extern int chessboard[6][6];
+extern SDL_Renderer *ren;
+extern SDL_Texture *Chess;
+extern SDL_Texture *WhiteChess;
+extern SDL_Rect position[6][6];
+extern SDL_Rect display_position[6][6];
+extern SDL_Texture *Blackmax;
+extern SDL_Texture *Blackmini;
+extern SDL_Texture *Whitemax;
+extern SDL_Texture *Whitemini;
+extern SDL_Texture *Computermax;
+extern SDL_Texture *Computermini;
+extern SDL_Texture *Humanmax;
+extern SDL_Texture *Humanmini;
+extern SDL_Texture *dback;
+extern SDL_Texture *tishi;
+extern SDL_Texture *tishi_1;
+extern SDL_Texture *renderText(char *s, char *e, SDL_Color color,int fontSize)
 {
     TTF_Font *font = TTF_OpenFont(e, fontSize);
     if (font == NULL)
@@ -23,24 +40,40 @@ SDL_Texture *renderText(char *s, char *e, SDL_Color color,int fontSize, SDL_Rend
     TTF_CloseFont(font);
     return texture;
 }
-int begin(SDL_Renderer *ren,SDL_Texture *Blackmax,SDL_Texture *Blackmini,SDL_Texture *Whitemax,SDL_Texture *Whitemini,SDL_Texture *dback,SDL_Texture *tishi){
-    SDL_Rect whitemax,whitemini,blackmax,blackmini,ti;
-    whitemax.x=380;whitemax.y=400;
+choice begin(void){
+    int flag_1=1,flag_2=1;
+    SDL_Rect whitemax,whitemini,blackmax,blackmini,ti,humanmini,humanmax,computermax,computermini,ti_1;
+    whitemax.x=380;whitemax.y=200;
     SDL_QueryTexture(Whitemax, NULL, 0, &whitemax.w, &whitemax.h);
-    whitemini.x=430;whitemini.y=400;
+    whitemini.x=430;whitemini.y=200;
     SDL_QueryTexture(Whitemini, NULL, 0, &whitemini.w, &whitemini.h);
-    blackmax.x=160;blackmax.y=400;
+    blackmax.x=160;blackmax.y=200;
     SDL_QueryTexture(Blackmax, NULL, 0, &blackmax.w, &blackmax.h);
-    blackmini.x=170;blackmini.y=400;
+    blackmini.x=170;blackmini.y=200;
     SDL_QueryTexture(Blackmini, NULL, 0, &blackmini.w, &blackmini.h);
+    ti.x=165;ti.y=150;
     SDL_QueryTexture(tishi, NULL, 0, &ti.w, &ti.h);
-    ti.x=180;ti.y=300;
-    int choice=-1;
+
+    humanmax.x=380; humanmax.y=350;
+    SDL_QueryTexture(Humanmax, NULL, 0, & humanmax.w, & humanmax.h);
+    humanmini.x=400;humanmini.y=350;
+    SDL_QueryTexture(Humanmini, NULL, 0, &humanmini.w, &humanmini.h);
+    computermax.x=160;computermax.y=350;
+    SDL_QueryTexture(Computermax, NULL, 0, &computermax.w, &computermax.h);
+    computermini.x=170;computermini.y=350;
+    SDL_QueryTexture(Computermini, NULL, 0, &computermini.w, &computermini.h);
+    ti_1.x=180;ti_1.y=300;
+    SDL_QueryTexture(tishi_1, NULL, 0, &ti_1.w, &ti_1.h);
+    
+    choice Choice;
+    Choice.choice_1=-1;
+    Choice.choice_2=1;
     SDL_RenderCopy(ren, dback, NULL, NULL);
     SDL_Rect blanket;
-    blanket.x=160;blanket.y=300;blanket.w=500;blanket.h=200;
+    blanket.x=140;blanket.y=150;blanket.w=525;blanket.h=300;
     SDL_SetRenderDrawColor(ren, 47, 54, 56, 255);
     SDL_RenderFillRects(ren, &blanket, 1);
+
     SDL_Event e;
     while(SDL_PollEvent(&e)!=3){
         SDL_RenderClear(ren);
@@ -48,27 +81,59 @@ int begin(SDL_Renderer *ren,SDL_Texture *Blackmax,SDL_Texture *Blackmini,SDL_Tex
         SDL_RenderDrawRect(ren, &blanket);
         SDL_RenderFillRects(ren, &blanket, 1);
         SDL_RenderCopy(ren, tishi, NULL, &ti);
-        if(e.type==SDL_KEYDOWN){
-            if(e.key.keysym.sym==SDLK_RIGHT)
-                choice=-1;
-            else if(e.key.keysym.sym==SDLK_LEFT)
-                choice=1;
-            else if(e.key.keysym.sym==SDLK_RETURN)
-                return choice;
-        }
-        if(choice==-1){
-            SDL_RenderCopy(ren, Blackmini, NULL, &blackmini);
-            SDL_RenderCopy(ren, Whitemax, NULL, &whitemax);
-        }
-        else if(choice==1){
-            SDL_RenderCopy(ren, Blackmax, NULL, &blackmax);
-            SDL_RenderCopy(ren, Whitemini, NULL, &whitemini);
-        }
-        SDL_RenderPresent(ren);
+         SDL_RenderCopy(ren, tishi_1, NULL, &ti_1);
+     if(flag_1)
+{
+  if(e.type==SDL_KEYDOWN){
+   if(e.key.keysym.sym==SDLK_RIGHT)
+    Choice.choice_1=1;
+    else if(e.key.keysym.sym==SDLK_LEFT)
+     Choice.choice_1=-1;
+    else if(e.key.keysym.sym==SDLK_RETURN)
+    {flag_1=0;
+    SDL_Delay(1000);
     }
-    return choice;
+  }
+  }
+else if(flag_2){
+  if(e.type==SDL_KEYDOWN){
+   if(e.key.keysym.sym==SDLK_RIGHT)
+    Choice.choice_2=1;
+    else if(e.key.keysym.sym==SDLK_LEFT)
+     Choice.choice_2=-1;
+    else if(e.key.keysym.sym==SDLK_RETURN)
+    flag_2=0;
+  }
 }
-void Init_Position(SDL_Rect position[][6]){
+else{
+  return Choice;
+}
+if(Choice.choice_1==1)
+{
+    SDL_RenderCopy(ren, Blackmini, NULL, &blackmini);
+    SDL_RenderCopy(ren, Whitemax, NULL, &whitemax);
+}
+else if(Choice.choice_1==-1)
+{
+    SDL_RenderCopy(ren, Blackmax, NULL, &blackmax);
+    SDL_RenderCopy(ren, Whitemini, NULL, &whitemini);
+}
+if(Choice.choice_2==1)
+{
+ SDL_RenderCopy(ren, Humanmax, NULL, &humanmax);
+ SDL_RenderCopy(ren, Computermini, NULL, &computermini);
+}
+else if(Choice.choice_2==-1)
+{
+SDL_RenderCopy(ren, Humanmini, NULL, &humanmini);
+SDL_RenderCopy(ren, Computermax, NULL, &computermax);
+}
+
+SDL_RenderPresent(ren);
+    }
+    return Choice;
+}
+void Init_Position(){
     for(int a=0;a<6;a++){
         for(int b=0;b<6;b++){
             position[a][b].x=250+b*60;
@@ -76,7 +141,7 @@ void Init_Position(SDL_Rect position[][6]){
         }
     }
 }
-void Init_Display_Position(SDL_Rect display_position[][6]){
+void Init_Display_Position(){
     for(int a=0;a<6;a++){
         for(int b=0;b<6;b++){
             display_position[a][b].x=250+b*60-20;
@@ -86,7 +151,7 @@ void Init_Display_Position(SDL_Rect display_position[][6]){
         }
     }
 }
-void Display(SDL_Renderer *ren,SDL_Texture *blackchess,SDL_Texture *whitechess,int chessboard[][6],SDL_Rect position[][6]){//用于打印所有的棋子
+void Display(void){//用于打印所有的棋子
 
     SDL_Rect chessw,chessb;
     chessw.x=0;chessw.y=0;
@@ -96,10 +161,15 @@ void Display(SDL_Renderer *ren,SDL_Texture *blackchess,SDL_Texture *whitechess,i
     for(int a=0;a<6;a++){
         for(int b=0;b<6;b++){
             if(chessboard[a][b]==1){
-          SDL_RenderCopy(ren, blackchess, &chessb, &position[a][b]);
+            if(Chess==NULL)
+            printf("3\n");
+          SDL_RenderCopy(ren, Chess, &chessb, &display_position[a][b]);
             }
-            else if(chessboard[a][b]==-1)
-                SDL_RenderCopy(ren, whitechess, &chessw, &position[a][b]);
+            else if(chessboard[a][b]==-1){
+                if(WhiteChess==NULL)
+            printf("4\n");
+             SDL_RenderCopy(ren, WhiteChess, &chessw, &display_position[a][b]);
+            }
         }
     }
    
