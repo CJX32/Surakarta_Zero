@@ -329,11 +329,10 @@ void AI(int depth){
    
        p=(Hash_Move *)malloc((Hash_table_length)*sizeof(Hash_Move));
        Hash_Table_Init(p);
-        int a=Alpha_Beta_new(depth,alpha,beta,-1,chessboard,p);
+        int a=Alpha_Beta_new(depth,alpha,beta,who,chessboard,p);
         Move_List *h = (Move_List *)malloc(sizeof(Move_List));
         h->flag = 0;
         Move_Generate(h, who,chessboard);
-    
         printf("a=%d flag=%d %d\nfrom%d %d to%d %d\n",a,h->flag,chessboard[h->list[a].from.x][h->list[a].from.y],h->list[a].from.x,h->list[a].from.y,h->list[a].to.x,h->list[a].to.y);
         chessboard[h->list[a].from.x][h->list[a].from.y]=0;
         chessboard[h->list[a].to.x][h->list[a].to.y]=who;

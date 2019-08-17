@@ -7,6 +7,7 @@
 //
 
 #include "Game_AI.h"
+extern int who;
 extern int chessboard[6][6];
 SDL_Renderer *ren;
 SDL_Texture *Chess;
@@ -95,21 +96,21 @@ void game_AI(int depth){
 
     WhiteChess=SDL_CreateTextureFromSurface(ren, whitechess);
 
-    Blackmini = renderText("Black Chess", "/Users/bluesky/Documents/Renzhe/Font.ttf", color, 40);
-    Blackmax = renderText("Black Chess", "/Users/bluesky/Documents/Renzhe/Font.ttf", color, 55);
-    Whitemini = renderText("White Chess", "/Users/bluesky/Documents/Renzhe/Font.ttf", color2, 40);
-    Whitemax = renderText("White Chess", "/Users/bluesky/Documents/Renzhe/Font.ttf", color2, 55);
-    Humanmax= renderText("Human", "/Users/bluesky/Documents/Renzhe/Font.ttf", color, 55);
-    Humanmini = renderText("Human", "/Users/bluesky/Documents/Renzhe/Font.ttf", color, 40);
-    Computermax = renderText("Computer", "/Users/bluesky/Documents/Renzhe/Font.ttf", color2, 55);
-    Computermini = renderText("Computer", "/Users/bluesky/Documents/Renzhe/Font.ttf", color2, 40);
-    tishi = renderText("Choose the chess for computer", "/Users/bluesky/Documents/Renzhe/Font.ttf", color1, 35);
-    tishi_1 = renderText("Choose the first side play", "/Users/bluesky/Documents/Renzhe/Font.ttf", color1, 35);
-    SDL_Texture *win1 = renderText("Black Chess WIN!", "/Users/bluesky/Documents/Renzhe/Font.ttf", color2, 40);
-    SDL_Texture *win2 = renderText("White Chess WIN!", "/Users/bluesky/Documents/Renzhe/Font.ttf", color2, 40);
+    Blackmini = renderText("Black Chess", "/Users/bluesky/Desktop/Surakarta_Zero/HelveticaLt.ttf", color, 40);
+    Blackmax = renderText("Black Chess", "/Users/bluesky/Desktop/Surakarta_Zero/HelveticaLt.ttf", color, 50);
+    Whitemini = renderText("White Chess", "/Users/bluesky/Desktop/Surakarta_Zero/HelveticaLt.ttf", color2, 40);
+    Whitemax = renderText("White Chess", "/Users/bluesky/Desktop/Surakarta_Zero/HelveticaLt.ttf", color2, 50);
+    Humanmax= renderText("Human", "/Users/bluesky/Desktop/Surakarta_Zero/HelveticaLt.ttf", color2, 50);
+    Humanmini = renderText("Human", "/Users/bluesky/Desktop/Surakarta_Zero/HelveticaLt.ttf", color2, 40);
+    Computermax = renderText("Computer", "/Users/bluesky/Desktop/Surakarta_Zero/HelveticaLt.ttf", color, 50);
+    Computermini = renderText("Computer", "/Users/bluesky/Desktop/Surakarta_Zero/HelveticaLt.ttf", color, 40);
+    tishi = renderText("Choose the chess for computer", "/Users/bluesky/Desktop/Surakarta_Zero/HelveticaLt.ttf", color1, 35);
+    tishi_1 = renderText("Choose the first side play", "/Users/bluesky/Desktop/Surakarta_Zero/HelveticaLt.ttf", color1, 35);
+    SDL_Texture *win1 = renderText("Black Chess WIN!", "/Users/bluesky/Desktop/Surakarta_Zero/HelveticaLt.ttf", color2, 40);
+    SDL_Texture *win2 = renderText("White Chess WIN!", "/Users/bluesky/Desktop/Surakarta_Zero/HelveticaLt.ttf", color2, 40);
     choice Choice;
     Choice=begin();
-    int who=-1;
+    who=-Choice.choice_1;
     int *who_test=&who;
     Chessboard_Init(chessboard);
 
@@ -133,15 +134,28 @@ void game_AI(int depth){
         printf("\n\n\nError occurd when open file\n");
     int game=1,x,y,mouse_x,mouse_y;
     int *game_test=&game;
-    do{ if(who==1){
-        
+    printf("Choice_1=%d,Choice_2=%d\n",Choice.choice_1,Choice.choice_2);
+    int who_turn=who;
+    do{ 
+        if(Choice.choice_2==1){
+      
+         if(who_turn==who){
         Place_Move(who_test,game_test,position);
-            }
-    else{
+        }
+        else{
         AI(7);
-        who=-who;
-       
-    }
+        who_turn=-who_turn;
+        } 
+        }
+        else{
+          if(who_turn==who){
+        AI(7);
+        who_turn=-who_turn;
+        }
+        else{
+        Place_Move(who_test,game_test,position);
+        }
+        }
         SDL_RenderClear(ren);
         SDL_RenderCopy(ren, back, NULL, NULL);
         Display();

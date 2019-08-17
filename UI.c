@@ -16,7 +16,7 @@ extern SDL_Texture *Humanmini;
 extern SDL_Texture *dback;
 extern SDL_Texture *tishi;
 extern SDL_Texture *tishi_1;
-extern SDL_Texture *renderText(char *s, char *e, SDL_Color color,int fontSize)
+SDL_Texture *renderText(char *s, char *e, SDL_Color color,int fontSize)
 {
     TTF_Font *font = TTF_OpenFont(e, fontSize);
     if (font == NULL)
@@ -43,20 +43,20 @@ extern SDL_Texture *renderText(char *s, char *e, SDL_Color color,int fontSize)
 choice begin(void){
     int flag_1=1,flag_2=1;
     SDL_Rect whitemax,whitemini,blackmax,blackmini,ti,humanmini,humanmax,computermax,computermini,ti_1;
-    whitemax.x=380;whitemax.y=200;
+    whitemax.x=380;whitemax.y=220;
     SDL_QueryTexture(Whitemax, NULL, 0, &whitemax.w, &whitemax.h);
-    whitemini.x=430;whitemini.y=200;
+    whitemini.x=435;whitemini.y=220;
     SDL_QueryTexture(Whitemini, NULL, 0, &whitemini.w, &whitemini.h);
-    blackmax.x=160;blackmax.y=200;
+    blackmax.x=150;blackmax.y=220;
     SDL_QueryTexture(Blackmax, NULL, 0, &blackmax.w, &blackmax.h);
-    blackmini.x=170;blackmini.y=200;
+    blackmini.x=150;blackmini.y=220;
     SDL_QueryTexture(Blackmini, NULL, 0, &blackmini.w, &blackmini.h);
-    ti.x=165;ti.y=150;
+    ti.x=165;ti.y=160;
     SDL_QueryTexture(tishi, NULL, 0, &ti.w, &ti.h);
 
-    humanmax.x=380; humanmax.y=350;
+    humanmax.x=405; humanmax.y=350;
     SDL_QueryTexture(Humanmax, NULL, 0, & humanmax.w, & humanmax.h);
-    humanmini.x=400;humanmini.y=350;
+    humanmini.x=425;humanmini.y=350;
     SDL_QueryTexture(Humanmini, NULL, 0, &humanmini.w, &humanmini.h);
     computermax.x=160;computermax.y=350;
     SDL_QueryTexture(Computermax, NULL, 0, &computermax.w, &computermax.h);
@@ -66,7 +66,7 @@ choice begin(void){
     SDL_QueryTexture(tishi_1, NULL, 0, &ti_1.w, &ti_1.h);
     
     choice Choice;
-    Choice.choice_1=-1;
+    Choice.choice_1=1;
     Choice.choice_2=1;
     SDL_RenderCopy(ren, dback, NULL, NULL);
     SDL_Rect blanket;

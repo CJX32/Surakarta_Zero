@@ -19,7 +19,7 @@ int chessboard[6][6]={
 {1 ,0 ,0 ,0 ,-1 ,0 },
 {0 ,0 ,0 ,1 ,0 ,0 },
 };
-int who=-1;
+int who;
 uint64_t Hash_Board[6][6][2];
 
 int main(void){
