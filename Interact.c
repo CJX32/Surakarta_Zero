@@ -1,7 +1,7 @@
 #include "Interact.h"
 extern int chessboard[6][6];
-
-void Place_Move(int *who_test,int *game,SDL_Rect position[6][6]){
+extern int who;
+int Place_Move(int *game,SDL_Rect position[6][6]){
 SDL_Event e;
 int x,y,mouse_x,mouse_y;
  while(SDL_PollEvent(&e)){
@@ -28,16 +28,18 @@ int x,y,mouse_x,mouse_y;
                     mouse_y = e.button.y;
                     x=Locate_x(mouse_y,position);
                     y=Locate_y(mouse_x,position);
-                    if(Play_H(*who_test, chessboard, x, y))
-                        
-                        *who_test=-*who_test;
+                    if(Play_H(chessboard, x, y))
+                        return 1;
             }
+            
             }
+return 0;
 }
-int Play_H(int who,int chessboard[][6],int x,int y){//用于人类回合下子
+int Play_H(int chessboard[][6],int x,int y){//用于人类回合下子
     static int a=-1,b=-1;
     int origin=who,target;
-    if(chessboard[x][y]==who){
+
+    if(chessboard[x][y]==-who){
         a=x;b=y;
     }
     else {
@@ -45,7 +47,7 @@ int Play_H(int who,int chessboard[][6],int x,int y){//用于人类回合下子
             //if(judge_legal(a,b,x,y,chessboard,inside_orbit_1,inside_orbit_2,outside_orbit_1,outside_orbit_2))
             {   target=chessboard[x][y];
                 chessboard[a][b]=0;
-                chessboard[x][y]=who;
+                chessboard[x][y]=-who;
                // Add_step(h, a, b, origin, x, y, target);
                 a=-1;b=-1;
                 return 1;
