@@ -9,6 +9,8 @@
 #include "Initialization.h"
 #include "Game_AI.h"
 #include "Sort.h"
+#include "Run.h"
+#include "Record.h"
 #define Black_Chess 1
 #define White_Chess -1
 int chessboard[6][6]={
@@ -21,9 +23,24 @@ int chessboard[6][6]={
 };
 int who;
 uint64_t Hash_Board[6][6][2];
-
+FILE *battle;
+Move_List battle_record;
 int main(void){
-game_AI(8);
 
-
+FILE *index_fp=fopen("/Users/bluesky/Desktop/Surakarta_Zero/Battle/index.txt","r");
+int index;
+fscanf(index_fp,"%d",&index);
+index_fp=fopen("/Users/bluesky/Desktop/Surakarta_Zero/Battle/index.txt","w");
+fprintf(index_fp,"%d",index+1);
+record_pre(index);
+fclose(index_fp);
+/*
+int count=0;
+Chessboard_Init(chessboard);
+while(count<=1){
+run();
+count++;
+printf("%d\n",count);
+printf("end\n");
+}*/
 }

@@ -4,7 +4,7 @@
         {
             "type": "shell",
             "label": "my task",
-            "command": "gcc -g main.c Basic.c Evaluator.c Game_AI.c Hash_Table.c Initialization.c Move_Generator.c Search_Engine.c Sort.c test.c  trial.c UI.c Interact.c -o main -F  /Library/Frameworks -I /Library/Frameworks/SDL2.framework/Headers -I /Library/Frameworks/SDL2_image.framework/Headers -I /Library/Frameworks/SDL2_ttf.framework/Headers -framework SDL2 -framework SDL2_image -framework SDL2_ttf",
+            "command": "gcc -g main.c Basic.c Evaluator.c Game_AI.c Hash_Table.c Initialization.c Move_Generator.c Search_Engine.c Sort.c test.c  trial.c UI.c Interact.c Run.c Record.c -o main -F  /Library/Frameworks -I /Library/Frameworks/SDL2.framework/Headers -I /Library/Frameworks/SDL2_image.framework/Headers -I /Library/Frameworks/SDL2_ttf.framework/Headers -framework SDL2 -framework SDL2_image -framework SDL2_ttf",
            
             "problemMatcher": [
                 "$gcc"

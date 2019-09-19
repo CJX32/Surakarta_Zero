@@ -9,13 +9,13 @@ int Alpha_Beta(int depth, int alpha, int beta, int minimaxplayer,int chessboard_
     if (depth <= 0 || judge(chessboard_test))
     {
     
-        int value=Evaluate_test(chessboard_test,minimaxplayer);
+        int value=Evaluate(chessboard_test,minimaxplayer);
        // Hash_store(p,HashExact,depth,value,chessboard_test);
         return value;
     }
-    int value=Hash_Hit(p,depth,alpha,beta,chessboard_test);
+   /* int value=Hash_Hit(p,depth,alpha,beta,chessboard_test);
     if(value!=-2147483648)
-    return value;
+    return value;*/
     int flag, val,origin;
 
      Move_List *h = (Move_List *)malloc(sizeof(Move_List));
@@ -35,7 +35,7 @@ int Alpha_Beta(int depth, int alpha, int beta, int minimaxplayer,int chessboard_
             chessboard_test[h->list[a].to.x][h->list[a].to.y] = origin;
             chessboard_test[h->list[a].from.x][h->list[a].from.y] = minimaxplayer;
             if(val>=beta){
-            Hash_store(p,HashBeta,depth,beta,chessboard_test);
+           // Hash_store(p,HashBeta,depth,beta,chessboard_test);
             return beta;
             }
 
@@ -46,7 +46,7 @@ int Alpha_Beta(int depth, int alpha, int beta, int minimaxplayer,int chessboard_
             }
         }
         free(h);
-        Hash_store(p,hashf,depth,alpha,chessboard_test);
+       // Hash_store(p,hashf,depth,alpha,chessboard_test);
         return alpha;
     
 }
@@ -176,20 +176,20 @@ int Alpha_Beta_new(int depth, int alpha, int beta, int minimaxplayer,int chessbo
     int best_move=0;
     if (depth == 0 || judge(chessboard_test))
     {
-        int value=Evaluate_test(chessboard_test,minimaxplayer);
+        int value=Evaluate(chessboard_test,minimaxplayer);
        
        // Hash_store(p,HashExact,depth,value,chessboard_test);
         return value;
     }
-    int value=Hash_Hit(p,depth,alpha,beta,chessboard_test);
+   /* int value=Hash_Hit(p,depth,alpha,beta,chessboard_test);
     if(value!=-2147483648)
-    return value;
+    return value;*/
     int flag, val,origin;
      Move_List *h = (Move_List *)malloc(sizeof(Move_List));
      h->flag=0;
      Move_Generate(h, minimaxplayer,chessboard_test);
   
-     printf("%d\n",h->flag);
+     //printf("%d\n",h->flag);
         for (int a = 0; a < h->flag; a++)
         {
 
@@ -200,7 +200,7 @@ int Alpha_Beta_new(int depth, int alpha, int beta, int minimaxplayer,int chessbo
             chessboard_test[h->list[a].to.x][h->list[a].to.y] = origin;
             chessboard_test[h->list[a].from.x][h->list[a].from.y] = minimaxplayer;
              if(val>=beta){
-            Hash_store(p,HashBeta,depth,beta,chessboard_test);
+        //    Hash_store(p,HashBeta,depth,beta,chessboard_test);
            
             return beta;
             }
@@ -216,8 +216,9 @@ int Alpha_Beta_new(int depth, int alpha, int beta, int minimaxplayer,int chessbo
         free(h);
      
 
-         printf("%d\n",alpha);
+      //  printf("%d\n",alpha);
         Hash_store(p,hashf,depth,alpha,chessboard_test);
+       // printf("best_move=%d\n",best_move);
         return best_move;
     
 }
@@ -333,7 +334,10 @@ void AI(int depth){
         Move_List *h = (Move_List *)malloc(sizeof(Move_List));
         h->flag = 0;
         Move_Generate(h, who,chessboard);
-        printf("a=%d flag=%d %d\nfrom%d %d to%d %d\n",a,h->flag,chessboard[h->list[a].from.x][h->list[a].from.y],h->list[a].from.x,h->list[a].from.y,h->list[a].to.x,h->list[a].to.y);
+       visualize_board(chessboard);
+       // printf("a=%d\n",a);
+       // printf("flag=%d\n",h->flag);
+     // printf("%d\nfrom%d %d to%d %d\n\n\n",chessboard[h->list[a].from.x][h->list[a].from.y],h->list[a].from.x,h->list[a].from.y,h->list[a].to.x,h->list[a].to.y);
         chessboard[h->list[a].from.x][h->list[a].from.y]=0;
         chessboard[h->list[a].to.x][h->list[a].to.y]=who;
 

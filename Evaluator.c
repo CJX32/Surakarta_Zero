@@ -7,6 +7,7 @@ int chessboard_value[6][6]={
 {20,50,40,40,50,20},
 {20,50,40,40,50,20},
 {20,30,50,50,30,20},
+
 {5,20,20,20,20,5}
  };
 int greenPotential[16]={84,91,35,35,-20,25,-25,45,-45,-45,-84,20,-91,-35,-35};
@@ -42,7 +43,7 @@ int positionVal;
 int dynamicVal;
 int potentialVal;
 
-extendVal=count(chessboard_test)*100;
+extendVal=count(chessboard_test);
 positionVal=position_value(chessboard_test)+arc_count(chessboard_test)*arcPara;
 dynamicVal=anotherMark(chessboard_test);
 potentialVal=greenpotential(chessboard_test);

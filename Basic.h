@@ -31,7 +31,7 @@ int chess;
 Position from;
 }Rool;
 typedef struct{
-    Move list[100];
+    Move *list;
     int  flag;
 }Move_List;
 typedef struct{
@@ -63,6 +63,7 @@ typedef struct{
 void visualize_board();
 void visualize(Move_List *h);
 int judge(int chessboard_test[][6]);
+int judge_test(int chessboard_test[][6]);
 int max(int a,int b);
 int mini(int a,int b);
 #endif
