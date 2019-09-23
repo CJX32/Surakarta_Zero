@@ -32,7 +32,8 @@ void Hash_Table_Init(Hash_Move *p){
 for(int a=0;a<Hash_table_length;a++)
 p[a].depth=0;
 }
-void Move_List_Init(){
+/*void Move_List_Init(){
     battle_record.flag=0;
     battle_record.list=(Move *)malloc(100*sizeof(Move));
 }
+*/

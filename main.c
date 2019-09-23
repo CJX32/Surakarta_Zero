@@ -25,6 +25,7 @@ int who;
 uint64_t Hash_Board[6][6][2];
 FILE *battle;
 Move_List battle_record;
+char path[70]="/Users/bluesky/Desktop/Surakarta_Zero/Battle/record.txt";
 int main(void){
 
 FILE *index_fp=fopen("/Users/bluesky/Desktop/Surakarta_Zero/Battle/index.txt","r");
@@ -34,7 +35,7 @@ index_fp=fopen("/Users/bluesky/Desktop/Surakarta_Zero/Battle/index.txt","w");
 fprintf(index_fp,"%d",index+1);
 record_pre(index);
 fclose(index_fp);
-/*
+
 int count=0;
 Chessboard_Init(chessboard);
 while(count<=1){
@@ -42,5 +43,5 @@ run();
 count++;
 printf("%d\n",count);
 printf("end\n");
-}*/
+}
 }

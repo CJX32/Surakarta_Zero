@@ -31,7 +31,7 @@ int chess;
 Position from;
 }Rool;
 typedef struct{
-    Move *list;
+    Move list[100];
     int  flag;
 }Move_List;
 typedef struct{

@@ -9,6 +9,7 @@
 #include "Initialization.h"
 #include "Basic.h"
 #include "Sort.h"
+#include "Record.h"
 int Alpha_Beta(int depth, int alpha, int beta, int minimaxplayer,int chessboard_test[][6],Hash_Move *p);
 int Alpha_Beta_PVS(int depth, int alpha, int beta, int minimaxplayer,int chessboard_test[][6],Hash_Move *p);
 void *Alpha_Beta_pth(void  *Para);

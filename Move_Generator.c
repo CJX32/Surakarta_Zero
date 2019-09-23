@@ -18,6 +18,7 @@ void Move_Generate(Move_List *h, int who,int chessboard_test[][6])
                         if (d > 5)
                             break;
                         if (chessboard_test[c][d] == 0){
+                            h->list[0].from.x=1;
                             Add_Move(h, a, b, c, d);
                           
                         }
@@ -28,35 +29,7 @@ void Move_Generate(Move_List *h, int who,int chessboard_test[][6])
         }
       
 }
-void Move_Generate_reverse(Move_List *h, int who,int chessboard_test[][6])
-{
-    h->flag=0;
-   
-      for (int a=0;a<6; a++){
-       for (int b=0;b<6;b++){
-            if (chessboard_test[a][b] == who){
-                for (int c = a - 1; c <= a + 1; c++)
-                    for (int d = b - 1; d <= b + 1; d++){
-                        if (c< 0)
-                            break;
-                        if (d < 0)
-                            d = 0;
-                        if (c > 5)
-                            break;
-                        if (d > 5)
-                            break;
-                        if (chessboard_test[c][d] == 0){
-                            Add_Move(h, a, b, c, d);
-                          
-                        }
-                    }
-                   
-                }
-            }
-        }
-         Generate_Move_Attack(h,who,chessboard_test);
-      
-}
+
 void Add_Move(Move_List *h, int from_x, int from_y, int to_x, int to_y)
 {   int flag=h->flag;
     h->list[flag].from.x = from_x;

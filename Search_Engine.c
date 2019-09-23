@@ -187,6 +187,9 @@ int Alpha_Beta_new(int depth, int alpha, int beta, int minimaxplayer,int chessbo
     int flag, val,origin;
      Move_List *h = (Move_List *)malloc(sizeof(Move_List));
      h->flag=0;
+     if(h==NULL)
+     printf("hah");
+ 
      Move_Generate(h, minimaxplayer,chessboard_test);
   
      //printf("%d\n",h->flag);
@@ -340,5 +343,5 @@ void AI(int depth){
      // printf("%d\nfrom%d %d to%d %d\n\n\n",chessboard[h->list[a].from.x][h->list[a].from.y],h->list[a].from.x,h->list[a].from.y,h->list[a].to.x,h->list[a].to.y);
         chessboard[h->list[a].from.x][h->list[a].from.y]=0;
         chessboard[h->list[a].to.x][h->list[a].to.y]=who;
-
+      record(h->list[a].from.x,h->list[a].from.y,h->list[a].to.x,h->list[a].to.y);
 }

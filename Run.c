@@ -11,10 +11,10 @@ void run(void){
     }
     int evalue[2][4],choice;
     fscanf(record,"%d%d%d%d",&evalue[0][0],&evalue[0][1],&evalue[0][2],&evalue[0][3]);
-    evalue[1][0]=2;
-    evalue[1][1]=4;
-    evalue[1][2]=6;
-    evalue[1][3]=1;
+    evalue[1][0]=1;
+    evalue[1][1]=0;
+    evalue[1][2]=0;
+    evalue[1][3]=0;
 
     while(!judge_test(chessboard)){
  
@@ -44,5 +44,5 @@ void run(void){
 
     printf("\n%d %d %d %d\n",evalue[choice][0],evalue[choice][1],evalue[choice][2],evalue[choice][3]);
     fprintf(record,"%d %d %d %d\n",evalue[choice][0],evalue[choice][1],evalue[choice][2],evalue[choice][3]);
-       fclose(record);
+    fclose(record);
 }
