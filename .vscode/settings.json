@@ -5,6 +5,7 @@
         "initialization.h": "c",
         "basic.h": "c",
         "stdlib.h": "c",
-        "initializator.h": "c"
+        "initializator.h": "c",
+        "stdio.h": "c"
     }
 }

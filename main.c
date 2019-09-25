@@ -27,7 +27,7 @@ FILE *battle;
 Move_List battle_record;
 char path[70]="/Users/bluesky/Desktop/Surakarta_Zero/Battle/record.txt";
 int main(void){
-
+/*
 FILE *index_fp=fopen("/Users/bluesky/Desktop/Surakarta_Zero/Battle/index.txt","r");
 int index;
 fscanf(index_fp,"%d",&index);
@@ -43,5 +43,6 @@ run();
 count++;
 printf("%d\n",count);
 printf("end\n");
-}
+}*/
+
 }

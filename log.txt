@@ -1,0 +1,15 @@
+In file included from main.c:10:
+Game_AI.h:5:10: fatal error: SDL2/SDL_image.h: No such file or directory
+    5 | #include <SDL2/SDL_image.h>
+      |          ^~~~~~~~~~~~~~~~~~
+compilation terminated.
+In file included from Game_AI.c:9:
+Game_AI.h:5:10: fatal error: SDL2/SDL_image.h: No such file or directory
+    5 | #include <SDL2/SDL_image.h>
+      |          ^~~~~~~~~~~~~~~~~~
+compilation terminated.
+In file included from UI.c:1:
+UI.h:5:10: fatal error: SDL2/SDL_image.h: No such file or directory
+    5 | #include <SDL2/SDL_image.h>
+      |          ^~~~~~~~~~~~~~~~~~
+compilation terminated.
