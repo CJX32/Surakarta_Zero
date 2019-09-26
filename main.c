@@ -44,5 +44,30 @@ count++;
 printf("%d\n",count);
 printf("end\n");
 }*/
+{    who=-1;
+    Move_List *h;
+    int count=0,flag;
+    double duration;
+     
+    clock_t start,stop;
+    start=clock();
+    while(count<=10000000)
+    {count++;
+     h=(Move_List *)malloc(100*sizeof(Move));
+     Move_Generate(h,1,chessboard);
+     free(h);
+     h=(Move_List *)malloc(100*sizeof(Move));
+     Move_Generate(h,-1,chessboard);
+     free(h);
+    }
+    stop=clock();
+    duration=((double)(stop-start))/CLOCKS_PER_SEC;
+    printf("time=%.1lfs\n",duration);
 
+}
+/*{
+ FILE *fp;
+fp=fopen("/Users/bluesky/Desktop/Surakarta_Zero/Data/testMoveGenerate.txt","r");
+test_MT(fp);
+}*/
 }

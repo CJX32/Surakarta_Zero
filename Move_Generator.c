@@ -61,6 +61,7 @@ void  Add_Move_Attack(Move_List *h,int from_x,int from_y,int to_x,int to_y){
 
 
 void Generate_Move_Attack(Move_List *h,int who,int chessboard_test[][6]){
+    
     Rool rool[4][6];
     int  flag_index[4];
     flag_index[0]=extract_outside_rool_1(rool[0],chessboard_test);
@@ -76,11 +77,6 @@ Attack_Orbit(h,rool,flag_index,who,chessboard_test);
     flag_index[3]=extract_inside_rool_4(rool[3],chessboard_test);
 
 Attack_Orbit(h,rool,flag_index,who,chessboard_test);
-
-    
-
-
-
 }
 void Attack_Orbit(Move_List *h,Rool rool[][6],int *flag_index,int who,int chessboard_test[][6]){
      for(int a=0;a<4;a++){
@@ -149,9 +145,73 @@ if(chessboard_test[rool[a][0].from.x][rool[a][0].from.y]==who)
 
 
 }
+void *Generate_Move_Attack_Multi_Thread_In(void *para){
+    Para_1 *info=(Para_1 *)para;
+    int who=info->who;
+    Move_List *h=info->h;
+    pthread_t tids[8];
+ 
+    pthread_attr_t attr;
+    pthread_attr_init(&attr);
+    Rool rool[4][6];
+    int  flag_index[4];
+    role flag[8];
+    
+    flag[0].rool=rool[0]; 
+    flag[1].rool=rool[1]; 
+    flag[2].rool=rool[2]; 
+    flag[3].rool=rool[3];
+
+ 
+     pthread_create(&tids[0], &attr, extract_inside_rool_1_MT, &flag[0]);
+     pthread_create(&tids[1], &attr, extract_inside_rool_2_MT, &flag[1]);
+     pthread_create(&tids[2], &attr, extract_inside_rool_3_MT, &flag[2]);
+     pthread_create(&tids[3], &attr, extract_inside_rool_4_MT, &flag[3]);
+   
+    pthread_join(tids[0],NULL);
+    pthread_join(tids[1],NULL);
+    pthread_join(tids[2],NULL);
+    pthread_join(tids[3],NULL);
+     flag_index[0]=flag[0].index;
+    flag_index[1]=flag[1].index;
+    flag_index[2]=flag[2].index;
+    flag_index[3]=flag[3].index;
+Attack_Orbit(h,rool,flag_index,who,chessboard);
+pthread_exit(0);
 
 
-
+}
+void *Generate_Move_Attack_Multi_Thread_Out(void *para){
+        Para_1 *info=(Para_1 *)para;
+    int who=info->who;
+    Move_List *h=info->h;
+      pthread_t tids[8];
+ 
+    pthread_attr_t attr;
+    pthread_attr_init(&attr);
+    Rool rool[4][6];
+    int  flag_index[4];
+    role flag[8];
+   flag[4].rool=rool[0]; 
+    flag[5].rool=rool[1]; 
+    flag[6].rool=rool[2]; 
+    flag[7].rool=rool[3]; 
+     pthread_create(&tids[4], &attr, extract_outside_rool_1_MT, &flag[4]);
+     pthread_create(&tids[5], &attr, extract_outside_rool_2_MT, &flag[5]);
+     pthread_create(&tids[6], &attr, extract_outside_rool_3_MT, &flag[6]);
+     pthread_create(&tids[7], &attr, extract_outside_rool_4_MT, &flag[7]);
+  
+    pthread_join(tids[4],NULL);
+    pthread_join(tids[5],NULL);
+    pthread_join(tids[6],NULL);
+    pthread_join(tids[7],NULL);
+    flag_index[0]=flag[4].index;
+    flag_index[1]=flag[5].index;
+    flag_index[2]=flag[6].index;
+    flag_index[3]=flag[7].index;
+Attack_Orbit(h,rool,flag_index,who,chessboard);
+pthread_exit(0);
+}
 
 
 int extract_outside_rool_1(Rool *rool_1,int chessboard_test[][6]){
@@ -280,5 +340,158 @@ int Sort_Move(Move *h,int flag){
   }
   h=p;
 return flag;
+}
+void *extract_outside_rool_1_MT(void *Para){
+   role *flag=(role *)Para;
+    int index=0;
+   for(int a=5;a>=0;a--){
+    if(chessboard[2][a]!=0){
+    flag->rool[index].chess=chessboard[2][a];
+    flag->rool[index].from.x=2;
+     flag->rool[index].from.y=a;
+    index++;
+    }
+   }
+   flag->index=index;
+   pthread_exit(0);
+}
+void *extract_outside_rool_2_MT(void *Para){
+     role *flag=(role *)Para;
+    int index=0;
+   for(int a=0;a<6;a++){
+    if(chessboard[a][2]!=0){
+    flag->rool[index].chess=chessboard[a][2];
+    flag->rool[index].from.x=a;
+     flag->rool[index].from.y=2;
+    index++;
+    }
+   }
+  flag->index=index;
+   pthread_exit(0);
+}
+void *extract_outside_rool_3_MT(void *Para){
+   role *flag=(role *)Para;
+    int index=0;
+   for(int a=0;a<6;a++){
+    if(chessboard[3][a]!=0){
+    flag->rool[index].chess=chessboard[3][a];
+    flag->rool[index].from.x=3;
+    flag-> rool[index].from.y=a;
+    index++;
+    }
+   }
+   flag->index=index;
+    pthread_exit(0);
+}
+void *extract_outside_rool_4_MT(void *Para){
+ role *flag=(role *)Para;
+    int index=0;
+   for(int a=5;a>=0;a--){
+    if(chessboard[a][3]!=0){
+    flag->rool[index].chess=chessboard[a][3];
+    flag->rool[index].from.x=a;
+     flag->rool[index].from.y=3;
+    index++;
+    }
+   }
+   flag->index=index;
+    pthread_exit(0);
+}
+void *extract_inside_rool_1_MT(void *Para){
+    role *flag=(role *)Para;
+    int index=0;
+   for(int a=5;a>=0;a--){
+    if(chessboard[1][a]!=0){
+    flag->rool[index].chess=chessboard[1][a];
+    flag->rool[index].from.x=1;
+     flag->rool[index].from.y=a;
+    index++;
+    }
+   }
+   flag->index=index;
+    pthread_exit(0);
+}
+void *extract_inside_rool_2_MT(void *Para){
+    role *flag=(role *)Para; 
+    int index=0;
+   for(int a=0;a<6;a++){
+    if(chessboard[a][1]!=0){
+    flag->rool[index].chess=chessboard[a][1];
+    flag->rool[index].from.x=a;
+     flag->rool[index].from.y=1;
+    index++;
+    }
+   }
+  flag->index=index;
+   pthread_exit(0);
+}
+void *extract_inside_rool_3_MT(void *Para){
+   role *flag=(role *)Para;
+    int index=0;
+   for(int a=0;a<6;a++){
+    if(chessboard[4][a]!=0){
+    flag->rool[index].chess=chessboard[4][a];
+    flag->rool[index].from.x=4;
+     flag->rool[index].from.y=a;
+    index++;
+    }
+   }
+   flag->index=index;
+    pthread_exit(0);
+}
+void *extract_inside_rool_4_MT(void *Para){
+ role *flag=(role *)Para;
+    int index=0;
+   for(int a=5;a>=0;a--){
+    if(chessboard[a][4]!=0){
+    flag->rool[index].chess=chessboard[a][4];
+    flag->rool[index].from.x=a;
+    flag->rool[index].from.y=4;
+    index++;
+    }
+   }
+   flag->index=index;
+    pthread_exit(0);
+}
+void Move_Generate_MT(Move_List *h, int who,int chessboard_test[][6])
+{
+    h->flag=0;
+    Para_1 arg[2];
+    pthread_t tids[2];
+    pthread_attr_t attr;
+    pthread_attr_init(&attr);
+    arg[0].h=h;
+    arg[1].h=h;
+    arg[0].who=who;
+    arg[1].who=who;
+    pthread_create(&tids[0],&attr,Generate_Move_Attack_Multi_Thread_In,&arg[0]);
+    pthread_create(&tids[1],&attr,Generate_Move_Attack_Multi_Thread_Out,&arg[1]);
+    pthread_join(tids[0],NULL);
+    pthread_join(tids[1],NULL);
+
+      for (int a=0;a<6; a++){
+       for (int b=0;b<6;b++){
+            if (chessboard_test[a][b] == who){
+                for (int c = a - 1; c <= a + 1; c++)
+                    for (int d = b - 1; d <= b + 1; d++){
+                        if (c< 0)
+                            break;
+                        if (d < 0)
+                            d = 0;
+                        if (c > 5)
+                            break;
+                        if (d > 5)
+                            break;
+                        if (chessboard_test[c][d] == 0){
+                            h->list[0].from.x=1;
+                            Add_Move(h, a, b, c, d);
+                          
+                        }
+                    }
+                   
+                }
+            }
+        }
+      
 }
 

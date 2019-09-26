@@ -12,4 +12,5 @@ void test_alpha_beta(FILE *fp);
 int * decode(long long board);
 void test(FILE *fp);
 void new_test(FILE *fp);
+void test_MT(FILE *fp);
 #endif 

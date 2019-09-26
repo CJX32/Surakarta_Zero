@@ -60,6 +60,14 @@ typedef struct{
     int choice_1;
     int choice_2;
 }choice;
+typedef struct{
+    Rool *rool;
+    int index;
+}role;
+typedef struct{
+    Move_List *h;
+    int who;
+}Para_1;
 void visualize_board();
 void visualize(Move_List *h);
 int judge(int chessboard_test[][6]);
