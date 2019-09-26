@@ -16,6 +16,11 @@ Position to;
 int value;
 }Move;
 typedef struct{
+int chessboard[6][6];
+int white;
+int black;
+}Chessboard;
+typedef struct{
 Position node;
 int arc;
 int next;
@@ -45,7 +50,7 @@ int type;
 int value;
 }Hash_Move;
 typedef struct{
-int chessboard[6][6];
+Chessboard chessboard;
 int depth;
 int alpha;
 int beta;
@@ -70,8 +75,8 @@ typedef struct{
 }Para_1;
 void visualize_board();
 void visualize(Move_List *h);
-int judge(int chessboard_test[][6]);
-int judge_test(int chessboard_test[][6]);
+int judge(Chessboard chessboard);
+
 int max(int a,int b);
 int mini(int a,int b);
 #endif

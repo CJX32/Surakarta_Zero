@@ -13,14 +13,7 @@
 #include "Record.h"
 #define Black_Chess 1
 #define White_Chess -1
-int chessboard[6][6]={
-{0, -1 ,-1 ,-1, 0 ,0 },
-{-1 ,0, 0 ,0 ,0 ,0 },
-{0, 0 ,0 ,0 ,0 ,0 },
-{0, 0 ,0 ,-1 ,-1 ,0 },
-{1 ,0 ,0 ,0 ,-1 ,0 },
-{0 ,0 ,0 ,1 ,0 ,0 },
-};
+Chessboard chessboard;
 int who=-1;
 uint64_t Hash_Board[6][6][2];
 FILE *battle;

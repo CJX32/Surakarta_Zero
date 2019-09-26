@@ -8,7 +8,7 @@
 
 #include "Game_AI.h"
 extern int who;
-extern int chessboard[6][6];
+extern Chessboard chessboard;
 SDL_Renderer *ren;
 SDL_Texture *Chess;
 SDL_Texture *WhiteChess;

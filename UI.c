@@ -1,5 +1,5 @@
 #include "UI.h"
-extern int chessboard[6][6];
+extern Chessboard chessboard;
 extern SDL_Renderer *ren;
 extern SDL_Texture *Chess;
 extern SDL_Texture *WhiteChess;
@@ -160,12 +160,12 @@ void Display(void){//用于打印所有的棋子
     chessb.w=428;chessb.h=428;
     for(int a=0;a<6;a++){
         for(int b=0;b<6;b++){
-            if(chessboard[a][b]==1){
+            if(chessboard.chessboard[a][b]==1){
             if(Chess==NULL)
             printf("3\n");
           SDL_RenderCopy(ren, Chess, &chessb, &display_position[a][b]);
             }
-            else if(chessboard[a][b]==-1){
+            else if(chessboard.chessboard[a][b]==-1){
                 if(WhiteChess==NULL)
             printf("4\n");
              SDL_RenderCopy(ren, WhiteChess, &chessw, &display_position[a][b]);

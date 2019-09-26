@@ -1,8 +1,8 @@
 #include "Search_Engine.h"
 #include <pthread.h>
-extern int chessboard[6][6];
+extern Chessboard chessboard;
 extern int who;
-int Alpha_Beta(int depth, int alpha, int beta, int minimaxplayer,int chessboard_test[][6],Hash_Move *p)
+int Alpha_Beta(int depth, int alpha, int beta, int minimaxplayer,Chessboard chessboard_test,Hash_Move *p)
 {
 
     int hashf=HashAlpha;
@@ -26,14 +26,26 @@ int Alpha_Beta(int depth, int alpha, int beta, int minimaxplayer,int chessboard_
         for (int a = 0; a < h->flag; a++)
         {
           
-            origin = chessboard_test[h->list[a].to.x][h->list[a].to.y];
-            chessboard_test[h->list[a].from.x][h->list[a].from.y] = 0;
-            chessboard_test[h->list[a].to.x][h->list[a].to.y] = minimaxplayer;
-          
+            origin = chessboard_test.chessboard[h->list[a].to.x][h->list[a].to.y];
+            chessboard_test.chessboard[h->list[a].from.x][h->list[a].from.y] = 0;
+            chessboard_test.chessboard[h->list[a].to.x][h->list[a].to.y] = minimaxplayer;
+            if(origin==-minimaxplayer)
+            {
+                if(-minimaxplayer==1)
+                chessboard.black-=1;
+                else
+                chessboard.white-=1;
+            }
             val = -Alpha_Beta(depth - 1, -beta, -alpha, -minimaxplayer, chessboard_test,p);
-            
-            chessboard_test[h->list[a].to.x][h->list[a].to.y] = origin;
-            chessboard_test[h->list[a].from.x][h->list[a].from.y] = minimaxplayer;
+               if(origin==-minimaxplayer)
+            {
+                if(-minimaxplayer==1)
+                chessboard.black+=1;
+                else
+                chessboard.white+=1;
+            }
+            chessboard_test.chessboard[h->list[a].to.x][h->list[a].to.y] = origin;
+            chessboard_test.chessboard[h->list[a].from.x][h->list[a].from.y] = minimaxplayer;
             if(val>=beta){
            // Hash_store(p,HashBeta,depth,beta,chessboard_test);
             return beta;
@@ -50,7 +62,7 @@ int Alpha_Beta(int depth, int alpha, int beta, int minimaxplayer,int chessboard_
         return alpha;
     
 }
-int Alpha_Beta_PVS(int depth, int alpha, int beta, int minimaxplayer,int chessboard_test[][6],Hash_Move *p)
+int Alpha_Beta_PVS(int depth, int alpha, int beta, int minimaxplayer,Chessboard chessboard_test,Hash_Move *p)
 {
     int fFoundPv=0;
     int hashf=HashAlpha;
@@ -74,9 +86,16 @@ int Alpha_Beta_PVS(int depth, int alpha, int beta, int minimaxplayer,int chessbo
         for (int a = 0; a < h->flag; a++)
         {
 
-            origin = chessboard_test[h->list[a].to.x][h->list[a].to.y];
-            chessboard_test[h->list[a].from.x][h->list[a].from.y] = 0;
-            chessboard_test[h->list[a].to.x][h->list[a].to.y] = minimaxplayer;
+            origin = chessboard_test.chessboard[h->list[a].to.x][h->list[a].to.y];
+            chessboard_test.chessboard[h->list[a].from.x][h->list[a].from.y] = 0;
+            chessboard_test.chessboard[h->list[a].to.x][h->list[a].to.y] = minimaxplayer;
+               if(origin==-minimaxplayer)
+            {
+                if(-minimaxplayer==1)
+                chessboard.black-=1;
+                else
+                chessboard.white-=1;
+            }
             if(fFoundPv){
               val = -Alpha_Beta(depth - 1, -alpha-1, -alpha, -minimaxplayer, chessboard_test,p);
               if((val > alpha) && (val < beta)) { 
@@ -87,8 +106,15 @@ int Alpha_Beta_PVS(int depth, int alpha, int beta, int minimaxplayer,int chessbo
             {
             val = -Alpha_Beta(depth - 1, -beta, -alpha, -minimaxplayer, chessboard_test,p);
             }
-            chessboard_test[h->list[a].to.x][h->list[a].to.y] = origin;
-            chessboard_test[h->list[a].from.x][h->list[a].from.y] = minimaxplayer;
+               if(origin==-minimaxplayer)
+            {
+                if(-minimaxplayer==1)
+                chessboard.black+=1;
+                else
+                chessboard.white+=1;
+            }
+            chessboard_test.chessboard[h->list[a].to.x][h->list[a].to.y] = origin;
+            chessboard_test.chessboard[h->list[a].from.x][h->list[a].from.y] = minimaxplayer;
             if(val>=beta){
             Hash_store(p,HashBeta,depth,beta,chessboard_test);
             return beta;
@@ -105,7 +131,7 @@ int Alpha_Beta_PVS(int depth, int alpha, int beta, int minimaxplayer,int chessbo
         return alpha;
     
 }
-int Alpha_Beta_Null_Move(int depth, int alpha, int beta, int minimaxplayer,int chessboard_test[][6],Hash_Move *p)
+int Alpha_Beta_Null_Move(int depth, int alpha, int beta, int minimaxplayer,Chessboard chessboard_test,Hash_Move *p)
 {
     static int count;
     count++;
@@ -127,12 +153,26 @@ int Alpha_Beta_Null_Move(int depth, int alpha, int beta, int minimaxplayer,int c
      Move_Generate(h, -minimaxplayer,chessboard_test);
      for (int a = 0; a < h->flag; a++)
         {
-       origin = chessboard_test[h->list[a].to.x][h->list[a].to.y];
-            chessboard_test[h->list[a].from.x][h->list[a].from.y] = 0;
-            chessboard_test[h->list[a].to.x][h->list[a].to.y] = -minimaxplayer;
+       origin = chessboard_test.chessboard[h->list[a].to.x][h->list[a].to.y];
+            chessboard_test.chessboard[h->list[a].from.x][h->list[a].from.y] = 0;
+            chessboard_test.chessboard[h->list[a].to.x][h->list[a].to.y] = -minimaxplayer;
+               if(origin==minimaxplayer)
+            {
+                if(minimaxplayer==1)
+                chessboard.black-=1;
+                else
+                chessboard.white-=1;
+            }
              val = -Alpha_Beta(depth - 1-2 , -beta, -beta+1, minimaxplayer, chessboard_test,p);
-            chessboard_test[h->list[a].to.x][h->list[a].to.y] = origin;
-            chessboard_test[h->list[a].from.x][h->list[a].from.y] = -minimaxplayer;
+                if(origin==minimaxplayer)
+            {
+                if(minimaxplayer==1)
+                chessboard.black+=1;
+                else
+                chessboard.white+=1;
+            }
+            chessboard_test.chessboard[h->list[a].to.x][h->list[a].to.y] = origin;
+            chessboard_test.chessboard[h->list[a].from.x][h->list[a].from.y] = -minimaxplayer;
             if(val>=beta)
             return beta;
         }
@@ -147,12 +187,26 @@ int Alpha_Beta_Null_Move(int depth, int alpha, int beta, int minimaxplayer,int c
         for (int a = 0; a < h->flag; a++)
         {
 
-            origin = chessboard_test[h->list[a].to.x][h->list[a].to.y];
-            chessboard_test[h->list[a].from.x][h->list[a].from.y] = 0;
-            chessboard_test[h->list[a].to.x][h->list[a].to.y] = minimaxplayer;
+            origin = chessboard_test.chessboard[h->list[a].to.x][h->list[a].to.y];
+            chessboard_test.chessboard[h->list[a].from.x][h->list[a].from.y] = 0;
+            chessboard_test.chessboard[h->list[a].to.x][h->list[a].to.y] = minimaxplayer;
+               if(origin==-minimaxplayer)
+            {
+                if(-minimaxplayer==1)
+                chessboard.black-=1;
+                else
+                chessboard.white-=1;
+            }
             val = -Alpha_Beta(depth - 1, -beta, -alpha, -minimaxplayer, chessboard_test,p);
-            chessboard_test[h->list[a].to.x][h->list[a].to.y] = origin;
-            chessboard_test[h->list[a].from.x][h->list[a].from.y] = minimaxplayer;
+               if(origin==-minimaxplayer)
+            {
+                if(-minimaxplayer==1)
+                chessboard.black+=1;
+                else
+                chessboard.white+=1;
+            }
+            chessboard_test.chessboard[h->list[a].to.x][h->list[a].to.y] = origin;
+            chessboard_test.chessboard[h->list[a].from.x][h->list[a].from.y] = minimaxplayer;
             if(val>=beta){
             Hash_store(p,HashBeta,depth,beta,chessboard_test);
             return beta;
@@ -168,7 +222,7 @@ int Alpha_Beta_Null_Move(int depth, int alpha, int beta, int minimaxplayer,int c
         return alpha;
     
 }
-int Alpha_Beta_new(int depth, int alpha, int beta, int minimaxplayer,int chessboard_test[][6],Hash_Move *p)
+int Alpha_Beta_new(int depth, int alpha, int beta, int minimaxplayer,Chessboard chessboard_test,Hash_Move *p)
 {
     static int count;
     count++;
@@ -196,12 +250,26 @@ int Alpha_Beta_new(int depth, int alpha, int beta, int minimaxplayer,int chessbo
         for (int a = 0; a < h->flag; a++)
         {
 
-            origin = chessboard_test[h->list[a].to.x][h->list[a].to.y];
-            chessboard_test[h->list[a].from.x][h->list[a].from.y] = 0;
-            chessboard_test[h->list[a].to.x][h->list[a].to.y] = minimaxplayer;
+            origin = chessboard_test.chessboard[h->list[a].to.x][h->list[a].to.y];
+            chessboard_test.chessboard[h->list[a].from.x][h->list[a].from.y] = 0;
+            chessboard_test.chessboard[h->list[a].to.x][h->list[a].to.y] = minimaxplayer;
+               if(origin==-minimaxplayer)
+            {
+                if(-minimaxplayer==1)
+                chessboard.black-=1;
+                else
+                chessboard.white-=1;
+            }
             val = -Alpha_Beta(depth - 1, -beta, -alpha, -minimaxplayer, chessboard_test,p);
-            chessboard_test[h->list[a].to.x][h->list[a].to.y] = origin;
-            chessboard_test[h->list[a].from.x][h->list[a].from.y] = minimaxplayer;
+               if(origin==-minimaxplayer)
+            {
+                if(-minimaxplayer==1)
+                chessboard.black+=1;
+                else
+                chessboard.white+=1;
+            }
+            chessboard_test.chessboard[h->list[a].to.x][h->list[a].to.y] = origin;
+            chessboard_test.chessboard[h->list[a].from.x][h->list[a].from.y] = minimaxplayer;
              if(val>=beta){
         //    Hash_store(p,HashBeta,depth,beta,chessboard_test);
            
@@ -262,11 +330,11 @@ int Alpha_Beta_Multi_Thread(int depth, int minimaxplayer,int alpha,int beta)
             {
                 for (int b = 0; b < 6; b++)
                 {
-                    arg[a].chessboard[d][b] = chessboard[d][b];
+                    arg[a].chessboard.chessboard[a][b] = chessboard.chessboard[a][b];
                 }
             }
-            arg[a].chessboard[h->list[a].from.x][h->list[a].from.y] = 0;
-            arg[a].chessboard[h->list[a].to.x][h->list[a].to.y] = minimaxplayer;
+            arg[a].chessboard.chessboard[h->list[a].from.x][h->list[a].from.y] = 0;
+            arg[a].chessboard.chessboard[h->list[a].to.x][h->list[a].to.y] = minimaxplayer;
             arg[a].alpha=alpha;
             arg[a].beta=beta;
             arg[a].depth = depth - 1;
@@ -294,7 +362,7 @@ int Alpha_Beta_Multi_Thread(int depth, int minimaxplayer,int alpha,int beta)
     
 }
 }
-int Quies(int alpha, int beta,int minimaxplayer,int chessboard_test[][6]){
+int Quies(int alpha, int beta,int minimaxplayer,Chessboard chessboard_test){
  
 int val = Evaluate_test(chessboard_test,minimaxplayer);
 if (val >= beta) {
@@ -310,12 +378,26 @@ alpha = val;
    for (int a = 0; a < h->flag; a++)
         {
 
-            origin = chessboard_test[h->list[a].to.x][h->list[a].to.y];
-            chessboard_test[h->list[a].from.x][h->list[a].from.y] = 0;
-            chessboard_test[h->list[a].to.x][h->list[a].to.y] = minimaxplayer;
+            origin = chessboard_test.chessboard[h->list[a].to.x][h->list[a].to.y];
+            chessboard_test.chessboard[h->list[a].from.x][h->list[a].from.y] = 0;
+            chessboard_test.chessboard[h->list[a].to.x][h->list[a].to.y] = minimaxplayer;
+               if(origin==-minimaxplayer)
+            {
+                if(-minimaxplayer==1)
+                chessboard.black-=1;
+                else
+                chessboard.white-=1;
+            }
              val = -Quies(-beta, -alpha,-minimaxplayer,chessboard_test);
-            chessboard_test[h->list[a].to.x][h->list[a].to.y] = origin;
-            chessboard_test[h->list[a].from.x][h->list[a].from.y] = minimaxplayer;
+                if(origin==-minimaxplayer)
+            {
+                if(-minimaxplayer==1)
+                chessboard.black+=1;
+                else
+                chessboard.white+=1;
+            }
+            chessboard_test.chessboard[h->list[a].to.x][h->list[a].to.y] = origin;
+            chessboard_test.chessboard[h->list[a].from.x][h->list[a].from.y] = minimaxplayer;
   if (val >= beta) {
    return beta;
  }
@@ -341,7 +423,15 @@ void AI(int depth){
        // printf("a=%d\n",a);
        // printf("flag=%d\n",h->flag);
      // printf("%d\nfrom%d %d to%d %d\n\n\n",chessboard[h->list[a].from.x][h->list[a].from.y],h->list[a].from.x,h->list[a].from.y,h->list[a].to.x,h->list[a].to.y);
-        chessboard[h->list[a].from.x][h->list[a].from.y]=0;
-        chessboard[h->list[a].to.x][h->list[a].to.y]=who;
+        chessboard.chessboard[h->list[a].from.x][h->list[a].from.y]=0;
+        chessboard.chessboard[h->list[a].to.x][h->list[a].to.y]=who;
+        if( chessboard.chessboard[h->list[a].to.x][h->list[a].to.y]==-who)
+        {
+            if(who==1)
+            chessboard.white-=1;
+            else
+            chessboard.black-=1;
+            
+        }
       record(h->list[a].from.x,h->list[a].from.y,h->list[a].to.x,h->list[a].to.y);
 }

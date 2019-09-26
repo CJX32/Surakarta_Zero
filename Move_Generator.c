@@ -1,12 +1,12 @@
 #include "Move_Generator.h"
-extern int chessboard[6][6];
-void Move_Generate(Move_List *h, int who,int chessboard_test[][6])
+extern Chessboard chessboard;
+void Move_Generate(Move_List *h, int who,Chessboard chessboard_test)
 {
     h->flag=0;
     Generate_Move_Attack(h,who,chessboard_test);
       for (int a=0;a<6; a++){
        for (int b=0;b<6;b++){
-            if (chessboard_test[a][b] == who){
+            if (chessboard_test.chessboard[a][b] == who){
                 for (int c = a - 1; c <= a + 1; c++)
                     for (int d = b - 1; d <= b + 1; d++){
                         if (c< 0)
@@ -17,7 +17,7 @@ void Move_Generate(Move_List *h, int who,int chessboard_test[][6])
                             break;
                         if (d > 5)
                             break;
-                        if (chessboard_test[c][d] == 0){
+                        if (chessboard_test.chessboard[c][d] == 0){
                     
                             Add_Move(h, a, b, c, d);
                           
@@ -60,7 +60,7 @@ void  Add_Move_Attack(Move_List *h,int from_x,int from_y,int to_x,int to_y){
 }
 
 
-void Generate_Move_Attack(Move_List *h,int who,int chessboard_test[][6]){
+void Generate_Move_Attack(Move_List *h,int who,Chessboard chessboard_test){
     
     Rool rool[4][6];
     int  flag_index[4];
@@ -78,10 +78,10 @@ Attack_Orbit(h,rool,flag_index,who,chessboard_test);
 
 Attack_Orbit(h,rool,flag_index,who,chessboard_test);
 }
-void Attack_Orbit(Move_List *h,Rool rool[][6],int *flag_index,int who,int chessboard_test[][6]){
+void Attack_Orbit(Move_List *h,Rool rool[][6],int *flag_index,int who,Chessboard chessboard_test){
      for(int a=0;a<4;a++){
      if(flag_index[a]!=0){
-         if(chessboard_test[rool[a][flag_index[a]-1].from.x][rool[a][flag_index[a]-1].from.y]==who){
+         if(chessboard_test.chessboard[rool[a][flag_index[a]-1].from.x][rool[a][flag_index[a]-1].from.y]==who){
         int find_unnull=a+1;
         if(find_unnull>=4)
          find_unnull=0;
@@ -118,7 +118,7 @@ void Attack_Orbit(Move_List *h,Rool rool[][6],int *flag_index,int who,int chessb
       else
        Add_Move_Attack(h,rool[a][flag_index[a]-1].from.x,rool[a][flag_index[a]-1].from.y,rool[find_unnull][0].from.x,rool[find_unnull][0].from.y);
 }
-if(chessboard_test[rool[a][0].from.x][rool[a][0].from.y]==who)
+if(chessboard_test.chessboard[rool[a][0].from.x][rool[a][0].from.y]==who)
 {
  int find_unnull=a-1;
         if(find_unnull<0)
@@ -212,12 +212,12 @@ pthread_exit(0);
 }
 
 
-int extract_outside_rool_1(Rool *rool_1,int chessboard_test[][6]){
+int extract_outside_rool_1(Rool *rool_1,Chessboard chessboard_test){
    
     int index=0;
    for(int a=5;a>=0;a--){
-    if(chessboard_test[2][a]!=0){
-    rool_1[index].chess=chessboard_test[2][a];
+    if(chessboard_test.chessboard[2][a]!=0){
+    rool_1[index].chess=chessboard_test.chessboard[2][a];
     rool_1[index].from.x=2;
      rool_1[index].from.y=a;
     index++;
@@ -225,12 +225,12 @@ int extract_outside_rool_1(Rool *rool_1,int chessboard_test[][6]){
    }
    return index;
 }
-int extract_outside_rool_2(Rool *rool,int chessboard_test[][6]){
+int extract_outside_rool_2(Rool *rool,Chessboard chessboard_test){
     
     int index=0;
    for(int a=0;a<6;a++){
-    if(chessboard_test[a][2]!=0){
-    rool[index].chess=chessboard_test[a][2];
+    if(chessboard_test.chessboard[a][2]!=0){
+    rool[index].chess=chessboard_test.chessboard[a][2];
     rool[index].from.x=a;
      rool[index].from.y=2;
     index++;
@@ -238,12 +238,12 @@ int extract_outside_rool_2(Rool *rool,int chessboard_test[][6]){
    }
    return index;
 }
-int extract_outside_rool_3(Rool *rool,int chessboard_test[][6]){
+int extract_outside_rool_3(Rool *rool,Chessboard chessboard_test){
   
     int index=0;
    for(int a=0;a<6;a++){
-    if(chessboard_test[3][a]!=0){
-    rool[index].chess=chessboard_test[3][a];
+    if(chessboard_test.chessboard[3][a]!=0){
+    rool[index].chess=chessboard_test.chessboard[3][a];
     rool[index].from.x=3;
      rool[index].from.y=a;
     index++;
@@ -251,12 +251,12 @@ int extract_outside_rool_3(Rool *rool,int chessboard_test[][6]){
    }
    return index;
 }
-int extract_outside_rool_4(Rool *rool_4,int chessboard_test[][6]){
+int extract_outside_rool_4(Rool *rool_4,Chessboard chessboard_test){
 
     int index=0;
    for(int a=5;a>=0;a--){
-    if(chessboard_test[a][3]!=0){
-    rool_4[index].chess=chessboard_test[a][3];
+    if(chessboard_test.chessboard[a][3]!=0){
+    rool_4[index].chess=chessboard_test.chessboard[a][3];
     rool_4[index].from.x=a;
      rool_4[index].from.y=3;
     index++;
@@ -264,12 +264,12 @@ int extract_outside_rool_4(Rool *rool_4,int chessboard_test[][6]){
    }
    return index;
 }
-int extract_inside_rool_1(Rool *rool_1,int chessboard_test[][6]){
+int extract_inside_rool_1(Rool *rool_1,Chessboard chessboard_test){
    
     int index=0;
    for(int a=5;a>=0;a--){
-    if(chessboard_test[1][a]!=0){
-    rool_1[index].chess=chessboard_test[1][a];
+    if(chessboard_test.chessboard[1][a]!=0){
+    rool_1[index].chess=chessboard_test.chessboard[1][a];
     rool_1[index].from.x=1;
      rool_1[index].from.y=a;
     index++;
@@ -277,12 +277,12 @@ int extract_inside_rool_1(Rool *rool_1,int chessboard_test[][6]){
    }
    return index;
 }
-int extract_inside_rool_2(Rool *rool,int chessboard_test[][6]){
+int extract_inside_rool_2(Rool *rool,Chessboard chessboard_test){
     
     int index=0;
    for(int a=0;a<6;a++){
-    if(chessboard_test[a][1]!=0){
-    rool[index].chess=chessboard_test[a][1];
+    if(chessboard_test.chessboard[a][1]!=0){
+    rool[index].chess=chessboard_test.chessboard[a][1];
     rool[index].from.x=a;
      rool[index].from.y=1;
     index++;
@@ -290,12 +290,12 @@ int extract_inside_rool_2(Rool *rool,int chessboard_test[][6]){
    }
    return index;
 }
-int extract_inside_rool_3(Rool *rool,int chessboard_test[][6]){
+int extract_inside_rool_3(Rool *rool,Chessboard chessboard_test){
   
     int index=0;
    for(int a=0;a<6;a++){
-    if(chessboard_test[4][a]!=0){
-    rool[index].chess=chessboard_test[4][a];
+    if(chessboard_test.chessboard[4][a]!=0){
+    rool[index].chess=chessboard_test.chessboard[4][a];
     rool[index].from.x=4;
      rool[index].from.y=a;
     index++;
@@ -303,12 +303,12 @@ int extract_inside_rool_3(Rool *rool,int chessboard_test[][6]){
    }
    return index;
 }
-int extract_inside_rool_4(Rool *rool_4,int chessboard_test[][6]){
+int extract_inside_rool_4(Rool *rool_4,Chessboard chessboard_test){
 
     int index=0;
    for(int a=5;a>=0;a--){
-    if(chessboard_test[a][4]!=0){
-    rool_4[index].chess=chessboard_test[a][4];
+    if(chessboard_test.chessboard[a][4]!=0){
+    rool_4[index].chess=chessboard_test.chessboard[a][4];
     rool_4[index].from.x=a;
      rool_4[index].from.y=4;
     index++;
@@ -343,8 +343,8 @@ void *extract_outside_rool_1_MT(void *Para){
    role *flag=(role *)Para;
     int index=0;
    for(int a=5;a>=0;a--){
-    if(chessboard[2][a]!=0){
-    flag->rool[index].chess=chessboard[2][a];
+    if(chessboard.chessboard[2][a]!=0){
+    flag->rool[index].chess=chessboard.chessboard[2][a];
     flag->rool[index].from.x=2;
      flag->rool[index].from.y=a;
     index++;
@@ -357,8 +357,8 @@ void *extract_outside_rool_2_MT(void *Para){
      role *flag=(role *)Para;
     int index=0;
    for(int a=0;a<6;a++){
-    if(chessboard[a][2]!=0){
-    flag->rool[index].chess=chessboard[a][2];
+    if(chessboard.chessboard[a][2]!=0){
+    flag->rool[index].chess=chessboard.chessboard[a][2];
     flag->rool[index].from.x=a;
      flag->rool[index].from.y=2;
     index++;
@@ -371,8 +371,8 @@ void *extract_outside_rool_3_MT(void *Para){
    role *flag=(role *)Para;
     int index=0;
    for(int a=0;a<6;a++){
-    if(chessboard[3][a]!=0){
-    flag->rool[index].chess=chessboard[3][a];
+    if(chessboard.chessboard[3][a]!=0){
+    flag->rool[index].chess=chessboard.chessboard[3][a];
     flag->rool[index].from.x=3;
     flag-> rool[index].from.y=a;
     index++;
@@ -385,8 +385,8 @@ void *extract_outside_rool_4_MT(void *Para){
  role *flag=(role *)Para;
     int index=0;
    for(int a=5;a>=0;a--){
-    if(chessboard[a][3]!=0){
-    flag->rool[index].chess=chessboard[a][3];
+    if(chessboard.chessboard[a][3]!=0){
+    flag->rool[index].chess=chessboard.chessboard[a][3];
     flag->rool[index].from.x=a;
      flag->rool[index].from.y=3;
     index++;
@@ -399,8 +399,8 @@ void *extract_inside_rool_1_MT(void *Para){
     role *flag=(role *)Para;
     int index=0;
    for(int a=5;a>=0;a--){
-    if(chessboard[1][a]!=0){
-    flag->rool[index].chess=chessboard[1][a];
+    if(chessboard.chessboard[1][a]!=0){
+    flag->rool[index].chess=chessboard.chessboard[1][a];
     flag->rool[index].from.x=1;
      flag->rool[index].from.y=a;
     index++;
@@ -413,8 +413,8 @@ void *extract_inside_rool_2_MT(void *Para){
     role *flag=(role *)Para; 
     int index=0;
    for(int a=0;a<6;a++){
-    if(chessboard[a][1]!=0){
-    flag->rool[index].chess=chessboard[a][1];
+    if(chessboard.chessboard[a][1]!=0){
+    flag->rool[index].chess=chessboard.chessboard[a][1];
     flag->rool[index].from.x=a;
      flag->rool[index].from.y=1;
     index++;
@@ -427,8 +427,8 @@ void *extract_inside_rool_3_MT(void *Para){
    role *flag=(role *)Para;
     int index=0;
    for(int a=0;a<6;a++){
-    if(chessboard[4][a]!=0){
-    flag->rool[index].chess=chessboard[4][a];
+    if(chessboard.chessboard[4][a]!=0){
+    flag->rool[index].chess=chessboard.chessboard[4][a];
     flag->rool[index].from.x=4;
      flag->rool[index].from.y=a;
     index++;
@@ -441,8 +441,8 @@ void *extract_inside_rool_4_MT(void *Para){
  role *flag=(role *)Para;
     int index=0;
    for(int a=5;a>=0;a--){
-    if(chessboard[a][4]!=0){
-    flag->rool[index].chess=chessboard[a][4];
+    if(chessboard.chessboard[a][4]!=0){
+    flag->rool[index].chess=chessboard.chessboard[a][4];
     flag->rool[index].from.x=a;
     flag->rool[index].from.y=4;
     index++;
@@ -451,7 +451,7 @@ void *extract_inside_rool_4_MT(void *Para){
    flag->index=index;
     pthread_exit(0);
 }
-void Move_Generate_MT(Move_List *h, int who,int chessboard_test[][6])
+void Move_Generate_MT(Move_List *h, int who,Chessboard chessboard_test)
 {
     h->flag=0;
     Para_1 arg[2];
@@ -469,7 +469,7 @@ void Move_Generate_MT(Move_List *h, int who,int chessboard_test[][6])
 
       for (int a=0;a<6; a++){
        for (int b=0;b<6;b++){
-            if (chessboard_test[a][b] == who){
+            if (chessboard_test.chessboard[a][b] == who){
                 for (int c = a - 1; c <= a + 1; c++)
                     for (int d = b - 1; d <= b + 1; d++){
                         if (c< 0)
@@ -480,7 +480,7 @@ void Move_Generate_MT(Move_List *h, int who,int chessboard_test[][6])
                             break;
                         if (d > 5)
                             break;
-                        if (chessboard_test[c][d] == 0){
+                        if (chessboard_test.chessboard[c][d] == 0){
                             h->list[0].from.x=1;
                             Add_Move(h, a, b, c, d);
                           
