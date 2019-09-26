@@ -53,3 +53,20 @@ test(fp);*/
             SDL_RenderCopy(ren, Blackmax, NULL, &blackmax);
             SDL_RenderCopy(ren, Whitemini, NULL, &whitemini);
         }
+    /*
+FILE *index_fp=fopen("/Users/bluesky/Desktop/Surakarta_Zero/Battle/index.txt","r");
+int index;
+fscanf(index_fp,"%d",&index);
+index_fp=fopen("/Users/bluesky/Desktop/Surakarta_Zero/Battle/index.txt","w");
+fprintf(index_fp,"%d",index+1);
+record_pre(index);
+fclose(index_fp);
+
+int count=0;
+Chessboard_Init(chessboard);
+while(count<=1){
+run();
+count++;
+printf("%d\n",count);
+printf("end\n");
+}*/

@@ -160,6 +160,7 @@ int Evaluate_test(int chessboard_test[][6],int who_test){
       }
      }
   }
+
   if(flag_1)
   return -9999;
   else if(flag_2)

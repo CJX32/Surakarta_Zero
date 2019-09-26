@@ -18,7 +18,7 @@ void Move_Generate(Move_List *h, int who,int chessboard_test[][6])
                         if (d > 5)
                             break;
                         if (chessboard_test[c][d] == 0){
-                            h->list[0].from.x=1;
+                    
                             Add_Move(h, a, b, c, d);
                           
                         }
@@ -117,9 +117,7 @@ void Attack_Orbit(Move_List *h,Rool rool[][6],int *flag_index,int who,int chessb
       
       else
        Add_Move_Attack(h,rool[a][flag_index[a]-1].from.x,rool[a][flag_index[a]-1].from.y,rool[find_unnull][0].from.x,rool[find_unnull][0].from.y);
-
-
-     }
+}
 if(chessboard_test[rool[a][0].from.x][rool[a][0].from.y]==who)
 {
  int find_unnull=a-1;
@@ -141,7 +139,7 @@ if(chessboard_test[rool[a][0].from.x][rool[a][0].from.y]==who)
       }
 }
 }
-     }
+}
 
 
 }

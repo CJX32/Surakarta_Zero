@@ -12,3 +12,4 @@ This is a beta version.
 
 9.26
 move_generator更改为多线程，但无实际变化，依然为10.2s
+测试原生move_generator没有问题

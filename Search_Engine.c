@@ -9,7 +9,7 @@ int Alpha_Beta(int depth, int alpha, int beta, int minimaxplayer,int chessboard_
     if (depth <= 0 || judge(chessboard_test))
     {
     
-        int value=Evaluate(chessboard_test,minimaxplayer);
+        int value=Evaluate_test(chessboard_test,minimaxplayer);
        // Hash_store(p,HashExact,depth,value,chessboard_test);
         return value;
     }
@@ -20,16 +20,16 @@ int Alpha_Beta(int depth, int alpha, int beta, int minimaxplayer,int chessboard_
 
      Move_List *h = (Move_List *)malloc(sizeof(Move_List));
      h->flag=0;
-     Move_Generate(h, minimaxplayer,chessboard_test);
+     Move_Generate(h, minimaxplayer,chessboard);
   
      
         for (int a = 0; a < h->flag; a++)
         {
-
+          
             origin = chessboard_test[h->list[a].to.x][h->list[a].to.y];
             chessboard_test[h->list[a].from.x][h->list[a].from.y] = 0;
             chessboard_test[h->list[a].to.x][h->list[a].to.y] = minimaxplayer;
-         
+          
             val = -Alpha_Beta(depth - 1, -beta, -alpha, -minimaxplayer, chessboard_test,p);
             
             chessboard_test[h->list[a].to.x][h->list[a].to.y] = origin;
@@ -113,7 +113,7 @@ int Alpha_Beta_Null_Move(int depth, int alpha, int beta, int minimaxplayer,int c
     if (depth <= 0 || judge(chessboard_test))
     {
     
-        int value=Evaluate(chessboard_test,minimaxplayer);
+        int value=Evaluate_test(chessboard_test,minimaxplayer);
        // Hash_store(p,HashExact,depth,value,chessboard_test);
         return value;
     }
@@ -176,7 +176,7 @@ int Alpha_Beta_new(int depth, int alpha, int beta, int minimaxplayer,int chessbo
     int best_move=0;
     if (depth == 0 || judge(chessboard_test))
     {
-        int value=Evaluate(chessboard_test,minimaxplayer);
+        int value=Evaluate_test(chessboard_test,minimaxplayer);
        
        // Hash_store(p,HashExact,depth,value,chessboard_test);
         return value;
@@ -296,7 +296,7 @@ int Alpha_Beta_Multi_Thread(int depth, int minimaxplayer,int alpha,int beta)
 }
 int Quies(int alpha, int beta,int minimaxplayer,int chessboard_test[][6]){
  
-int val = Evaluate(chessboard_test,minimaxplayer);
+int val = Evaluate_test(chessboard_test,minimaxplayer);
 if (val >= beta) {
     return beta;
 }

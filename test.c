@@ -38,6 +38,8 @@ for(int a=0;a<6;a++){
  visualize(h);
 
  }
+  else
+ printf("Correct\n");
   Move_Generate(h,1,chessboard);
  if(h->flag!=index_4){
 
@@ -51,17 +53,18 @@ for(int a=0;a<6;a++){
  visualize(h);
 
  }
-
+ else
+ printf("Correct\n");
 
 count++;
 
 }
 }
 void test_alpha_beta(FILE *fp){
+
     int count=0;
     for(int a=0;a<100;a++){
-      
-     int flag;
+    int flag;
        for(int b=0;b<6;b++){
            for(int c=0;c<6;c++){
                fscanf(fp,"%d ",&flag);
@@ -79,7 +82,7 @@ void test_alpha_beta(FILE *fp){
        }
          Hash_Move *p=(Hash_Move *)malloc(Hash_table_length*sizeof(Hash_Move));
 
-        Hash_Table_Init(p);
+      Hash_Table_Init(p);
        int haha;
        int alpha=-2147483646,beta=2147483647;
    
@@ -90,7 +93,7 @@ void test_alpha_beta(FILE *fp){
           /* Result answer;
           answer=Alpha_Beta_test(a,alpha,beta,1,chessboard,p,best);
           best=answer.best_move;*/
-          int vl=Alpha_Beta_PVS(a,alpha,beta,1,chessboard,p);
+          int vl=Alpha_Beta(a,alpha,beta,1,chessboard,p);
           // int vl=answer.value;
            if(a%2)
            data[a-1]=-vl;
@@ -121,8 +124,6 @@ void test_alpha_beta(FILE *fp){
        }
     }
     printf("Error_number=%d\n",count);
-    Hash_Move *p;
-    Alpha_Beta(1,1,1,1,chessboard,p);
 }
 void new_test(FILE *fp){
 int flag;
@@ -159,7 +160,7 @@ for(int a=0;a<6;a++){
 
  fscanf(fp,"%d %d %d %d",&index_1,&index_2,&index_3,&index_4);
 
- Move_Generate_MT(h,-1,chessboard);
+ Move_Generate(h,-1,chessboard);
  if(h->flag!=index_3){
 
  printf("chess=-1 \n%d %d\n",h->flag,index_3);
@@ -172,8 +173,9 @@ for(int a=0;a<6;a++){
  visualize(h);
 
  }
-
-  Move_Generate_MT(h,1,chessboard);
+ else
+ printf("Correct\n");
+  Move_Generate(h,1,chessboard);
  if(h->flag!=index_4){
 
  printf("chess=-1 \n%d %d\n",h->flag,index_4);
@@ -186,6 +188,8 @@ for(int a=0;a<6;a++){
  visualize(h);
 
  }
+ else
+ printf("Correct\n");
 
 
 count++;
