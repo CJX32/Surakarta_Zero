@@ -152,13 +152,36 @@ if(who_test==1){
   return -9999;
   else if(chessboard_test.white==0)
   return 9999;
-  return chessboard.black-chessboard.white;
+
+  return chessboard_test.black-chessboard_test.white;
 }
 else if(who_test==-1){
   if(chessboard_test.white==0)
   return -9999;
   else if(chessboard_test.black==0)
   return 9999;
-  return chessboard.white-chessboard.black;
+  return chessboard_test.white-chessboard_test.black;
 }
 }
+/*int Evaluate_test(Chessboard chessboard_test,int who_test){
+  int count=0;
+  int flag_1=1,flag_2=1;
+  for(int a=0;a<6;a++){
+    for(int b=0;b<6;b++){
+      if(chessboard_test.chessboard[a][b]==who_test){
+      count++;
+      flag_1=0;
+      }
+      else if (chessboard_test.chessboard[a][b]==-who_test){
+      count--;
+      flag_2=0;
+      }
+     }
+  }
+
+  if(flag_1)
+  return -9999;
+  else if(flag_2)
+  return 9999;
+  return count;
+}*/

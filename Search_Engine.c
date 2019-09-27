@@ -11,6 +11,7 @@ int Alpha_Beta(int depth, int alpha, int beta, int minimaxplayer,Chessboard ches
     
         int value=Evaluate_test(chessboard_test,minimaxplayer);
        // Hash_store(p,HashExact,depth,value,chessboard_test);
+    
         return value;
     }
    /* int value=Hash_Hit(p,depth,alpha,beta,chessboard_test);
@@ -20,29 +21,32 @@ int Alpha_Beta(int depth, int alpha, int beta, int minimaxplayer,Chessboard ches
 
      Move_List *h = (Move_List *)malloc(sizeof(Move_List));
      h->flag=0;
-     Move_Generate(h, minimaxplayer,chessboard);
-  
+     Move_Generate(h, minimaxplayer,chessboard_test);
+
      
         for (int a = 0; a < h->flag; a++)
         {
-          
+
             origin = chessboard_test.chessboard[h->list[a].to.x][h->list[a].to.y];
+            
             chessboard_test.chessboard[h->list[a].from.x][h->list[a].from.y] = 0;
             chessboard_test.chessboard[h->list[a].to.x][h->list[a].to.y] = minimaxplayer;
             if(origin==-minimaxplayer)
             {
                 if(-minimaxplayer==1)
-                chessboard.black-=1;
+                chessboard_test.black-=1;
                 else
-                chessboard.white-=1;
+                chessboard_test.white-=1;
             }
+            
+
             val = -Alpha_Beta(depth - 1, -beta, -alpha, -minimaxplayer, chessboard_test,p);
                if(origin==-minimaxplayer)
             {
                 if(-minimaxplayer==1)
-                chessboard.black+=1;
+                chessboard_test.black+=1;
                 else
-                chessboard.white+=1;
+                chessboard_test.white+=1;
             }
             chessboard_test.chessboard[h->list[a].to.x][h->list[a].to.y] = origin;
             chessboard_test.chessboard[h->list[a].from.x][h->list[a].from.y] = minimaxplayer;

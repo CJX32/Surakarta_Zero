@@ -20,7 +20,7 @@ FILE *battle;
 Move_List battle_record;
 char path[70]="/Users/bluesky/Desktop/Surakarta_Zero/Battle/record.txt";
 int main(void){
-    double duration;
+   double duration;
     clock_t start,stop;
     start=clock();
 {Hash_Board_Init(Hash_Board);

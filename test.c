@@ -87,11 +87,7 @@ chessboard.white=0;
     }
 }
 
-
-
-printf("%d,%d\n",chessboard.black,chessboard.white);
-
-
+ 
 
        int index[7];
        int data[7];
@@ -145,7 +141,7 @@ printf("%d,%d\n",chessboard.black,chessboard.white);
 void new_test(FILE *fp){
 int flag;
  
-visualize_board();
+visualize_board(chessboard);
        Hash_Move *p;
        p=(Hash_Move *)malloc((Hash_table_length)*sizeof(Hash_Move));
        Hash_Table_Init(p);

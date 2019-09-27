@@ -73,7 +73,7 @@ typedef struct{
     Move_List *h;
     int who;
 }Para_1;
-void visualize_board();
+void visualize_board(Chessboard chessboard);
 void visualize(Move_List *h);
 int judge(Chessboard chessboard);
 

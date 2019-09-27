@@ -17,3 +17,7 @@ move_generator更改为多线程，但无实际变化，依然为10.2s
 alpha_beta           error=41 time=15.5s
 alpha_beta_PVS       error=41 time=16.5s
 alpha_beta_Null_Move error=42 time=16.0s
+
+9.27
+更改了棋盘的数据类型 速度提升为10.2s 但仍可能存在bug需要留意
+error=42 time=10.2s

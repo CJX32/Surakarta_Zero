@@ -18,9 +18,7 @@ void Move_Generate(Move_List *h, int who,Chessboard chessboard_test)
                         if (d > 5)
                             break;
                         if (chessboard_test.chessboard[c][d] == 0){
-                    
                             Add_Move(h, a, b, c, d);
-                          
                         }
                     }
                    
