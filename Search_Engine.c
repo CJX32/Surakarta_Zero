@@ -72,7 +72,7 @@ int Alpha_Beta_PVS(int depth, int alpha, int beta, int minimaxplayer,Chessboard 
     int hashf=HashAlpha;
     if (depth <= 0 || judge(chessboard_test))
     {
-       printf("%d,%d\n",chessboard_test.black,chessboard.white);
+      
         int value=Evaluate_test(chessboard_test,minimaxplayer);
        // Hash_store(p,HashExact,depth,value,chessboard_test);
         return value;
@@ -96,9 +96,9 @@ int Alpha_Beta_PVS(int depth, int alpha, int beta, int minimaxplayer,Chessboard 
                if(origin==-minimaxplayer)
             {
                 if(-minimaxplayer==1)
-                chessboard.black-=1;
+                chessboard_test.black-=1;
                 else
-                chessboard.white-=1;
+                chessboard_test.white-=1;
             }
             if(fFoundPv){
               val = -Alpha_Beta_PVS(depth - 1, -alpha-1, -alpha, -minimaxplayer, chessboard_test,p);
@@ -113,9 +113,9 @@ int Alpha_Beta_PVS(int depth, int alpha, int beta, int minimaxplayer,Chessboard 
                if(origin==-minimaxplayer)
             {
                 if(-minimaxplayer==1)
-                chessboard.black+=1;
+                chessboard_test.black+=1;
                 else
-                chessboard.white+=1;
+                chessboard_test.white+=1;
             }
             chessboard_test.chessboard[h->list[a].to.x][h->list[a].to.y] = origin;
             chessboard_test.chessboard[h->list[a].from.x][h->list[a].from.y] = minimaxplayer;
