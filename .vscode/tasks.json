@@ -4,17 +4,50 @@
         {
             "type": "shell",
             "label": "my task",
-            "command": "gcc -g main.c Basic.c Evaluator.c Game_AI.c Hash_Table.c Initialization.c Move_Generator.c Search_Engine.c Sort.c test.c  trial.c UI.c Interact.c Run.c Record.c -o main -I /usr/local/Cellar/sdl2/2.0.10/include  -L  /usr/local/Cellar/sdl2/2.0.10/lib  -lSDL2 -I /usr/local/Cellar/sdl2_image/2.0.5/include -L /usr/local/Cellar/sdl2_image/2.0.5/lib -lSDL2_image -I /usr/local/Cellar/sdl2_ttf/2.0.15/include -L /usr/local/Cellar/sdl2_ttf/2.0.15/lib -lSDL2_ttf",
-           "problemMatcher": [
+            "command": "gcc",
+            "args": [
+                "-g",
+                "${workspaceFolder}/*.c",
+                "-o",
+                "main",
+                "-I",
+                "/usr/local/Cellar/sdl2/2.0.10/include",
+                "-L",
+                "/usr/local/Cellar/sdl2/2.0.10/lib",
+                "-l",
+                "SDL2",
+                "-I",
+                "/usr/local/Cellar/sdl2_image/2.0.5/include",
+                "-L",
+                "/usr/local/Cellar/sdl2_image/2.0.5/lib",
+                "-l",
+                "SDL2_image",
+                "-I",
+                "/usr/local/Cellar/sdl2_ttf/2.0.15/include",
+                "-L",
+                "/usr/local/Cellar/sdl2_ttf/2.0.15/lib",
+                "-l",
+                "SDL2_ttf"
+            ],
+            "problemMatcher": [
                 "$gcc"
             ],
-            
             "group": {
                 "kind": "build",
                 "isDefault": true
-            },
-            
-           
+            }
+        },
+        {
+            "label": "Run",
+            "command": "open",
+            "type": "shell",
+            "args": [
+                "main"
+            ],
+            "dependsOn": [
+                "my task"
+            ],
+            "problemMatcher": []
         }
     ]
 }
