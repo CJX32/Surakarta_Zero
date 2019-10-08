@@ -163,17 +163,17 @@ int Alpha_Beta_Null_Move(int depth, int alpha, int beta, int minimaxplayer,Chess
                if(origin==minimaxplayer)
             {
                 if(minimaxplayer==1)
-                chessboard.black-=1;
+                chessboard_test.black-=1;
                 else
-                chessboard.white-=1;
+                chessboard_test.white-=1;
             }
              val = -Alpha_Beta(depth - 1-2 , -beta, -beta+1, minimaxplayer, chessboard_test,p);
                 if(origin==minimaxplayer)
             {
                 if(minimaxplayer==1)
-                chessboard.black+=1;
+                chessboard_test.black+=1;
                 else
-                chessboard.white+=1;
+                chessboard_test.white+=1;
             }
             chessboard_test.chessboard[h->list[a].to.x][h->list[a].to.y] = origin;
             chessboard_test.chessboard[h->list[a].from.x][h->list[a].from.y] = -minimaxplayer;
@@ -197,17 +197,17 @@ int Alpha_Beta_Null_Move(int depth, int alpha, int beta, int minimaxplayer,Chess
                if(origin==-minimaxplayer)
             {
                 if(-minimaxplayer==1)
-                chessboard.black-=1;
+                chessboard_test.black-=1;
                 else
-                chessboard.white-=1;
+                chessboard_test.white-=1;
             }
             val = -Alpha_Beta(depth - 1, -beta, -alpha, -minimaxplayer, chessboard_test,p);
                if(origin==-minimaxplayer)
             {
                 if(-minimaxplayer==1)
-                chessboard.black+=1;
+                chessboard_test.black+=1;
                 else
-                chessboard.white+=1;
+                chessboard_test.white+=1;
             }
             chessboard_test.chessboard[h->list[a].to.x][h->list[a].to.y] = origin;
             chessboard_test.chessboard[h->list[a].from.x][h->list[a].from.y] = minimaxplayer;
@@ -260,17 +260,17 @@ int Alpha_Beta_new(int depth, int alpha, int beta, int minimaxplayer,Chessboard 
                if(origin==-minimaxplayer)
             {
                 if(-minimaxplayer==1)
-                chessboard.black-=1;
+                chessboard_test.black-=1;
                 else
-                chessboard.white-=1;
+                chessboard_test.white-=1;
             }
             val = -Alpha_Beta(depth - 1, -beta, -alpha, -minimaxplayer, chessboard_test,p);
                if(origin==-minimaxplayer)
             {
                 if(-minimaxplayer==1)
-                chessboard.black+=1;
+                chessboard_test.black+=1;
                 else
-                chessboard.white+=1;
+                chessboard_test.white+=1;
             }
             chessboard_test.chessboard[h->list[a].to.x][h->list[a].to.y] = origin;
             chessboard_test.chessboard[h->list[a].from.x][h->list[a].from.y] = minimaxplayer;
@@ -388,17 +388,17 @@ alpha = val;
                if(origin==-minimaxplayer)
             {
                 if(-minimaxplayer==1)
-                chessboard.black-=1;
+                chessboard_test.black-=1;
                 else
-                chessboard.white-=1;
+                chessboard_test.white-=1;
             }
              val = -Quies(-beta, -alpha,-minimaxplayer,chessboard_test);
                 if(origin==-minimaxplayer)
             {
                 if(-minimaxplayer==1)
-                chessboard.black+=1;
+                chessboard_test.black+=1;
                 else
-                chessboard.white+=1;
+                chessboard_test.white+=1;
             }
             chessboard_test.chessboard[h->list[a].to.x][h->list[a].to.y] = origin;
             chessboard_test.chessboard[h->list[a].from.x][h->list[a].from.y] = minimaxplayer;
