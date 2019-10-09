@@ -4,9 +4,10 @@ extern Chessboard chessboard;
 extern int who;
 int tid_num;
 int *alphas,*betas;
+pthread_rwlock_t lock;
 int Alpha_Beta(int depth, int alpha, int beta, int minimaxplayer,Chessboard chessboard_test,Hash_Move *p)
 {
-
+    
     int hashf=HashAlpha;
     if (depth <= 0 || judge(chessboard_test))
     {
@@ -63,8 +64,10 @@ int Alpha_Beta(int depth, int alpha, int beta, int minimaxplayer,Chessboard ches
 
             }
         }
+       // printf("%d depth=%d %d  \n",h->flag,depth,alpha);
         free(h);
        // Hash_store(p,hashf,depth,alpha,chessboard_test);
+
         return alpha;
     
 }
@@ -134,6 +137,7 @@ int Alpha_Beta_PVS(int depth, int alpha, int beta, int minimaxplayer,Chessboard 
         }
         free(h);
         Hash_store(p,hashf,depth,alpha,chessboard_test);
+  
         return alpha;
     
 }
@@ -225,6 +229,90 @@ int Alpha_Beta_Null_Move(int depth, int alpha, int beta, int minimaxplayer,Chess
         }
         free(h);
         Hash_store(p,hashf,depth,alpha,chessboard_test);
+
+        return alpha;
+    
+}
+int Alpha_Beta_PVS_Multi_Thread(int depth, int tid, int minimaxplayer,Chessboard chessboard_test,Hash_Move *p)
+{
+    int alpha=alphas[tid],beta=betas[tid];
+    int fFoundPv=0;
+    int hashf=HashAlpha;
+    int count=0;
+    if (depth <= 0 || judge(chessboard_test))
+    {
+      
+        int value=Evaluate_test(chessboard_test,minimaxplayer);
+       // Hash_store(p,HashExact,depth,value,chessboard_test);
+        return value;
+    }
+  //  int value=Hash_Hit(p,depth,alpha,beta,chessboard_test);
+  //  if(value!=-2147483648)
+   // return value;
+    int flag, val,origin;
+
+     Move_List *h = (Move_List *)malloc(sizeof(Move_List));
+     h->flag=0;
+     Move_Generate(h, minimaxplayer,chessboard_test);
+  
+     
+        for (int a = 0; a < h->flag; a++)
+        {
+
+            origin = chessboard_test.chessboard[h->list[a].to.x][h->list[a].to.y];
+            chessboard_test.chessboard[h->list[a].from.x][h->list[a].from.y] = 0;
+            chessboard_test.chessboard[h->list[a].to.x][h->list[a].to.y] = minimaxplayer;
+               if(origin==-minimaxplayer)
+            {
+                if(-minimaxplayer==1)
+                chessboard_test.black-=1;
+                else
+                chessboard_test.white-=1;
+            }
+            pthread_rwlock_rdlock(&lock);
+            if(alphas[0]!=-2147483646){
+              beta=alphas[0];
+            }
+            pthread_rwlock_unlock(&lock);
+            if(fFoundPv){
+              val = -Alpha_Beta_PVS(depth - 1, -alpha-1, -alpha, -minimaxplayer, chessboard_test,p);
+              if((val > alpha) && (val < beta)) { 
+              val = -Alpha_Beta_PVS(depth - 1, -beta, -alpha,-minimaxplayer,chessboard_test,p);
+              }
+            }     
+            else
+            {
+            val = -Alpha_Beta_PVS(depth - 1, -beta, -alpha, -minimaxplayer, chessboard_test,p);
+            }
+               if(origin==-minimaxplayer)
+            {
+                if(-minimaxplayer==1)
+                chessboard_test.black+=1;
+                else
+                chessboard_test.white+=1;
+            }
+            chessboard_test.chessboard[h->list[a].to.x][h->list[a].to.y] = origin;
+            chessboard_test.chessboard[h->list[a].from.x][h->list[a].from.y] = minimaxplayer;
+            pthread_rwlock_rdlock(&lock);
+            if(alphas[0]!=-2147483646){
+              beta=alphas[0];
+            }
+            pthread_rwlock_unlock(&lock);
+            if(val>=beta){
+            Hash_store(p,HashBeta,depth,beta,chessboard_test);
+            update(alpha);
+            return beta;
+            }
+
+            if(val>alpha){
+            hashf=HashExact;
+            alpha=val;
+            fFoundPv=1;
+            update(alpha);
+            }
+        }
+        free(h);
+        Hash_store(p,hashf,depth,alpha,chessboard_test);
         return alpha;
     
 }
@@ -305,9 +393,9 @@ void *Alpha_Beta_pth(void *Arguement)
     Hash_Move *p=(Hash_Move *)malloc(Hash_table_length*sizeof(Hash_Move));
     
     Hash_Table_Init(p);
-
-    arg->value = -Alpha_Beta_PVS(arg->depth, -arg->beta,-arg->alpha, arg->minimaxplayer, arg->chessboard_info,p);
-        pthread_exit(0);
+    arg->value = -Alpha_Beta_PVS_Multi_Thread(arg->depth, arg->tid, arg->minimaxplayer, arg->chessboard_info,p);
+  //  printf("%d\n",arg->value);
+    pthread_exit(0);
 }
 int Alpha_Beta_Multi_Thread(int depth, int minimaxplayer,int alpha,int beta)
 {
@@ -332,10 +420,14 @@ int Alpha_Beta_Multi_Thread(int depth, int minimaxplayer,int alpha,int beta)
         pthread_attr_init(&attr);
         {
             tid_num=h->flag;
-            alphas=(int *)malloc(tid_num*sizeof(int));
-            betas=(int *)malloc(tid_num*sizeof(int));
+            alphas=(int *)malloc((tid_num+1)*sizeof(int));
+            betas=(int *)malloc((tid_num+1)*sizeof(int));
         }
-
+        alphas[0]=-2147483646;
+        betas[0]=2147483647;
+        pthread_rwlockattr_t lock_attr;
+        pthread_rwlockattr_init(&lock_attr);
+       pthread_rwlock_init(&lock,&lock_attr);
         for (int a = 0; a < h->flag; a++)
         {
             arg[a].chessboard_info.black=0;
@@ -361,11 +453,11 @@ int Alpha_Beta_Multi_Thread(int depth, int minimaxplayer,int alpha,int beta)
                 else
                arg[a].chessboard_info.white-=1;
             }
-            arg[a].alpha=alpha;
-            arg[a].beta=beta;
+            alphas[a+1]=alpha;
+            betas[a+1]=beta;
             arg[a].depth = depth - 1;
             arg[a].minimaxplayer = -minimaxplayer;
-            arg[a].tid=a;
+            arg[a].tid=a+1;
            
         }
          for (int a = 0; a < h->flag; a++){
@@ -385,7 +477,7 @@ int Alpha_Beta_Multi_Thread(int depth, int minimaxplayer,int alpha,int beta)
             }
 
         }
-
+        pthread_rwlock_destroy(&lock);
         free(h);
         return alpha;      //注意还原 return best_choice
     

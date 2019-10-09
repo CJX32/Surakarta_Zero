@@ -6,6 +6,7 @@
 #define HashBeta 2
 #include <stdio.h>
 #include <stdlib.h>
+#include <pthread.h>
 typedef struct{
     int x;
     int y;
@@ -80,4 +81,5 @@ int judge(Chessboard chessboard);
 
 int max(int a,int b);
 int mini(int a,int b);
+void update(int alpha);
 #endif

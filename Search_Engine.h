@@ -12,6 +12,7 @@
 #include "Record.h"
 int Alpha_Beta(int depth, int alpha, int beta, int minimaxplayer,Chessboard chessboard_test,Hash_Move *p);
 int Alpha_Beta_PVS(int depth, int alpha, int beta, int minimaxplayer,Chessboard chessboard_test,Hash_Move *p);
+int Alpha_Beta_PVS_Multi_Thread(int depth, int tid, int minimaxplayer,Chessboard chessboard_test,Hash_Move *p);
 void *Alpha_Beta_pth(void  *Para);
 int Alpha_Beta_Multi_Thread(int depth,int minimaxplayer,int alpha,int beta);
 int Alpha_Beta_new(int depth, int alpha, int beta, int minimaxplayer,Chessboard chessboard_test,Hash_Move *p);

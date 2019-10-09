@@ -102,10 +102,12 @@ chessboard.white=0;
        p=(Hash_Move *)malloc((Hash_table_length)*sizeof(Hash_Move));
        Hash_Table_Init(p);
        int best=0;
+      
        for(int a=1;a<=7;a++){
           /* Result answer;
           answer=Alpha_Beta_test(a,alpha,beta,1,chessboard,p,best);
           best=answer.best_move;*/
+           //int vl=Alpha_Beta_PVS(a,alpha,beta,1,chessboard,p);
           int vl=Alpha_Beta_Multi_Thread(a,1,alpha,beta);
           // int vl=answer.value;
            if(a%2)
@@ -130,7 +132,7 @@ chessboard.white=0;
                  printf("\n");
                }
                 for(int d=0;d<7;d++){
-              printf("depth=%d index=%d my=%d\n",d+1,index[d],data[d]);
+                printf("depth=%d index=%d my=%d\n",d+1,index[d],data[d]);
                }
                break;
           }
@@ -141,7 +143,7 @@ chessboard.white=0;
 void new_test(FILE *fp){
 int flag;
  
-visualize_board(chessboard);
+       visualize_board(chessboard);
        Hash_Move *p;
        p=(Hash_Move *)malloc((Hash_table_length)*sizeof(Hash_Move));
        Hash_Table_Init(p);
@@ -203,9 +205,6 @@ for(int a=0;a<6;a++){
  }
  else
  printf("Correct\n");
-
-
-count++;
-
+ count++;
 }
 }

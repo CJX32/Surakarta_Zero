@@ -1,6 +1,9 @@
 #include "Basic.h"
 extern Chessboard chessboard;
+extern pthread_rwlock_t lock;
 extern int who;
+extern int *alphas;
+extern int *betas;
 void visualize_board(Chessboard chessboard_test){
   for(int  a=0;a<6;a++){
     for(int b=0;b<6;b++){
@@ -52,4 +55,11 @@ int mini(int a, int b)
         return a;
     else
         return b;
+}
+void update(int alpha){
+  if(alphas[0]<alpha){
+  pthread_rwlock_wrlock(&lock);
+  alphas[0]=alpha;
+  pthread_rwlock_unlock(&lock);
+  }
 }
