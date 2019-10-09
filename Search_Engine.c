@@ -2,6 +2,8 @@
 #include <pthread.h>
 extern Chessboard chessboard;
 extern int who;
+int tid_num;
+int *alphas,*betas;
 int Alpha_Beta(int depth, int alpha, int beta, int minimaxplayer,Chessboard chessboard_test,Hash_Move *p)
 {
 
@@ -301,10 +303,11 @@ void *Alpha_Beta_pth(void *Arguement)
 {
     Para *arg = (Para *)Arguement;
     Hash_Move *p=(Hash_Move *)malloc(Hash_table_length*sizeof(Hash_Move));
-
+    
     Hash_Table_Init(p);
-    arg->value = -Alpha_Beta(arg->depth, -arg->beta,-arg->alpha, arg->minimaxplayer, arg->chessboard,p);
-    pthread_exit(0);
+
+    arg->value = -Alpha_Beta_PVS(arg->depth, -arg->beta,-arg->alpha, arg->minimaxplayer, arg->chessboard_info,p);
+        pthread_exit(0);
 }
 int Alpha_Beta_Multi_Thread(int depth, int minimaxplayer,int alpha,int beta)
 {
@@ -327,26 +330,47 @@ int Alpha_Beta_Multi_Thread(int depth, int minimaxplayer,int alpha,int beta)
         Para arg[h->flag];
         pthread_attr_t attr;
         pthread_attr_init(&attr);
+        {
+            tid_num=h->flag;
+            alphas=(int *)malloc(tid_num*sizeof(int));
+            betas=(int *)malloc(tid_num*sizeof(int));
+        }
+
         for (int a = 0; a < h->flag; a++)
         {
-            
+            arg[a].chessboard_info.black=0;
+            arg[a].chessboard_info.white=0;
             for (int d = 0; d < 6; d++)
             {
                 for (int b = 0; b < 6; b++)
                 {
-                    arg[a].chessboard.chessboard[a][b] = chessboard.chessboard[a][b];
+                    arg[a].chessboard_info.chessboard[d][b] = chessboard.chessboard[d][b];
+                    if(chessboard.chessboard[d][b]==1)
+                   arg[a].chessboard_info.black+=1;
+                   else if(chessboard.chessboard[d][b]==-1)
+                   arg[a].chessboard_info.white+=1;
                 }
             }
-            arg[a].chessboard.chessboard[h->list[a].from.x][h->list[a].from.y] = 0;
-            arg[a].chessboard.chessboard[h->list[a].to.x][h->list[a].to.y] = minimaxplayer;
+            origin= arg[a].chessboard_info.chessboard[h->list[a].to.x][h->list[a].to.y];
+            arg[a].chessboard_info.chessboard[h->list[a].from.x][h->list[a].from.y] = 0;
+            arg[a].chessboard_info.chessboard[h->list[a].to.x][h->list[a].to.y] = minimaxplayer;
+                if(origin==-minimaxplayer)
+            {
+                if(-minimaxplayer==1)
+                 arg[a].chessboard_info.black-=1;
+                else
+               arg[a].chessboard_info.white-=1;
+            }
             arg[a].alpha=alpha;
             arg[a].beta=beta;
             arg[a].depth = depth - 1;
             arg[a].minimaxplayer = -minimaxplayer;
-            pthread_create(&tids[a], &attr, Alpha_Beta_pth, &arg[a]);
+            arg[a].tid=a;
            
         }
-
+         for (int a = 0; a < h->flag; a++){
+        pthread_create(&tids[a], &attr, Alpha_Beta_pth, &arg[a]);
+         }
         for (int a = 0; a < h->flag; a++)
         {
             pthread_join(tids[a], NULL);
@@ -354,13 +378,14 @@ int Alpha_Beta_Multi_Thread(int depth, int minimaxplayer,int alpha,int beta)
         
         for(int a = 0; a < h->flag; a++)
         {  
-         
+
             if(arg[a].value>alpha){
                 best_choice=a;
             alpha=arg[a].value;
             }
 
         }
+
         free(h);
         return alpha;      //注意还原 return best_choice
     
@@ -416,7 +441,7 @@ void AI(int depth){
     
       
        int alpha=-2147483640,beta=2147483640;
-   
+                  
        p=(Hash_Move *)malloc((Hash_table_length)*sizeof(Hash_Move));
        Hash_Table_Init(p);
         int a=Alpha_Beta_new(depth,alpha,beta,who,chessboard,p);

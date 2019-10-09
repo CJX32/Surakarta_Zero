@@ -50,12 +50,13 @@ int type;
 int value;
 }Hash_Move;
 typedef struct{
-Chessboard chessboard;
+Chessboard chessboard_info;
 int depth;
 int alpha;
 int beta;
 int minimaxplayer;
 int value;
+int tid;
 }Para;
 typedef struct{
     int value;

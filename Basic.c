@@ -1,18 +1,18 @@
 #include "Basic.h"
 extern Chessboard chessboard;
 extern int who;
-void visualize_board(Chessboard chessboard){
-  static int count;
-  count++;
+void visualize_board(Chessboard chessboard_test){
   for(int  a=0;a<6;a++){
-    for(int b=0;b<6;b++)
-    if(chessboard.chessboard[a][b]==-1)
+    for(int b=0;b<6;b++){
+    if(chessboard_test.chessboard[a][b]==-1)
     printf("2 ");
     else
-    printf("%d ",chessboard.chessboard[a][b]);
+    printf("%d ",chessboard_test.chessboard[a][b]);
+    }
     printf("\n");
+    
   }
-  printf("\n");
+
 }
 void visualize(Move_List *h){
 for(int a=0;a<h->flag;a++){
