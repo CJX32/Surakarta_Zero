@@ -82,9 +82,9 @@ int Alpha_Beta_PVS(int depth, int alpha, int beta, int minimaxplayer,Chessboard 
        // Hash_store(p,HashExact,depth,value,chessboard_test);
         return value;
     }
-  //  int value=Hash_Hit(p,depth,alpha,beta,chessboard_test);
-  //  if(value!=-2147483648)
-   // return value;
+    int value=Hash_Hit(p,depth,alpha,beta,chessboard_test);
+    if(value!=-2147483648)
+    return value;
     int flag, val,origin;
 
      Move_List *h = (Move_List *)malloc(sizeof(Move_List));
@@ -243,12 +243,12 @@ int Alpha_Beta_PVS_Multi_Thread(int depth, int alpha,int beta, int minimaxplayer
     {
       
         int value=Evaluate_test(chessboard_test,minimaxplayer);
-       // Hash_store(p,HashExact,depth,value,chessboard_test);
+     //  Hash_store(p,HashExact,depth,value,chessboard_test);
         return value;
     }
-  //  int value=Hash_Hit(p,depth,alpha,beta,chessboard_test);
-  //  if(value!=-2147483648)
-   // return value;
+    int value=Hash_Hit(p,depth,alpha,beta,chessboard_test);
+    if(value!=-2147483648)
+    return value;
     int flag, val,origin;
 
      Move_List *h = (Move_List *)malloc(sizeof(Move_List));
