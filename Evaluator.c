@@ -152,7 +152,6 @@ if(who_test==1){
   return -9999;
   else if(chessboard_test.white==0)
   return 9999;
-
   return chessboard_test.black-chessboard_test.white;
 }
 else if(who_test==-1){

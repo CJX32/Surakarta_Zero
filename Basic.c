@@ -2,8 +2,8 @@
 extern Chessboard chessboard;
 extern pthread_rwlock_t lock;
 extern int who;
-extern int *alphas;
-extern int *betas;
+extern int alpha_index;
+extern int beta_index;
 void visualize_board(Chessboard chessboard_test){
   for(int  a=0;a<6;a++){
     for(int b=0;b<6;b++){
@@ -24,22 +24,32 @@ for(int a=0;a<h->flag;a++){
 }
 int judge(Chessboard chessboard_test){
   if(who==1){
-    if(chessboard_test.black==0)
+    if(chessboard_test.black==0){
     return 1;
-    else if(chessboard_test.white==0)
+    }
+    else if(chessboard_test.white==0){
+
     return 2;
-    else
+    }
+    else{
+
     return 0;
+    }
    }
    else{
-    if(chessboard_test.white==0)
+    if(chessboard_test.white==0){
+
     return 1;
-    else if(chessboard_test.black==0)
+    }
+    else if(chessboard_test.black==0){
+
     return 2;
+    }
     else
     return 0;
+    }
    }
-}
+
 
 
 int max(int a, int b)
@@ -57,9 +67,9 @@ int mini(int a, int b)
         return b;
 }
 void update(int alpha){
-  if(alphas[0]<alpha){
+  if(alpha_index<alpha){
   pthread_rwlock_wrlock(&lock);
-  alphas[0]=alpha;
+  alpha_index=alpha;
   pthread_rwlock_unlock(&lock);
   }
 }

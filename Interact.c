@@ -28,14 +28,14 @@ int x,y,mouse_x,mouse_y;
                     mouse_y = e.button.y;
                     x=Locate_x(mouse_y,position);
                     y=Locate_y(mouse_x,position);
-                    if(Play_H(chessboard, x, y))
+                    if(Play_H(x, y))
                         return 1;
             }
             
             }
 return 0;
 }
-int Play_H(Chessboard chessboard,int x,int y){//用于人类回合下子
+int Play_H(int x,int y){//用于人类回合下子
     static int a=-1,b=-1;
     int origin=who,target;
 

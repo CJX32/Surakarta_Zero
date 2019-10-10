@@ -57,10 +57,10 @@ void game_AI(int depth){
     SDL_Texture *win1 = renderText("Black Chess WIN!", "/Users/bluesky/Desktop/Surakarta_Zero/HelveticaLt.ttf", color2, 40);
     SDL_Texture *win2 = renderText("White Chess WIN!", "/Users/bluesky/Desktop/Surakarta_Zero/HelveticaLt.ttf", color2, 40);
 
-    Chessboard_Init(chessboard);
+    Chessboard_Init();
     Init_Position();
     Init_Display_Position();
-
+printf("first=%d first=%d\n",chessboard.black,chessboard.white);
 
 
     choice Choice;
@@ -74,20 +74,25 @@ void game_AI(int depth){
     int *game_test=&game;
     printf("Choice_1=%d,Choice_2=%d\n",Choice.choice_1,Choice.choice_2);
     int who_turn=who;
+    printf("who=%d\n",who);
     do{ 
+       
+        game=1;
         if(Choice.choice_2==1){
         if(who_turn==who){
         if(Place_Move(game_test,position))
         who_turn=-who_turn;
+        
         }
         else{
-        AI(7);
+
+        AI(depth);
         who_turn=-who_turn;
         } 
         }
         else{
         if(who_turn==who){
-        AI(7);
+        AI(depth);
         who_turn=-who_turn;
         }
         else{
@@ -100,7 +105,10 @@ void game_AI(int depth){
         SDL_RenderCopy(ren, back, NULL, NULL);
         Display();
         SDL_RenderPresent(ren);
+       
         game=judge(chessboard);
+       
     }while(game!=1&&game!=2);
+    
 }
 

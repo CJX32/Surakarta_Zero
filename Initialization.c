@@ -1,7 +1,7 @@
 #include "Initialization.h"
-extern Chessboard chessboard[6][6];
+extern Chessboard chessboard;
 extern Move_List battle_record;
-void Chessboard_Init(Chessboard chessboard){
+void Chessboard_Init(void){
     for(int a=0;a<6;a++){
         for(int b=0;b<6;b++){
             if(a<2)
@@ -14,6 +14,7 @@ void Chessboard_Init(Chessboard chessboard){
     }
 chessboard.black=12;
 chessboard.white=12;
+printf("init=%d init=%d\n",chessboard.black,chessboard.white);
 }
 
 void Hash_Board_Init(uint64_t Hash_Board[6][6][2])

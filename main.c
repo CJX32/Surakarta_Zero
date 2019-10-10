@@ -20,10 +20,7 @@ FILE *battle;
 Move_List battle_record;
 char path[70]="/Users/bluesky/Desktop/Surakarta_Zero/Battle/record.txt";
 int main(void){
-   double duration;
-    clock_t start,stop;
-    start=clock();
-{Hash_Board_Init(Hash_Board);
+   {Hash_Board_Init(Hash_Board);
 
  FILE *fp;
 fp=fopen("/Users/bluesky/Desktop/Surakarta_Zero/Data/testAlphaBeta1.txt","r");
@@ -33,13 +30,5 @@ return 0;
 }
 test_alpha_beta(fp);
 }
-    stop=clock();
-    duration=((double)(stop-start))/CLOCKS_PER_SEC;
-    printf("time=%.1lfs\n",duration);
- /*   {
-FILE *fp;
-fp=fopen("/Users/bluesky/Desktop/Surakarta_Zero/Data/testMoveGenerate.txt","r");
-test(fp);
-}*/
-
+// game_AI(8);
 }
