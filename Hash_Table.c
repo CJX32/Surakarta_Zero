@@ -30,34 +30,34 @@ void Hash_store(Hash_Move *p,int type,int depth,int value,Chessboard chessboard_
     Hash_Move *operate=&p[key&(Hash_table_length-1)];
     if(operate->depth>=depth)
         return ;                                                                              //初始化的时候将所有数组内元素的depth赋值为0；
-    pthread_rwlock_wrlock(&lock);
+  //  pthread_rwlock_wrlock(&lock);
     operate->key=Hash_Key(chessboard_test);
     operate->type=type;
     operate->depth=depth;
     operate->value=value;
-    pthread_rwlock_unlock(&lock);
+   // pthread_rwlock_unlock(&lock);
 }
 
 int Hash_Hit(Hash_Move *p,int depth,int alpha,int beta,Chessboard chessboard_test){
     uint64_t key=Hash_Key(chessboard_test);
-   pthread_rwlock_rdlock(&lock);
+   //pthread_rwlock_rdlock(&lock);
     Hash_Move *operate=&p[key&(Hash_table_length-1)];
     if(operate->key==key){
         if(operate->depth>=depth){
             if(operate->type==HashExact){
-                 pthread_rwlock_unlock(&lock);
+                // pthread_rwlock_unlock(&lock);
                return operate->value;
             }
             if ((operate->type == HashAlpha) && (operate->value <= alpha)){
-                pthread_rwlock_unlock(&lock);
+               // pthread_rwlock_unlock(&lock);
                 return alpha;
            }
             if ((operate->type == HashBeta) && (operate->value >= beta)) {
-                 pthread_rwlock_unlock(&lock);
+                // pthread_rwlock_unlock(&lock);
                 return beta;
             }
     }
     }
-     pthread_rwlock_unlock(&lock);
+   //  pthread_rwlock_unlock(&lock);
     return -2147483648;
 }
