@@ -233,9 +233,9 @@ int Alpha_Beta_Null_Move(int depth, int alpha, int beta, int minimaxplayer,Chess
         return alpha;
     
 }
-int Alpha_Beta_PVS_Multi_Thread(int depth, int tid, int minimaxplayer,Chessboard chessboard_test,Hash_Move *p)
+int Alpha_Beta_PVS_Multi_Thread(int depth, int alpha,int beta, int minimaxplayer,Chessboard chessboard_test,Hash_Move *p)
 {
-    int alpha=alphas[tid],beta=betas[tid];
+
     int fFoundPv=0;
     int hashf=HashAlpha;
     int count=0;
@@ -393,7 +393,7 @@ void *Alpha_Beta_pth(void *Arguement)
     Hash_Move *p=(Hash_Move *)malloc(Hash_table_length*sizeof(Hash_Move));
     
     Hash_Table_Init(p);
-    arg->value = -Alpha_Beta_PVS_Multi_Thread(arg->depth, arg->tid, arg->minimaxplayer, arg->chessboard_info,p);
+    arg->value = -Alpha_Beta_PVS_Multi_Thread(arg->depth, -2147483646,2147483647, arg->minimaxplayer, arg->chessboard_info,p);
   //  printf("%d\n",arg->value);
     pthread_exit(0);
 }
