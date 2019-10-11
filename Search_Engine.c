@@ -3,8 +3,9 @@
 extern Chessboard chessboard;
 extern int who;
 int tid_num;
-int alpha_index,beta_index;
+int *alphas,*betas;
 pthread_rwlock_t lock;
+FILE *fout;
 int Alpha_Beta(int depth, int alpha, int beta, int minimaxplayer,Chessboard chessboard_test,Hash_Move *p)
 {
     
@@ -14,7 +15,7 @@ int Alpha_Beta(int depth, int alpha, int beta, int minimaxplayer,Chessboard ches
     
         int value=Evaluate_test(chessboard_test,minimaxplayer);
        // Hash_store(p,HashExact,depth,value,chessboard_test);
-    
+       // printf("depth=%d value=%d\n",depth,value);
         return value;
     }
    /* int value=Hash_Hit(p,depth,alpha,beta,chessboard_test);
@@ -44,6 +45,7 @@ int Alpha_Beta(int depth, int alpha, int beta, int minimaxplayer,Chessboard ches
             
 
             val = -Alpha_Beta(depth - 1, -beta, -alpha, -minimaxplayer, chessboard_test,p);
+        
                if(origin==-minimaxplayer)
             {
                 if(-minimaxplayer==1)
@@ -55,19 +57,21 @@ int Alpha_Beta(int depth, int alpha, int beta, int minimaxplayer,Chessboard ches
             chessboard_test.chessboard[h->list[a].from.x][h->list[a].from.y] = minimaxplayer;
             if(val>=beta){
            // Hash_store(p,HashBeta,depth,beta,chessboard_test);
-            return beta;
+ 
+           // return beta;
             }
 
             if(val>alpha){
             hashf=HashExact;
+          // if(depth>=5)
+           // printf("update %d alpha %d depth=%d\n",val,alpha,depth);
             alpha=val;
-
             }
         }
        // printf("%d depth=%d %d  \n",h->flag,depth,alpha);
         free(h);
        // Hash_store(p,hashf,depth,alpha,chessboard_test);
-
+    
         return alpha;
     
 }
@@ -98,6 +102,7 @@ int Alpha_Beta_PVS(int depth, int alpha, int beta, int minimaxplayer,Chessboard 
             origin = chessboard_test.chessboard[h->list[a].to.x][h->list[a].to.y];
             chessboard_test.chessboard[h->list[a].from.x][h->list[a].from.y] = 0;
             chessboard_test.chessboard[h->list[a].to.x][h->list[a].to.y] = minimaxplayer;
+            
                if(origin==-minimaxplayer)
             {
                 if(-minimaxplayer==1)
@@ -107,7 +112,7 @@ int Alpha_Beta_PVS(int depth, int alpha, int beta, int minimaxplayer,Chessboard 
             }
             if(fFoundPv){
               val = -Alpha_Beta_PVS(depth - 1, -alpha-1, -alpha, -minimaxplayer, chessboard_test,p);
-              if((val > alpha) && (val < beta)) { 
+       if((val > alpha) && (val < beta)) { 
               val = -Alpha_Beta_PVS(depth - 1, -beta, -alpha,-minimaxplayer,chessboard_test,p);
               }
             }   
@@ -115,7 +120,8 @@ int Alpha_Beta_PVS(int depth, int alpha, int beta, int minimaxplayer,Chessboard 
             {
     
             val = -Alpha_Beta_PVS(depth - 1, -beta, -alpha, -minimaxplayer, chessboard_test,p);
-            }
+           // val = -Alpha_Beta(depth - 1, -beta, -alpha, -minimaxplayer, chessboard_test,p);
+           }
                if(origin==-minimaxplayer)
             {
                 if(-minimaxplayer==1)
@@ -138,8 +144,7 @@ int Alpha_Beta_PVS(int depth, int alpha, int beta, int minimaxplayer,Chessboard 
         }
         free(h);
         Hash_store(p,hashf,depth,alpha,chessboard_test);
-        if(depth==7)
-        printf("alpha=%d\n",alpha);
+  
         return alpha;
     
 }
@@ -272,11 +277,13 @@ int Alpha_Beta_PVS_Multi_Thread(int depth, int alpha,int beta, int minimaxplayer
                 chessboard_test.white-=1;
             }
             pthread_rwlock_rdlock(&lock);
-            if(alpha_index>beta){
-              beta=alpha_index;
+            if(alphas[0]!=-2147483646){
+            beta=alphas[0];
             }
             pthread_rwlock_unlock(&lock);
-            if(fFoundPv){
+            //printf("depth=%d\n",depth);
+            
+          if(fFoundPv){
               val = -Alpha_Beta_PVS(depth - 1, -alpha-1, -alpha, -minimaxplayer, chessboard_test,p);
               if((val > alpha) && (val < beta)) { 
               val = -Alpha_Beta_PVS(depth - 1, -beta, -alpha,-minimaxplayer,chessboard_test,p);
@@ -286,6 +293,7 @@ int Alpha_Beta_PVS_Multi_Thread(int depth, int alpha,int beta, int minimaxplayer
             {
             val = -Alpha_Beta_PVS(depth - 1, -beta, -alpha, -minimaxplayer, chessboard_test,p);
             }
+          //  val=-Alpha_Beta(depth - 1, -beta, -alpha, -minimaxplayer, chessboard_test,p);
                if(origin==-minimaxplayer)
             {
                 if(-minimaxplayer==1)
@@ -293,16 +301,17 @@ int Alpha_Beta_PVS_Multi_Thread(int depth, int alpha,int beta, int minimaxplayer
                 else
                 chessboard_test.white+=1;
             }
+           // fvisualize_board(chessboard_test,a,depth,val);
             chessboard_test.chessboard[h->list[a].to.x][h->list[a].to.y] = origin;
             chessboard_test.chessboard[h->list[a].from.x][h->list[a].from.y] = minimaxplayer;
             pthread_rwlock_rdlock(&lock);
-            if(alpha_index>beta){
-              beta=alpha_index;
+            if(alphas[0]!=-2147483646){
+            beta=alphas[0];
             }
             pthread_rwlock_unlock(&lock);
             if(val>=beta){
             Hash_store(p,HashBeta,depth,beta,chessboard_test);
-            update(alpha);
+            
             return beta;
             }
 
@@ -310,11 +319,12 @@ int Alpha_Beta_PVS_Multi_Thread(int depth, int alpha,int beta, int minimaxplayer
             hashf=HashExact;
             alpha=val;
             fFoundPv=1;
-            update(alpha);
             }
         }
         free(h);
         Hash_store(p,hashf,depth,alpha,chessboard_test);
+        update(alpha);
+
         return alpha;
     
 }
@@ -359,10 +369,11 @@ int Alpha_Beta_new(int depth, int alpha, int beta, int minimaxplayer,Chessboard 
                 else
                 chessboard_test.white-=1;
             }
-
-           val = -Alpha_Beta_Multi_Thread(depth - 1,  -minimaxplayer,-beta, -alpha,  chessboard_test);
-           //val=-Alpha_Beta_PVS(depth-1,-beta,-alpha,-minimaxplayer,chessboard_test,p);
+      
+          //val = -Alpha_Beta_Multi_Thread(depth - 1,  -minimaxplayer,-beta, -alpha,  chessboard_test);
+           val=-Alpha_Beta_PVS(depth-1,-beta,-alpha,-minimaxplayer,chessboard_test,p);
             //val=-Alpha_Beta(depth-1,-beta,-alpha,-minimaxplayer,chessboard_test,p);
+          
                if(origin==-minimaxplayer)
             {
                 if(-minimaxplayer==1)
@@ -389,7 +400,7 @@ int Alpha_Beta_new(int depth, int alpha, int beta, int minimaxplayer,Chessboard 
         free(h);
      
 
-        printf("%d\n",alpha);
+
         Hash_store(p,hashf,depth,alpha,chessboard_test);
        // printf("best_move=%d\n",best_move);
 
@@ -404,7 +415,7 @@ void *Alpha_Beta_pth(void *Arguement)
     
     Hash_Table_Init(p);
     arg->value = -Alpha_Beta_PVS_Multi_Thread(arg->depth, -2147483646,2147483647, arg->minimaxplayer, arg->chessboard_info,p);
-   // printf("arg->value=%d\n",arg->value);
+   // printf("pth depth=%d value=%d\n",arg->depth,arg->value);
     pthread_exit(0);
 }
 int Alpha_Beta_Multi_Thread(int depth, int minimaxplayer,int alpha,int beta,Chessboard Chessboard_test)
@@ -431,14 +442,16 @@ int Alpha_Beta_Multi_Thread(int depth, int minimaxplayer,int alpha,int beta,Ches
         pthread_attr_init(&attr);
         {
             tid_num=h->flag;
-           
+            alphas=(int *)malloc((tid_num+1)*sizeof(int));
+            betas=(int *)malloc((tid_num+1)*sizeof(int));
         }
-        alpha_index=-2147483646;
-        beta_index=2147483647;
+        alphas[0]=-2147483646;
+        betas[0]=2147483647;
         pthread_rwlockattr_t lock_attr;
         pthread_rwlockattr_init(&lock_attr);
        pthread_rwlock_init(&lock,&lock_attr);
-        for (int a = 0; a < h->flag; a++)
+       int start=0;
+        for (int a = start; a < start+h->flag; a++)
         {
             arg[a].chessboard_info.black=0;
             arg[a].chessboard_info.white=0;
@@ -453,7 +466,7 @@ int Alpha_Beta_Multi_Thread(int depth, int minimaxplayer,int alpha,int beta,Ches
                    arg[a].chessboard_info.white+=1;
                 }
             }
-            origin= arg[a].chessboard_info.chessboard[h->list[a].to.x][h->list[a].to.y];
+            origin = arg[a].chessboard_info.chessboard[h->list[a].to.x][h->list[a].to.y];
             arg[a].chessboard_info.chessboard[h->list[a].from.x][h->list[a].from.y] = 0;
             arg[a].chessboard_info.chessboard[h->list[a].to.x][h->list[a].to.y] = minimaxplayer;
                 if(origin==-minimaxplayer)
@@ -461,24 +474,27 @@ int Alpha_Beta_Multi_Thread(int depth, int minimaxplayer,int alpha,int beta,Ches
                 if(-minimaxplayer==1)
                  arg[a].chessboard_info.black-=1;
                 else
-               arg[a].chessboard_info.white-=1;
+                arg[a].chessboard_info.white-=1;
             }
-         
+            alphas[a+1]=alpha;
+            betas[a+1]=beta;
             arg[a].depth = depth - 1;
             arg[a].minimaxplayer = -minimaxplayer;
+            arg[a].tid=a+1;
            
         }
-         for (int a = 0; a < h->flag; a++){
+         for (int a = start; a < start+h->flag; a++){
         pthread_create(&tids[a], &attr, Alpha_Beta_pth, &arg[a]);
          }
-        for (int a = 0; a < h->flag; a++)
+        for (int a = start; a < start+h->flag; a++)
         {
             pthread_join(tids[a], NULL);
         }
         
-        for(int a = 0; a < h->flag; a++)
+        for(int a = start; a < start+h->flag; a++)
         {  
-
+         //  printf("m depth=%d value=%d\n",depth,arg[a].value);
+              
             if(arg[a].value>alpha){
                 best_choice=a;
             alpha=arg[a].value;

@@ -1,5 +1,6 @@
 #include "test.h"
 extern Chessboard chessboard;
+
 void test(FILE *fp){
 int count=0,ta;
 
@@ -207,4 +208,32 @@ for(int a=0;a<6;a++){
  printf("Correct\n");
  count++;
 }
+}
+void test_new(void){
+    FILE *fp=fopen("/Users/bluesky/Desktop/new_data.txt","r");
+    if(fp==NULL)
+    printf("ERROR!\n");
+    int index;
+    for(int a=0;a<6;a++){
+        for(int b=0;b<6;b++){
+            fscanf(fp,"%d",&index);
+            if(index==2){
+            chessboard.chessboard[a][b]=-1;
+            chessboard.white++;
+            }
+            else  if(index==1){
+           chessboard.chessboard[a][b]=index;
+           chessboard.black++;
+            }
+            else
+            chessboard.chessboard[a][b]=index;
+            
+        }
+    }
+    visualize_board(chessboard);
+    Hash_Move *p=(Hash_Move *)malloc((Hash_table_length)*sizeof(Hash_Move));
+       Hash_Table_Init(p);
+          
+     //printf("result=%d\n",Alpha_Beta(3,-2147483646,2147483647,1,chessboard,p));
+     printf("result=%d\n",Alpha_Beta_Multi_Thread(3,1,-2147483646,2147483647,chessboard));
 }

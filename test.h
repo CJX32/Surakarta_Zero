@@ -13,4 +13,6 @@ int * decode(long long board);
 void test(FILE *fp);
 void new_test(FILE *fp);
 void test_MT(FILE *fp);
+void test_new(void);
+
 #endif 

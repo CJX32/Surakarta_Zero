@@ -82,4 +82,5 @@ int judge(Chessboard chessboard);
 int max(int a,int b);
 int mini(int a,int b);
 void update(int alpha);
+void fvisualize_board(Chessboard chessboard_test,int tid,int depth,int val);
 #endif

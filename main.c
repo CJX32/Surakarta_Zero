@@ -20,7 +20,7 @@ FILE *battle;
 Move_List battle_record;
 char path[70]="/Users/bluesky/Desktop/Surakarta_Zero/Battle/record.txt";
 int main(void){
-   {Hash_Board_Init(Hash_Board);
+   /*{Hash_Board_Init(Hash_Board);
 
  FILE *fp;
 fp=fopen("/Users/bluesky/Desktop/Surakarta_Zero/Data/testAlphaBeta1.txt","r");
@@ -29,6 +29,8 @@ printf("open Error\n");
 return 0;
 }
 test_alpha_beta(fp);
-}
-// game_AI(8);
+}*/
+ game_AI(9);
+
+//test_new();
 }
