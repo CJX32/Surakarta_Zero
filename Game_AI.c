@@ -75,9 +75,11 @@ printf("first=%d first=%d\n",chessboard.black,chessboard.white);
     printf("Choice_1=%d,Choice_2=%d\n",Choice.choice_1,Choice.choice_2);
     int who_turn=who;
     printf("who=%d\n",who);
+    if(!load()){
+        printf("out");
     do{ 
        
-        game=1;
+        
         if(Choice.choice_2==1){
         if(who_turn==who){
         if(Place_Move(game_test,position))
@@ -109,6 +111,34 @@ printf("first=%d first=%d\n",chessboard.black,chessboard.white);
         game=judge(chessboard);
        
     }while(game!=1&&game!=2);
-    
+    }
+
+    else{
+        game=1;
+     who_turn=who;
+      visualize_board(chessboard);
+         do{
+          if(who_turn==who){
+              printf("zoule\n");
+        AI(depth);
+        who_turn=-who_turn;
+        }
+        else{
+        
+        if(Place_Move(game_test,position))
+        who_turn=-who_turn;
+        }
+         SDL_RenderClear(ren);
+        SDL_RenderCopy(ren, back, NULL, NULL);
+        Display();
+        SDL_RenderPresent(ren);
+       
+        game=judge(chessboard);   
+
+       
+    }while(game!=1&&game!=2);
+    }
+    end_record();
+    end_game();
 }
 

@@ -17,10 +17,16 @@ Chessboard chessboard;
 int who=-1;
 uint64_t Hash_Board[6][6][2];
 FILE *battle;
+FILE *competition;
+FILE *board;
 Move_List battle_record;
 char path[70]="/Users/bluesky/Desktop/Surakarta_Zero/Battle/record.txt";
 int main(void){
-   /*{Hash_Board_Init(Hash_Board);
+    /*double duration;
+     
+    clock_t start,stop;
+    start=clock();
+   {Hash_Board_Init(Hash_Board);
 
  FILE *fp;
 fp=fopen("/Users/bluesky/Desktop/Surakarta_Zero/Data/testAlphaBeta1.txt","r");
@@ -29,8 +35,13 @@ printf("open Error\n");
 return 0;
 }
 test_alpha_beta(fp);
-}*/
- game_AI(9);
+}
+stop=clock();
+    duration=((double)(stop-start))/CLOCKS_PER_SEC;
+    printf("time=%.1lfs\n",duration);*/
+
+ game_AI(8);
 
 //test_new();
+
 }

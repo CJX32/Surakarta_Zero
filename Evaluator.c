@@ -32,7 +32,7 @@ int look_for_anotherMark[12][2]={
   {3,3},{3,4},{4,3} 
 };
 int arcPara;
-int k1=1,k2=1,k3=1,k4=1;
+int k1=1,k2=3,k3=2,k4=2;
 int Evaluate(Chessboard chessboard,int who_test){
 int test=Evaluate_test(chessboard,who_test);
 if(test==9999||test==-9999)
@@ -43,7 +43,7 @@ int positionVal;
 int dynamicVal;
 int potentialVal;
 
-extendVal=count(chessboard);
+extendVal=count(chessboard)*100;
 positionVal=position_value(chessboard)+arc_count(chessboard)*arcPara;
 dynamicVal=anotherMark(chessboard);
 potentialVal=greenpotential(chessboard);
@@ -67,6 +67,11 @@ int count(Chessboard chessboard_test){
         }
     }
     return count;
+}
+int count_num(void){
+int count=0;
+count=chessboard.black+chessboard.white;
+return count;
 }
 int position_value(Chessboard chessboard_test)
 {

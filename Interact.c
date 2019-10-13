@@ -28,8 +28,10 @@ int x,y,mouse_x,mouse_y;
                     mouse_y = e.button.y;
                     x=Locate_x(mouse_y,position);
                     y=Locate_y(mouse_x,position);
-                    if(Play_H(x, y))
+                    if(Play_H(x, y)){
+                        board_record();
                         return 1;
+                    }
             }
             
             }
@@ -53,8 +55,15 @@ int Play_H(int x,int y){//用于人类回合下子
                     chessboard.black-=1;
                    else
                    chessboard.white-=1;
-                   
+                   pre_record_competition();
+                   record_competition(-who,a,b,x,y,KILL);
                 }
+                else
+                {
+                    pre_record_competition();
+                    record_competition(-who,a,b,x,y,NOR);
+                }
+                
                 chessboard.chessboard[x][y]=-who;
                 
                // Add_step(h, a, b, origin, x, y, target);

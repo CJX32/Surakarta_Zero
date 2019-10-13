@@ -25,7 +25,7 @@ void Move_Generate(Move_List *h, int who,Chessboard chessboard_test)
                 }
             }
         }
-      
+     
 }
 
 void Add_Move(Move_List *h, int from_x, int from_y, int to_x, int to_y)
